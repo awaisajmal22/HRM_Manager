@@ -7,7 +7,7 @@ import 'package:hrm_manager/constant/width_box.dart';
 import 'package:hrm_manager/extensions/size_extension.dart';
 import 'package:hrm_manager/provider/location_provider.dart';
 import 'package:hrm_manager/utils/app_color.dart';
-import 'package:hrm_manager/views/Location/component/location_search_field.dart';
+import 'package:hrm_manager/constant/location_search_field.dart';
 import 'package:provider/provider.dart';
 
 class LocationView extends StatelessWidget {

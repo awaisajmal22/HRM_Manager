@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
-class AddWorkerProvider extends ChangeNotifier {
+class EditWorkerDetailProvider extends ChangeNotifier {
   TextEditingController workerIdController = TextEditingController();
   TextEditingController recruiterController = TextEditingController();
   TextEditingController clientIdController = TextEditingController();

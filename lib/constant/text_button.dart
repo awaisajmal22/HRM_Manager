@@ -12,24 +12,28 @@ textButton({
   Color color = AppColor.purpleColor,
   double radius = 8,
   required String title,
-  Color textColor  = AppColor.whiteColor,
+  Color textColor = AppColor.whiteColor,
   double fontSize = 14,
+  double? width,
   FontWeight fontWeight = FontWeight.w500,
-  
-}){
+}) {
   return GestureDetector(
     onTap: onTap,
     child: Container(
-      width: context.getSize.width,
+      width: width ?? context.getSize.width,
       padding: EdgeInsets.symmetric(
         horizontal: context.getSize.width * hPadding,
         vertical: context.getSize.height * vPadding,
       ),
       decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(radius)
+          color: color, borderRadius: BorderRadius.circular(radius)),
+      child: appText(
+        context: context,
+        title: title,
+        textColor: textColor,
+        fontSize: fontSize,
+        fontWeight: fontWeight,
       ),
-      child: appText(context: context, title: title, textColor: textColor, fontSize:  fontSize,fontWeight: fontWeight,),
     ),
   );
 }

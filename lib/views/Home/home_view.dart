@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hrm_manager/WidgetandBindings/app_routes.dart';
 import 'package:hrm_manager/constant/app_text.dart';
 import 'package:hrm_manager/constant/height_box.dart';
 import 'package:hrm_manager/constant/width_box.dart';
@@ -54,23 +55,28 @@ class HomeView extends StatelessWidget {
                     String trade = provider.searchController.text.isEmpty
                         ? provider.tradesList[index]
                         : provider.searchedList[index];
-                    return Container(
-                      margin: EdgeInsets.symmetric(
-                          vertical: context.getSize.height * 0.010),
-                      padding: EdgeInsets.symmetric(
-                        horizontal: context.getSize.width * 0.020,
-                        vertical: context.getSize.height * 0.010,
-                      ),
-
-                      alignment: Alignment.centerLeft,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: AppColor.purpleColor.withOpacity(0.08),
-                      ),
-                      child: appText(
-                        context: context,
-                        title: trade,
-                        fontSize: 16,
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(
+                            context, AppRoutes.avaliableWorkerView,arguments: trade);
+                      },
+                      child: Container(
+                        margin: EdgeInsets.symmetric(
+                            vertical: context.getSize.height * 0.010),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: context.getSize.width * 0.020,
+                          vertical: context.getSize.height * 0.010,
+                        ),
+                        alignment: Alignment.centerLeft,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: AppColor.purpleColor.withOpacity(0.08),
+                        ),
+                        child: appText(
+                          context: context,
+                          title: trade,
+                          fontSize: 16,
+                        ),
                       ),
                     );
                   }),

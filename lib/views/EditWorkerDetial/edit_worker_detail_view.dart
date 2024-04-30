@@ -12,6 +12,7 @@ import 'package:hrm_manager/constant/text_button.dart';
 import 'package:hrm_manager/constant/width_box.dart';
 import 'package:hrm_manager/extensions/size_extension.dart';
 import 'package:hrm_manager/provider/add_worker_provider.dart';
+import 'package:hrm_manager/provider/edit_worker_detail_provider.dart';
 import 'package:hrm_manager/utils/app_color.dart';
 import 'package:hrm_manager/views/AddWorker/component/add_worker_field.dart';
 import 'package:hrm_manager/views/AddWorker/component/custom_two_textField_widget.dart';
@@ -26,18 +27,31 @@ import 'package:hrm_manager/views/AddWorker/component/trade_option_widget.dart';
 import 'package:hrm_manager/views/AddWorker/component/work_experience_widget.dart';
 import 'package:hrm_manager/views/AddWorker/component/worker_flag_widget.dart';
 import 'package:hrm_manager/views/AddWorker/component/worker_status.dart';
+import 'package:hrm_manager/views/EditWorkerDetial/component/edit_select_language_widget.dart';
+import 'package:hrm_manager/views/EditWorkerDetial/component/edit_trade_option_widget.dart';
+import 'package:hrm_manager/views/EditWorkerDetial/component/edit_worker_status.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:provider/provider.dart';
 
-import 'component/select_job_site_widget.dart';
+import 'component/edit_add_worker_field.dart';
+import 'component/edit_custom_two_textField_widget.dart';
+import 'component/edit_file_diplayer.dart';
+import 'component/edit_select_certification_widget.dart';
+import 'component/edit_select_job_site_widget.dart';
+import 'component/edit_select_recruiter.dart';
+import 'component/edit_select_timesheet_type_widget.dart';
+import 'component/edit_select_union_affiliation.dart';
+import 'component/edit_select_worker_pickup_location_widget.dart';
+import 'component/edit_work_experience_widget.dart';
+import 'component/edit_worker_flag_widget.dart';
 
-class AddWorkerView extends StatelessWidget {
-  const AddWorkerView({super.key});
+class EditWorkerDetailView extends StatelessWidget {
+  const EditWorkerDetailView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Consumer<AddWorkerProvider>(builder: (context, provider, __) {
+      body: Consumer<EditWorkerDetailProvider>(builder: (context, provider, __) {
         return SafeArea(
             child: Column(
           children: [
@@ -61,7 +75,7 @@ class AddWorkerView extends StatelessWidget {
                   getWidth(context: context, width: 0.010),
                   appText(
                     context: context,
-                    title: 'Add Worker',
+                    title: 'Edit Worker Detail',
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
                     textColor: AppColor.iconColor,
@@ -137,7 +151,7 @@ class AddWorkerView extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                   getHeight(context: context, height: 0.005),
-                  addWorkerTextField(
+                  editAddWorkerTextField(
                     context: context,
                     hintText: 'WR00001',
                     controller: provider.workerIdController,
@@ -157,7 +171,7 @@ class AddWorkerView extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                           ),
                           getHeight(context: context, height: 0.005),
-                          const SelectRecruiter()
+                          const EditSelectRecruiter()
                         ],
                       )),
                       getWidth(context: context, width: 0.030),
@@ -172,7 +186,7 @@ class AddWorkerView extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                           ),
                           getHeight(context: context, height: 0.005),
-                          addWorkerTextField(
+                          editAddWorkerTextField(
                             context: context,
                             hintText: 'WR1',
                             controller: provider.clientIdController,
@@ -193,7 +207,7 @@ class AddWorkerView extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                   getHeight(context: context, height: 0.005),
-                  const SelectJobSite(),
+                  const EditSelectJobSite(),
                   getHeight(context: context, height: 0.010),
                   Row(
                     children: [
@@ -208,7 +222,7 @@ class AddWorkerView extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                           ),
                           getHeight(context: context, height: 0.005),
-                          addWorkerTextField(
+                          editAddWorkerTextField(
                             context: context,
                             hintText: 'Jovany',
                             controller: provider.firstNameController,
@@ -228,7 +242,7 @@ class AddWorkerView extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                           ),
                           getHeight(context: context, height: 0.005),
-                          addWorkerTextField(
+                          editAddWorkerTextField(
                             context: context,
                             hintText: 'Italiano',
                             controller: provider.lastNameController,
@@ -252,7 +266,7 @@ class AddWorkerView extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                           ),
                           getHeight(context: context, height: 0.005),
-                          addWorkerTextField(
+                          editAddWorkerTextField(
                             readOnly: true,
                             onTap: () {
                               provider.pickDateOfBirth(context: context);
@@ -276,7 +290,7 @@ class AddWorkerView extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                           ),
                           getHeight(context: context, height: 0.005),
-                          addWorkerTextField(
+                          editAddWorkerTextField(
                             textInputType: TextInputType.number,
                             color: Color(0xffF5F5F5),
                             context: context,
@@ -323,7 +337,7 @@ class AddWorkerView extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                           ),
                           getHeight(context: context, height: 0.005),
-                          SelectLanguageWidget()
+                         const EditSelectLanguageWidget()
                         ],
                       )),
                     ],
@@ -388,7 +402,7 @@ class AddWorkerView extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                           ),
                           getHeight(context: context, height: 0.005),
-                          addWorkerTextField(
+                          editAddWorkerTextField(
                             context: context,
                             hintText: '',
                             controller: provider.socialInsuranceController,
@@ -408,7 +422,7 @@ class AddWorkerView extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                           ),
                           getHeight(context: context, height: 0.005),
-                          addWorkerTextField(
+                          editAddWorkerTextField(
                             context: context,
                             hintText: '',
                             controller: provider.workPermitController,
@@ -432,7 +446,7 @@ class AddWorkerView extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                           ),
                           getHeight(context: context, height: 0.005),
-                          addWorkerTextField(
+                          editAddWorkerTextField(
                             readOnly: true,
                             onTap: () {
                               provider.pickHireDate(context: context);
@@ -456,7 +470,7 @@ class AddWorkerView extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                           ),
                           getHeight(context: context, height: 0.005),
-                          addWorkerTextField(
+                          editAddWorkerTextField(
                             readOnly: true,
                             onTap: () {
                               provider.pickTerminationDate(context: context);
@@ -484,7 +498,7 @@ class AddWorkerView extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                           ),
                           getHeight(context: context, height: 0.005),
-                          const WorkerStatus()
+                          const EditWorkerStatus()
                         ],
                       )),
                       getWidth(context: context, width: 0.030),
@@ -499,7 +513,7 @@ class AddWorkerView extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                           ),
                           getHeight(context: context, height: 0.005),
-                          const WorkerFlagWidget()
+                          const EditWorkerFlagWidget()
                         ],
                       )),
                     ],
@@ -512,7 +526,7 @@ class AddWorkerView extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                   getHeight(context: context, height: 0.005),
-                  addWorkerTextField(
+                  editAddWorkerTextField(
                     maxLines: 2,
                     context: context,
                     hintText: '',
@@ -533,7 +547,7 @@ class AddWorkerView extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                           ),
                           getHeight(context: context, height: 0.005),
-                          addWorkerTextField(
+                          editAddWorkerTextField(
                             context: context,
                             hintText: '',
                             controller: provider.businessWSIBNoController,
@@ -572,7 +586,7 @@ class AddWorkerView extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                   getHeight(context: context, height: 0.005),
-                  addWorkerTextField(
+                  editAddWorkerTextField(
                     maxLines: 2,
                     context: context,
                     hintText: '',
@@ -580,28 +594,28 @@ class AddWorkerView extends StatelessWidget {
                     height: null,
                   ),
                   getHeight(context: context, height: 0.010),
-                  CustomTwoTextFieldWidget(
+                  EditCustomTwoTextFieldWidget(
                     controllerLeft: provider.businessNameController,
                     controllerRight: provider.businessTelephoneController,
                     titleLeft: 'Business Name',
                     titleRight: 'Business Telephone',
                   ),
                   getHeight(context: context, height: 0.010),
-                  CustomTwoTextFieldWidget(
+                  EditCustomTwoTextFieldWidget(
                     controllerLeft: provider.address1Controller,
                     controllerRight: provider.address2Controller,
                     titleLeft: 'Address Line 1',
                     titleRight: 'Address Line 2',
                   ),
                   getHeight(context: context, height: 0.010),
-                  CustomTwoTextFieldWidget(
+                 EditCustomTwoTextFieldWidget(
                     controllerLeft: provider.cityController,
                     controllerRight: provider.provinceController,
                     titleLeft: 'City',
                     titleRight: 'Province',
                   ),
                   getHeight(context: context, height: 0.010),
-                  CustomTwoTextFieldWidget(
+                  EditCustomTwoTextFieldWidget(
                     rightReadOnly: true,
                     controllerLeft: provider.postalCodeController,
                     controllerRight: provider.countryController,
@@ -609,7 +623,7 @@ class AddWorkerView extends StatelessWidget {
                     titleRight: 'Country',
                   ),
                   getHeight(context: context, height: 0.010),
-                  CustomTwoTextFieldWidget(
+                  EditCustomTwoTextFieldWidget(
                     controllerLeft: provider.mobileTelephoneController,
                     controllerRight: provider.homeTelephoneController,
                     titleLeft: 'Mobile Telephone',
@@ -623,21 +637,21 @@ class AddWorkerView extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                   getHeight(context: context, height: 0.005),
-                  addWorkerTextField(
+                  editAddWorkerTextField(
                     context: context,
                     hintText: '',
                     controller: provider.emailController,
                     height: context.getSize.height * 0.050,
                   ),
                   getHeight(context: context, height: 0.010),
-                  CustomTwoTextFieldWidget(
+                  EditCustomTwoTextFieldWidget(
                     controllerLeft: provider.emergencyContact1Controller,
                     controllerRight: provider.emergencyTelephone1Controller,
                     titleLeft: 'Emergency Contact 1',
                     titleRight: 'Emergency Telephone 1',
                   ),
                   getHeight(context: context, height: 0.010),
-                  CustomTwoTextFieldWidget(
+                  EditCustomTwoTextFieldWidget(
                     controllerLeft: provider.emergencyContact2Controller,
                     controllerRight: provider.emergencyTelephone2Controller,
                     titleLeft: 'Emergency Contact 2',
@@ -657,7 +671,7 @@ class AddWorkerView extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                           ),
                           getHeight(context: context, height: 0.005),
-                          const SelectTradeOption()
+                          const EditSelectTradeOption()
                         ],
                       )),
                       getWidth(context: context, width: 0.030),
@@ -672,7 +686,7 @@ class AddWorkerView extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                           ),
                           getHeight(context: context, height: 0.005),
-                          addWorkerTextField(
+                          editAddWorkerTextField(
                             textInputType: TextInputType.number,
                             context: context,
                             hintText: '',
@@ -684,7 +698,7 @@ class AddWorkerView extends StatelessWidget {
                     ],
                   ),
                   getHeight(context: context, height: 0.010),
-                  CustomTwoTextFieldWidget(
+                  EditCustomTwoTextFieldWidget(
                     textInputTypeLeft: TextInputType.number,
                     textInputTypeRight: TextInputType.number,
                     controllerLeft: provider.overTimeRateController,
@@ -706,7 +720,7 @@ class AddWorkerView extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                           ),
                           getHeight(context: context, height: 0.005),
-                          const SelectWorkExperience()
+                          const EditSelectWorkExperience()
                         ],
                       )),
                       getWidth(context: context, width: 0.030),
@@ -721,7 +735,7 @@ class AddWorkerView extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                           ),
                           getHeight(context: context, height: 0.005),
-                          addWorkerTextField(
+                          editAddWorkerTextField(
                             textInputType: TextInputType.text,
                             context: context,
                             hintText: '',
@@ -740,7 +754,7 @@ class AddWorkerView extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                   getHeight(context: context, height: 0.005),
-                  addWorkerTextField(
+                  editAddWorkerTextField(
                     context: context,
                     hintText: '',
                     controller: provider.tradeLicenseNoController,
@@ -760,7 +774,7 @@ class AddWorkerView extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                           ),
                           getHeight(context: context, height: 0.005),
-                          const SelectUnionAffiliation()
+                          const EditSelectUnionAffiliation()
                         ],
                       )),
                       getWidth(context: context, width: 0.030),
@@ -775,7 +789,7 @@ class AddWorkerView extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                           ),
                           getHeight(context: context, height: 0.005),
-                          addWorkerTextField(
+                          editAddWorkerTextField(
                             textInputType: TextInputType.text,
                             context: context,
                             hintText: '',
@@ -795,7 +809,7 @@ class AddWorkerView extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                   getHeight(context: context, height: 0.005),
-                  addWorkerTextField(
+                  editAddWorkerTextField(
                     maxLines: 2,
                     context: context,
                     hintText: '',
@@ -816,7 +830,7 @@ class AddWorkerView extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                           ),
                           getHeight(context: context, height: 0.005),
-                          const SelectCertification()
+                          const EditSelectCertification()
                         ],
                       )),
                       getWidth(context: context, width: 0.030),
@@ -831,7 +845,7 @@ class AddWorkerView extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                           ),
                           getHeight(context: context, height: 0.005),
-                          addWorkerTextField(
+                          editAddWorkerTextField(
                             textInputType: TextInputType.text,
                             context: context,
                             hintText: '',
@@ -843,7 +857,7 @@ class AddWorkerView extends StatelessWidget {
                     ],
                   ),
                   getHeight(context: context, height: 0.010),
-                  displayFile(
+                  editDisplayFile(
                     title: "WHIMS",
                     path: provider.wHIMSFileName,
                     context: context,
@@ -852,7 +866,7 @@ class AddWorkerView extends StatelessWidget {
                     },
                   ),
                   getHeight(context: context, height: 0.010),
-                  displayFile(
+                  editDisplayFile(
                     title: "Working Form Heights",
                     path: provider.workingFormHeightName,
                     context: context,
@@ -861,7 +875,7 @@ class AddWorkerView extends StatelessWidget {
                     },
                   ),
                   getHeight(context: context, height: 0.010),
-                  displayFile(
+                  editDisplayFile(
                     title: "First Aid",
                     path: provider.firstAidName,
                     context: context,
@@ -870,7 +884,7 @@ class AddWorkerView extends StatelessWidget {
                     },
                   ),
                   getHeight(context: context, height: 0.010),
-                  displayFile(
+                  editDisplayFile(
                     title: "Terms Of Employeement",
                     path: provider.termsOfEmpName,
                     context: context,
@@ -879,7 +893,7 @@ class AddWorkerView extends StatelessWidget {
                     },
                   ),
                   getHeight(context: context, height: 0.010),
-                  displayFile(
+                  editDisplayFile(
                     title: "mployeement Release",
                     path: provider.empReleaseName,
                     context: context,
@@ -888,7 +902,7 @@ class AddWorkerView extends StatelessWidget {
                     },
                   ),
                   getHeight(context: context, height: 0.010),
-                  displayFile(
+                  editDisplayFile(
                     title: "Other",
                     path: provider.otherFileName,
                     context: context,
@@ -931,7 +945,7 @@ class AddWorkerView extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                           ),
                           getHeight(context: context, height: 0.005),
-                          const SelectWorkerPickUpLocationWidget()
+                          const EditSelectWorkerPickUpLocationWidget()
                         ],
                       )),
                     ],
@@ -950,7 +964,7 @@ class AddWorkerView extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                           ),
                           getHeight(context: context, height: 0.005),
-                          addWorkerTextField(
+                          editAddWorkerTextField(
                             context: context,
                             hintText: '',
                             controller: provider.recruiterCommissionController,
@@ -995,7 +1009,7 @@ class AddWorkerView extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                           ),
                           getHeight(context: context, height: 0.005),
-                          const SelectTimeSheetTypeWidget(),
+                          const EditSelectTimeSheetTypeWidget(),
                         ],
                       )),
                       getWidth(context: context, width: 0.030),
@@ -1029,7 +1043,7 @@ class AddWorkerView extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                   getHeight(context: context, height: 0.005),
-                  addWorkerTextField(
+                  editAddWorkerTextField(
                     maxLines: 2,
                     context: context,
                     hintText: '',

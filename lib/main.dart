@@ -3,10 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:hrm_manager/WidgetandBindings/app_pages.dart';
 import 'package:hrm_manager/WidgetandBindings/app_routes.dart';
 import 'package:hrm_manager/provider/add_worker_provider.dart';
+import 'package:hrm_manager/provider/avaliable_worker_provider.dart';
+import 'package:hrm_manager/provider/edit_worker_detail_provider.dart';
 import 'package:hrm_manager/provider/home_provider.dart';
 import 'package:hrm_manager/provider/location_provider.dart';
 import 'package:hrm_manager/provider/login_provider.dart';
 import 'package:hrm_manager/provider/nav_bar_provider.dart';
+import 'package:hrm_manager/provider/wroker_profile_provider.dart';
 import 'package:hrm_manager/utils/app_color.dart';
 import 'package:provider/provider.dart';
 
@@ -40,6 +43,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_)=>HomeProvider()),
         ChangeNotifierProvider(create: (_)=>LocationProvider()),
         ChangeNotifierProvider(create: (_)=>AddWorkerProvider()),
+        ChangeNotifierProvider(create: (_)=>AvaliableWorkerProvider()),
+        ChangeNotifierProvider(create: (_)=>WorkerProfileProvider()),
+        ChangeNotifierProvider(create: (_)=>EditWorkerDetailProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

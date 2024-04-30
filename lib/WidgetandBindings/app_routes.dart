@@ -3,4 +3,8 @@ class AppRoutes{
   static const navBarView ='/navbar';
   static const locationView ='/location';
   static const addWorkerView ='/addWorker';
+  static const avaliableWorkerView ='/avaliableWorker';
+  static const workerProfileView ='/workerProfile';
+  static const editWorkerDetailView ='/editWorkerDetail';
+  static const pdfView ='/pdf';
 }
