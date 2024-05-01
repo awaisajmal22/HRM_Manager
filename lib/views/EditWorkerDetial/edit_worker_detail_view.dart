@@ -45,9 +45,26 @@ import 'component/edit_select_worker_pickup_location_widget.dart';
 import 'component/edit_work_experience_widget.dart';
 import 'component/edit_worker_flag_widget.dart';
 
-class EditWorkerDetailView extends StatelessWidget {
+class EditWorkerDetailView extends StatefulWidget {
   const EditWorkerDetailView({super.key});
 
+  @override
+  State<EditWorkerDetailView> createState() => _EditWorkerDetailViewState();
+}
+
+class _EditWorkerDetailViewState extends State<EditWorkerDetailView> {
+  late EditWorkerDetailProvider pv;
+
+  @override
+  void initState() {
+    pv = Provider.of<EditWorkerDetailProvider>(context,listen: false);
+    super.initState();
+  }
+ @override
+  void dispose() {
+pv.clearData();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

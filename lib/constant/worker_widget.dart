@@ -13,7 +13,7 @@ class WorkerWidget extends StatelessWidget {
   final String name;
   final String price;
   final String trade;
-  const WorkerWidget({
+  const  WorkerWidget({
     super.key,
     this.dateOfBirth = '1979, Dec 2',
     this.name = 'Jovany Italiano',

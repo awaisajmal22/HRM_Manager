@@ -192,7 +192,7 @@ class FilterWidget extends StatelessWidget {
                         provider.addFilter(provider.locationController.text);
                         provider.addFilter(provider.selectedStatus);
                         provider.addFilter(provider.selectedFlag);
-                        provider.addFilter(provider.maxController.text);
+                        provider.addFilter(provider.minController.text);
                         provider.addFilter(provider.maxController.text);
                         provider.openFilter(false);
                       },

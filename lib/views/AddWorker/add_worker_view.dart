@@ -31,9 +31,26 @@ import 'package:provider/provider.dart';
 
 import 'component/select_job_site_widget.dart';
 
-class AddWorkerView extends StatelessWidget {
+class AddWorkerView extends StatefulWidget {
   const AddWorkerView({super.key});
 
+  @override
+  State<AddWorkerView> createState() => _AddWorkerViewState();
+}
+
+class _AddWorkerViewState extends State<AddWorkerView> {
+  late AddWorkerProvider pv;
+
+  @override
+  void initState() {
+    pv = Provider.of<AddWorkerProvider>(context,listen: false);
+    super.initState();
+  }
+ @override
+  void dispose() {
+pv.clearData();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

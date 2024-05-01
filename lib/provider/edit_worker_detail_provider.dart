@@ -308,7 +308,7 @@ if(!workerPickUpLocationController.text.contains(location)){
   String get wHIMSFileName => _wHIMSFileName;
   pickWHIMS() async {
     FilePickerResult? file = await FilePicker.platform.pickFiles(
-      allowedExtensions: ['.pdf'],
+       
     );
     if (file != null) {
       _wHIMSFilePath = file.files.single.path!;
@@ -323,7 +323,7 @@ if(!workerPickUpLocationController.text.contains(location)){
   String get workingFormHeightName => _workingFormHeightName;
   pickWorkingFormHeightFile() async {
     FilePickerResult? file = await FilePicker.platform.pickFiles(
-      allowedExtensions: ['.pdf'],
+       
     );
     if (file != null) {
       _workingFormHeightPath = file.files.single.path!;
@@ -338,7 +338,7 @@ if(!workerPickUpLocationController.text.contains(location)){
   String get firstAidName => _firstAidName;
   pickFirstAidFile() async {
     FilePickerResult? file = await FilePicker.platform.pickFiles(
-      allowedExtensions: ['.pdf'],
+       
     );
     if (file != null) {
       _firstAidPath = file.files.single.path!;
@@ -353,7 +353,7 @@ if(!workerPickUpLocationController.text.contains(location)){
   String get termsOfEmpName => _termsOfEmpName;
   pickTermsOfEmpFile() async {
     FilePickerResult? file = await FilePicker.platform.pickFiles(
-      allowedExtensions: ['.pdf'],
+       
     );
     if (file != null) {
       _termsOfEmpPath = file.files.single.path!;
@@ -368,7 +368,7 @@ if(!workerPickUpLocationController.text.contains(location)){
   String get empReleaseName => _empReleaseName;
   pickEmpReleaseFile() async {
     FilePickerResult? file = await FilePicker.platform.pickFiles(
-      allowedExtensions: ['.pdf'],
+       
     );
     if (file != null) {
       _empReleasePath = file.files.single.path!;
@@ -383,7 +383,7 @@ if(!workerPickUpLocationController.text.contains(location)){
   String get otherFileName => _otherFileName;
   pickOtherFile() async {
     FilePickerResult? file = await FilePicker.platform.pickFiles(
-      allowedExtensions: ['.pdf'],
+       
     );
     if (file != null) {
       _otherFilePath = file.files.single.path!;
@@ -401,5 +401,57 @@ if(!workerPickUpLocationController.text.contains(location)){
       _pickedImage = image.path;
       notifyListeners();
     }
+  }
+ 
+  void clearData() {
+     workerIdController.clear();
+  recruiterController.clear();
+   clientIdController.clear();
+ firstNameController.clear();
+   lastNameController.clear();
+   dobController.clear();
+  ageController.clear();
+  otherLanguageController.clear();
+  socialInsuranceController.clear();
+ workPermitController.clear();
+   hireDateController.clear();
+   terminationDateController.clear();
+   statusController.clear();
+ flagNotesController.clear();
+   businessWSIBNoController.clear();
+   wSIBClaimNoteController.clear();
+  businessNameController.clear();
+   businessTelephoneController.clear();
+  address1Controller.clear();
+   address2Controller.clear();
+  cityController.clear();
+   provinceController.clear();
+   postalCodeController.clear();
+   countryController.clear();
+   mobileTelephoneController.clear();
+  homeTelephoneController.clear();
+  emailController.clear();
+   emergencyContact1Controller.clear();
+   emergencyContact2Controller.clear();
+  emergencyTelephone1Controller.clear();
+   emergencyTelephone2Controller.clear();
+  tradeOptionController.clear();
+   regularRateController.clear();
+   overTimeRateController.clear();
+  clientRateController.clear();
+  workExperienceController.clear();
+   workExperienceNoteController.clear();
+   tradeLicenseNoController.clear();
+   unionAffiliationController.clear();
+  unionAffiliationNotesController.clear();
+  employmentHistoryNoteController.clear();
+   certificationController.clear();
+  certificationNotesController.clear();
+   workerPickUpLocationController.clear();
+   recruiterCommissionController.clear();
+   timeSheetTypeController.clear();
+   paymentNotesController.clear();
+
+   
   }
 }

@@ -87,61 +87,68 @@ class WorkerProfileView extends StatelessWidget {
               ),
               shrinkWrap: true,
               children: [
-                WorkerWidget(),
+                WorkerWidget(
+                  name: provider.workerProfileModel.name!,
+                  status: provider.workerProfileModel.status!,
+                  dateOfBirth: provider.workerProfileModel.dob!,
+                  price: provider.workerProfileModel.price!,
+                  trade: provider.workerProfileModel.trade!,
+                  
+                ),
                 getHeight(context: context, height: 0.01),
                 richText(
                   context: context,
                   title: 'Experience: ',
                   subtitle:
-                      '6 Years of high rise, 5 commercial, 2 years drywall',
+                     provider.workerProfileModel.experience!,
                 ),
                 getHeight(context: context, height: 0.01),
                 richText(
                   context: context,
                   title: 'Previous Employment: ',
-                  subtitle: 'MCF, Structform, \nSupplier',
+                  subtitle: provider.workerProfileModel.previousEmployment!,
                 ),
                 getHeight(context: context, height: 0.01),
                 richText(
                   context: context,
                   title: 'Union Affiliation: ',
-                  subtitle: '183, Local 27',
+                  subtitle: provider.workerProfileModel.unionAffiliation!,
                 ),
                 getHeight(context: context, height: 0.01),
                 richText(
                   context: context,
                   title: 'Flag: ',
-                  subtitle: 'No papers',
+                  subtitle: provider.workerProfileModel.flag!,
                 ),
                 getHeight(context: context, height: 0.01),
                 richText(
                   context: context,
                   title: 'Transportation: ',
-                  subtitle: 'Yes',
+                  subtitle: provider.workerProfileModel.transportation!,
                 ),
                 getHeight(context: context, height: 0.01),
                 richText(
                   context: context,
                   title: 'Home: ',
-                  subtitle: 'Toronto (King & Young)',
+                  subtitle: provider.workerProfileModel.home!,
                 ),
                 getHeight(context: context, height: 0.01),
                 richText(
                   context: context,
                   title: 'Certificates: ',
-                  subtitle: '',
+                  subtitle: provider.workerProfileModel.certificate!,
                 ),
                 getHeight(context: context, height: 0.01),
                 richText(
                   context: context,
                   title: 'Special Tickets: ',
-                  subtitle: 'No',
+                  subtitle: provider.workerProfileModel.specialTickets!,
                 ),
                 getHeight(context: context, height: 0.01),
                 richText(
                   context: context,
                   title: 'Note: ',
-                  subtitle: '',
+                  subtitle: provider.workerProfileModel.note!,
                 ),
                 getHeight(context: context, height: 0.020),
                 Align(
@@ -193,7 +200,9 @@ class WorkerProfileView extends StatelessWidget {
                   child: textButton(
                     radius: 100,
                     context: context,
-                    onTap: () {},
+                    onTap: () {
+                      provider.generateCsvFile(context: context);
+                    },
                     title: 'Export CSV',
                   ),
                 )

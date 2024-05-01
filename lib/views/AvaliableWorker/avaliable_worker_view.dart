@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hrm_manager/Model/avaliable_worker_model.dart';
 import 'package:hrm_manager/WidgetandBindings/app_routes.dart';
 import 'package:hrm_manager/constant/app_text.dart';
 import 'package:hrm_manager/constant/back.dart';
@@ -16,12 +17,30 @@ import 'package:hrm_manager/views/AvaliableWorker/component/avaliable_worker_fie
 import 'package:hrm_manager/views/AvaliableWorker/component/filter_widget.dart';
 import 'package:provider/provider.dart';
 
-class AvaliableWorkerView extends StatelessWidget {
+class AvaliableWorkerView extends StatefulWidget {
   final String name;
   AvaliableWorkerView({super.key, this.name = ''});
 
   @override
+  State<AvaliableWorkerView> createState() => _AvaliableWorkerViewState();
+}
+
+class _AvaliableWorkerViewState extends State<AvaliableWorkerView> {
+  late AvaliableWorkerProvider pv;
+
+  @override
+  void initState() {
+    pv = Provider.of<AvaliableWorkerProvider>(context,listen: false);
+    super.initState();
+  }
+ @override
+  void dispose() {
+pv.clearData();
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Padding(
@@ -29,12 +48,14 @@ class AvaliableWorkerView extends StatelessWidget {
         child: textButton(
           radius: 100,
           context: context,
-          onTap: () {},
+          onTap: () {
+            pv.generateCsvFile(context: context);
+          },
           title: 'Export CSV',
         ),
       ),
       body: Consumer<AvaliableWorkerProvider>(builder: (context, provider, __) {
-        provider.workerTypeController.text = name;
+        provider.workerTypeController.text = widget.name;
         return SafeArea(
           child: Column(
             children: [
@@ -78,28 +99,36 @@ class AvaliableWorkerView extends StatelessWidget {
                       height: context.getSize.height * 0.048,
                       onChanged: (val) {},
                       openFilter: () {
-                        provider.openFilter(true);
+                        provider.openFilter(!provider.isFilterOpen);
                       },
                     ),
                     FilterWidget(
-                      name: name,
+                      name: widget.name,
                     ),
                   ],
                 ),
               ),
               Expanded(
                   child: ListView.builder(
+                  itemCount: provider.avaliableWorkerList.length,
                       padding: EdgeInsets.symmetric(
                         horizontal: context.getSize.width * 0.045,
                       ),
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
+                        AvaliableWorkerModel model = provider.avaliableWorkerList[index];
                         return GestureDetector(
                           onTap: () {
                             Navigator.pushNamed(
                                 context, AppRoutes.workerProfileView);
                           },
-                          child: const WorkerWidget(),
+                          child:  WorkerWidget(
+                            name: model.name!,
+                            dateOfBirth: model.dob!,
+                            price: model.price!,
+                            trade: model.trade!,
+                            status: model.status!,
+                          ),
                         );
                       }))
             ],
