@@ -1,20 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hrm_manager/Model/all_trades_model.dart';
 import 'package:hrm_manager/WidgetandBindings/app_routes.dart';
 import 'package:hrm_manager/constant/app_text.dart';
 import 'package:hrm_manager/constant/height_box.dart';
 import 'package:hrm_manager/constant/width_box.dart';
 import 'package:hrm_manager/extensions/size_extension.dart';
 import 'package:hrm_manager/provider/home_provider.dart';
-import 'package:hrm_manager/utils/app_color.dart';
+import 'package:hrm_manager/constant/app_color.dart';
 import 'package:hrm_manager/views/Home/component/home_search_field.dart';
 import 'package:hrm_manager/views/Home/component/select_location_widget.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:provider/provider.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
 
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  bool _isDataFetch = false;
+  @override
+  void initState() {
+    if(_isDataFetch == false){
+      Provider.of<HomeProvider>(context,listen: false).getAllTradeFunc(context: context);
+      setState(() {
+        _isDataFetch = true;
+      });
+    }
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Consumer<HomeProvider>(builder: (context, provider, __) {
@@ -52,13 +69,13 @@ class HomeView extends StatelessWidget {
                       : provider.searchedList.length,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    String trade = provider.searchController.text.isEmpty
+                    AllTradeModel trade = provider.searchController.text.isEmpty
                         ? provider.tradesList[index]
                         : provider.searchedList[index];
                     return GestureDetector(
                       onTap: () {
                         Navigator.pushNamed(
-                            context, AppRoutes.avaliableWorkerView,arguments: trade);
+                            context, AppRoutes.avaliableWorkerView,arguments: [trade.tradeOptionName,trade.id]);
                       },
                       child: Container(
                         margin: EdgeInsets.symmetric(
@@ -74,7 +91,7 @@ class HomeView extends StatelessWidget {
                         ),
                         child: appText(
                           context: context,
-                          title: trade,
+                          title: trade.tradeOptionName!,
                           fontSize: 16,
                         ),
                       ),

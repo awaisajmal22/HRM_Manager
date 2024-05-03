@@ -3,7 +3,7 @@ import 'package:hrm_manager/WidgetandBindings/app_routes.dart';
 import 'package:hrm_manager/constant/app_text.dart';
 import 'package:hrm_manager/extensions/size_extension.dart';
 import 'package:hrm_manager/provider/nav_bar_provider.dart';
-import 'package:hrm_manager/utils/app_color.dart';
+import 'package:hrm_manager/constant/app_color.dart';
 import 'package:hrm_manager/views/Home/home_view.dart';
 import 'package:hrm_manager/views/Profile/profile_view.dart';
 import 'package:ionicons/ionicons.dart';

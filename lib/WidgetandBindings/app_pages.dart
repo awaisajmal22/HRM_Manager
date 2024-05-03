@@ -25,8 +25,9 @@ class AppPages{
         return const AddWorkerView();
       });
       case (AppRoutes.avaliableWorkerView): return MaterialPageRoute(builder: (context){
-        final String argument = settings.arguments as String;
-        return  AvaliableWorkerView(name: argument);
+        List<dynamic> arguments = settings.arguments as List<dynamic>;
+       
+        return  AvaliableWorkerView(name: arguments[0],id: arguments[1],);
       });
       case (AppRoutes.workerProfileView): return MaterialPageRoute(builder: (context){
 

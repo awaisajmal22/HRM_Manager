@@ -1,7 +1,7 @@
 
   import 'package:flutter/material.dart';
 import 'package:hrm_manager/constant/app_text.dart';
-import 'package:hrm_manager/utils/app_color.dart';
+import 'package:hrm_manager/constant/app_color.dart';
 
 Widget richText({
     required BuildContext context,

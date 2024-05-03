@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:hrm_manager/constant/app_text.dart';
 import 'package:hrm_manager/constant/height_box.dart';
 import 'package:hrm_manager/extensions/size_extension.dart';
-import 'package:hrm_manager/utils/app_color.dart';
+import 'package:hrm_manager/constant/app_color.dart';
 typedef OnTap = VoidCallback;
 displayFile({required String title,required String path, required BuildContext context,required OnTap onTap}) {
   return Column(

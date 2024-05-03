@@ -3,13 +3,14 @@ import 'package:flutter/widgets.dart';
 import 'package:hrm_manager/constant/app_text.dart';
 import 'package:hrm_manager/constant/width_box.dart';
 import 'package:hrm_manager/extensions/size_extension.dart';
-import 'package:hrm_manager/utils/app_color.dart';
+import 'package:hrm_manager/constant/app_color.dart';
 
 customTextField(
 
     {bool isSufixIcon = false,
    required TextEditingController controller,
     bool isObsecureText = false,
+    TextInputAction textInputAction = TextInputAction.next,
       required BuildContext context, required String hintText, GestureDetector? saufixIcon}) {
   return Column(
     children: [
@@ -17,6 +18,7 @@ customTextField(
         children: [
           Expanded(
             child: TextFormField(
+             textInputAction: textInputAction,
               controller: controller,
               obscureText: isObsecureText,
               style: textStyle(

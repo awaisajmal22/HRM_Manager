@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:hrm_manager/constant/app_text.dart';
 import 'package:hrm_manager/extensions/size_extension.dart';
-import 'package:hrm_manager/utils/app_color.dart';
+import 'package:hrm_manager/constant/app_color.dart';
 
 class AppDropdownInput<T> extends StatelessWidget {
   final List<T> options;
@@ -30,7 +30,7 @@ final InputBorder border;
                   fontSize: 14),
               fillColor: AppColor.whiteColor,
               filled: true,
-              contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               border: border,
               errorBorder: border,
               enabledBorder: border,
@@ -41,7 +41,7 @@ final InputBorder border;
             isEmpty: value == null || value == '',
             child: DropdownButtonHideUnderline(
               child: DropdownButton<T>(
-                icon: Icon(
+                icon:  const Icon(
                   Icons.keyboard_arrow_down,
                   color: AppColor.iconColor,
                 ),
@@ -70,3 +70,4 @@ final InputBorder border;
     );
   }
 }
+

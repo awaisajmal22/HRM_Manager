@@ -7,7 +7,7 @@ import 'package:hrm_manager/constant/width_box.dart';
 import 'package:hrm_manager/extensions/size_extension.dart';
 
 import '../../constant/back.dart';
-import '../../utils/app_color.dart';
+import '../../constant/app_color.dart';
 
 class PDFView extends StatefulWidget {
   final String title;

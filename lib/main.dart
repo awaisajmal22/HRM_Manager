@@ -10,7 +10,7 @@ import 'package:hrm_manager/provider/location_provider.dart';
 import 'package:hrm_manager/provider/login_provider.dart';
 import 'package:hrm_manager/provider/nav_bar_provider.dart';
 import 'package:hrm_manager/provider/wroker_profile_provider.dart';
-import 'package:hrm_manager/utils/app_color.dart';
+import 'package:hrm_manager/constant/app_color.dart';
 import 'package:provider/provider.dart';
 
 void main() {

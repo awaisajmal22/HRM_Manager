@@ -1,14 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hrm_manager/Model/worker_status_and_flag_model.dart';
 import 'package:hrm_manager/constant/app_text.dart';
 import 'package:hrm_manager/constant/drop_down_form_field.dart';
 import 'package:hrm_manager/constant/height_box.dart';
 import 'package:hrm_manager/constant/location_search_field.dart';
 import 'package:hrm_manager/constant/text_button.dart';
+import 'package:hrm_manager/constant/toast.dart';
 import 'package:hrm_manager/constant/width_box.dart';
 import 'package:hrm_manager/extensions/size_extension.dart';
 import 'package:hrm_manager/provider/avaliable_worker_provider.dart';
-import 'package:hrm_manager/utils/app_color.dart';
+import 'package:hrm_manager/constant/app_color.dart';
 import 'package:hrm_manager/views/AvaliableWorker/component/min_max_text_field.dart';
 import 'package:provider/provider.dart';
 
@@ -119,7 +121,7 @@ class FilterWidget extends StatelessWidget {
                   onChanged: (value) {
                     provider.selectNewStatus(value);
                   },
-                  options: provider.workerStatusList,
+                  options: provider.workerStatusNameList,
                 ),
                 getHeight(context: context, height: 0.010),
                 appText(
@@ -141,7 +143,7 @@ class FilterWidget extends StatelessWidget {
                   onChanged: (value) {
                     provider.selectNewFlag(value);
                   },
-                  options: provider.workerFlagList,
+                  options: provider.workerFlagNameList,
                 ),
                 getHeight(context: context, height: 0.010),
                 appText(
@@ -188,13 +190,32 @@ class FilterWidget extends StatelessWidget {
                   child: textButton(
                       context: context,
                       onTap: () {
-                        provider.addFilter(name);
-                        provider.addFilter(provider.locationController.text);
-                        provider.addFilter(provider.selectedStatus);
-                        provider.addFilter(provider.selectedFlag);
-                        provider.addFilter(provider.minController.text);
-                        provider.addFilter(provider.maxController.text);
-                        provider.openFilter(false);
+                        if (double.parse(provider.maxController.text) ==
+                            double.parse(provider.minController.text)) {
+                          toast(
+                              msg: 'min price and max price cannot be same. ',
+                              context: context);
+                        } else if (double.parse(provider.minController.text) >
+                            double.parse(provider.maxController.text)) {
+                          toast(
+                              msg: 'min price must be lower than max price',
+                              context: context);
+                        } else {
+                          provider.addFilter(name);
+                          provider.addFilter(provider.locationController.text);
+                          provider.addFilter(provider.selectedStatus);
+                          provider.addFilter(provider.selectedFlag);
+                          if (provider.minController.text.isNotEmpty) {
+                            provider.addFilter(
+                                "min ${provider.minController.text}");
+                          }
+                          if (provider.maxController.text.isNotEmpty) {
+                            provider.addFilter(
+                                "max ${provider.maxController.text}");
+                          }
+                          provider.openFilter(false);
+                          provider.clearTextField();
+                        }
                       },
                       title: "Apply",
                       width: context.getSize.width * 0.2),

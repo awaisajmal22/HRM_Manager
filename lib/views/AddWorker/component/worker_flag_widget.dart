@@ -4,7 +4,7 @@ import 'package:hrm_manager/constant/back.dart';
 import 'package:hrm_manager/constant/drop_down.dart';
 import 'package:hrm_manager/extensions/size_extension.dart';
 import 'package:hrm_manager/provider/add_worker_provider.dart';
-import 'package:hrm_manager/utils/app_color.dart';
+import 'package:hrm_manager/constant/app_color.dart';
 import 'package:provider/provider.dart';
 
 class WorkerFlagWidget extends StatelessWidget {

@@ -12,7 +12,7 @@ import 'package:hrm_manager/constant/width_box.dart';
 import 'package:hrm_manager/constant/worker_widget.dart';
 import 'package:hrm_manager/extensions/size_extension.dart';
 import 'package:hrm_manager/provider/wroker_profile_provider.dart';
-import 'package:hrm_manager/utils/app_color.dart';
+import 'package:hrm_manager/constant/app_color.dart';
 import 'package:provider/provider.dart';
 
 class WorkerProfileView extends StatelessWidget {
