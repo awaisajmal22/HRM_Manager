@@ -25,10 +25,10 @@ class _LoginViewState extends State<LoginView> {
     Provider.of<LoginProvider>(
       context,
       listen: false,
-    ).autoLogin(context: context);
-    setState(() {
+    ).autoLogin(context: context).whenComplete(() => setState(() {
       _isOutLoginCheck = true;
-    });
+    }));
+    
     }
     super.initState();
     

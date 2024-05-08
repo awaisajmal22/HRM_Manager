@@ -80,133 +80,133 @@ class WorkerProfileView extends StatelessWidget {
                 ],
               ),
             ),
-            ListView(
-              padding: EdgeInsets.symmetric(
-                vertical: context.getSize.height * 0.020,
-                horizontal: context.getSize.width * 0.040,
-              ),
-              shrinkWrap: true,
-              children: [
-                WorkerWidget(
-                  name: provider.workerProfileModel.name!,
-                  status: provider.workerProfileModel.status!,
-                  dateOfBirth: provider.workerProfileModel.dob!,
-                  price: provider.workerProfileModel.price!,
-                  trade: provider.workerProfileModel.trade!,
-                  
+            Expanded(
+              child: ListView(
+                padding: EdgeInsets.symmetric(
+                  vertical: context.getSize.height * 0.020,
+                  horizontal: context.getSize.width * 0.040,
                 ),
-                getHeight(context: context, height: 0.01),
-                richText(
-                  context: context,
-                  title: 'Experience: ',
-                  subtitle:
-                     provider.workerProfileModel.experience!,
-                ),
-                getHeight(context: context, height: 0.01),
-                richText(
-                  context: context,
-                  title: 'Previous Employment: ',
-                  subtitle: provider.workerProfileModel.previousEmployment!,
-                ),
-                getHeight(context: context, height: 0.01),
-                richText(
-                  context: context,
-                  title: 'Union Affiliation: ',
-                  subtitle: provider.workerProfileModel.unionAffiliation!,
-                ),
-                getHeight(context: context, height: 0.01),
-                richText(
-                  context: context,
-                  title: 'Flag: ',
-                  subtitle: provider.workerProfileModel.flag!,
-                ),
-                getHeight(context: context, height: 0.01),
-                richText(
-                  context: context,
-                  title: 'Transportation: ',
-                  subtitle: provider.workerProfileModel.transportation!,
-                ),
-                getHeight(context: context, height: 0.01),
-                richText(
-                  context: context,
-                  title: 'Home: ',
-                  subtitle: provider.workerProfileModel.home!,
-                ),
-                getHeight(context: context, height: 0.01),
-                richText(
-                  context: context,
-                  title: 'Certificates: ',
-                  subtitle: provider.workerProfileModel.certificate!,
-                ),
-                getHeight(context: context, height: 0.01),
-                richText(
-                  context: context,
-                  title: 'Special Tickets: ',
-                  subtitle: provider.workerProfileModel.specialTickets!,
-                ),
-                getHeight(context: context, height: 0.01),
-                richText(
-                  context: context,
-                  title: 'Note: ',
-                  subtitle: provider.workerProfileModel.note!,
-                ),
-                getHeight(context: context, height: 0.020),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: appText(
-                    context: context,
-                    title: 'Your documents',
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
+                shrinkWrap: true,
+                children: [
+                  WorkerWidget(
+                    name: provider.workerProfileModel.name!,
+                    status: provider.workerProfileModel.status!,
+                    dateOfBirth: provider.workerProfileModel.dob!,
+                    price: provider.workerProfileModel.price!,
+                    trade: provider.workerProfileModel.trade!,
                   ),
-                ),
-                getHeight(context: context, height: 0.010),
-                Wrap(
-                  runAlignment: WrapAlignment.center,
-                  alignment: WrapAlignment.center,
-                  children: List.generate(
-                      provider.documentList.length,
-                      (index) => GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(context, AppRoutes.pdfView,
-                                  arguments: [
-                                    provider.documentList[index],
-                                    Constant.pdfFile,
-                                  ]);
-                            },
-                            child: SizedBox(
-                              width: context.getSize.width * 0.22,
-                              child: Column(
-                                children: [
-                                  Image.asset(
-                                    Constant.pdfIcon,
-                                    width: context.getSize.width * 0.086,
-                                    height: context.getSize.height * 0.048,
-                                  ),
-                                  appText(
-                                    context: context,
-                                    title: provider.documentList[index],
-                                    fontSize: 12,
-                                  ),
-                                ],
+                  getHeight(context: context, height: 0.01),
+                  richText(
+                    context: context,
+                    title: 'Experience: ',
+                    subtitle: provider.workerProfileModel.experience!,
+                  ),
+                  getHeight(context: context, height: 0.01),
+                  richText(
+                    context: context,
+                    title: 'Previous Employment: ',
+                    subtitle: provider.workerProfileModel.previousEmployment!,
+                  ),
+                  getHeight(context: context, height: 0.01),
+                  richText(
+                    context: context,
+                    title: 'Union Affiliation: ',
+                    subtitle: provider.workerProfileModel.unionAffiliation!,
+                  ),
+                  getHeight(context: context, height: 0.01),
+                  richText(
+                    context: context,
+                    title: 'Flag: ',
+                    subtitle: provider.workerProfileModel.flag!,
+                  ),
+                  getHeight(context: context, height: 0.01),
+                  richText(
+                    context: context,
+                    title: 'Transportation: ',
+                    subtitle: provider.workerProfileModel.transportation!,
+                  ),
+                  getHeight(context: context, height: 0.01),
+                  richText(
+                    context: context,
+                    title: 'Home: ',
+                    subtitle: provider.workerProfileModel.home!,
+                  ),
+                  getHeight(context: context, height: 0.01),
+                  richText(
+                    context: context,
+                    title: 'Certificates: ',
+                    subtitle: provider.workerProfileModel.certificate!,
+                  ),
+                  getHeight(context: context, height: 0.01),
+                  richText(
+                    context: context,
+                    title: 'Special Tickets: ',
+                    subtitle: provider.workerProfileModel.specialTickets!,
+                  ),
+                  getHeight(context: context, height: 0.01),
+                  richText(
+                    context: context,
+                    title: 'Note: ',
+                    subtitle: provider.workerProfileModel.note!,
+                  ),
+                  getHeight(context: context, height: 0.020),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: appText(
+                      context: context,
+                      title: 'Your documents',
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  getHeight(context: context, height: 0.010),
+                  Wrap(
+                    runAlignment: WrapAlignment.center,
+                    alignment: WrapAlignment.center,
+                    children: List.generate(
+                        provider.documentList.length,
+                        (index) => GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(context, AppRoutes.pdfView,
+                                    arguments: [
+                                      provider.documentList[index],
+                                      Constant.pdfFile,
+                                    ]);
+                              },
+                              child: SizedBox(
+                                width: context.getSize.width * 0.22,
+                                child: Column(
+                                  children: [
+                                    Image.asset(
+                                      Constant.pdfIcon,
+                                      width: context.getSize.width * 0.086,
+                                      height: context.getSize.height * 0.048,
+                                    ),
+                                    appText(
+                                      context: context,
+                                      title: provider.documentList[index],
+                                      fontSize: 12,
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          )),
-                ),
-                getHeight(context: context, height: 0.030),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: context.getSize.width * 0.30),
-                  child: textButton(
-                    radius: 100,
-                    context: context,
-                    onTap: () {
-                      provider.generateCsvFile(context: context);
-                    },
-                    title: 'Export CSV',
+                            )),
                   ),
-                )
-              ],
+                  getHeight(context: context, height: 0.030),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: context.getSize.width * 0.30),
+                    child: textButton(
+                      radius: 100,
+                      context: context,
+                      onTap: () {
+                        provider.generateCsvFile(context: context);
+                      },
+                      title: 'Export CSV',
+                    ),
+                  )
+                ],
+              ),
             )
           ],
         ));

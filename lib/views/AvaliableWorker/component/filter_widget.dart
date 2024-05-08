@@ -16,7 +16,8 @@ import 'package:provider/provider.dart';
 
 class FilterWidget extends StatelessWidget {
   final String name;
-  const FilterWidget({super.key, required this.name});
+  final int id;
+  const FilterWidget({super.key, required this.name, required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +37,7 @@ class FilterWidget extends StatelessWidget {
                     provider.filteredList.length,
                     (index) => Chip(
                       onDeleted: () {
-                        provider.removeFilter(index);
+                        provider.removeFilter(index, context);
                       },
                       deleteIconColor: AppColor.whiteColor,
                       shape: RoundedRectangleBorder(
@@ -63,7 +64,8 @@ class FilterWidget extends StatelessWidget {
                         children: [
                           appText(
                               context: context,
-                              title: '359 results for "Carpenter"',
+                              title:
+                                  '${provider.filtrationResponseList.length} results for "$name"',
                               textColor: AppColor.lightPurpleColor)
                         ],
                       )
@@ -190,29 +192,41 @@ class FilterWidget extends StatelessWidget {
                   child: textButton(
                       context: context,
                       onTap: () {
-                        if (double.parse(provider.maxController.text) ==
-                            double.parse(provider.minController.text)) {
-                          toast(
-                              msg: 'min price and max price cannot be same. ',
-                              context: context);
-                        } else if (double.parse(provider.minController.text) >
-                            double.parse(provider.maxController.text)) {
+                        if (provider.minController.text.isNotEmpty &&
+                            provider.maxController.text.isNotEmpty &&
+                            double.parse(provider.minController.text) >
+                                double.parse(provider.maxController.text)) {
                           toast(
                               msg: 'min price must be lower than max price',
                               context: context);
                         } else {
                           provider.addFilter(name);
-                          provider.addFilter(provider.locationController.text);
-                          provider.addFilter(provider.selectedStatus);
-                          provider.addFilter(provider.selectedFlag);
+                          provider.addFilter(
+                            provider.locationController.text,
+                          );
+                          provider.addFilter(
+                            provider.selectedStatus,
+                          );
+                          provider.addFilter(
+                            provider.selectedFlag,
+                          );
                           if (provider.minController.text.isNotEmpty) {
                             provider.addFilter(
-                                "min ${provider.minController.text}");
+                              "min ${provider.minController.text}",
+                            );
                           }
                           if (provider.maxController.text.isNotEmpty) {
                             provider.addFilter(
                                 "max ${provider.maxController.text}");
                           }
+                          provider.getFiltrationDataFunc(
+                            context: context,
+                            tradeID: id,
+                            statusID: provider.selectedStatusID,
+                            flagID: provider.selectedFalgID,
+                            startPrice: provider.minController.text,
+                            endPrice: provider.maxController.text,
+                          );
                           provider.openFilter(false);
                           provider.clearTextField();
                         }

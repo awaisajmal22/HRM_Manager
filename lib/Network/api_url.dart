@@ -5,4 +5,6 @@ class ApiUrl{
   static const workerFlagUrl ='$mainUrl/WorkerFlag';
   static const workerStatusUrl ="$mainUrl/WorkerStatus";
   static const filterationUrl ='$mainUrl/Filteration';
+  static const getProfileDataUrl ="$mainUrl/Authentication/ManagerProfile";
+  static const changePasswordUrl ="$mainUrl/Authentication/ManagerChangePassword";
 }

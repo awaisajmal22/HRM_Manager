@@ -1,11 +1,13 @@
 import 'dart:io';
 
 import 'package:csv/csv.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:external_path/external_path.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hrm_manager/Model/worker_profile_model.dart';
+import 'package:hrm_manager/Network/Server/permission_handler.dart';
 import 'package:hrm_manager/constant/app_color.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
@@ -141,10 +143,7 @@ class WorkerProfileProvider extends ChangeNotifier {
       String csv = const ListToCsvConverter().convert(rows);
 
       if (Platform.isAndroid) {
-        if (await _requestPermission(Permission.storage) &&
-            // access media location needed for android 10/Q
-            await _requestPermission(Permission.accessMediaLocation) &&
-            await _requestPermission(Permission.manageExternalStorage)) {
+        if (await requestPermission()) {
           directory = (await getExternalStorageDirectory())!;
           String newPath = "";
 
@@ -165,7 +164,7 @@ class WorkerProfileProvider extends ChangeNotifier {
           return false;
         }
       } else {
-        if (await _requestPermission(Permission.manageExternalStorage)) {
+        if (await requestPermission()) {
           directory = await getTemporaryDirectory();
         } else {
           return false;
@@ -207,15 +206,5 @@ class WorkerProfileProvider extends ChangeNotifier {
     }
   }
 
-  Future<bool> _requestPermission(Permission permission) async {
-    if (await permission.isGranted) {
-      return true;
-    } else {
-      var result = await permission.request();
-      if (result == PermissionStatus.granted) {
-        return true;
-      }
-    }
-    return false;
-  }
+  
 }

@@ -8,6 +8,7 @@ class AppColor{
   static const whiteColor = Colors.white;
   static const iconColor = Color(0xff49454F);
   static const blackColor = Colors.black;
+  static const littleBlackColor = Color(0xff1C1B1F);
   static const lightPinkColor = Color(0xffF7F2F9);
   
 

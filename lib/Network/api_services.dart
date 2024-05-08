@@ -161,6 +161,55 @@ class API {
     // }
   }
 
+  Future getRequestHeaderQuery(BuildContext context,String apiurl, data) async {
+    // if (await connectivityServices.onConnectivity()) {
+    try {
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      String token = pref.getString('token') ?? '';
+      print("apiurl $apiurl");
+      var dio = DIO.Dio();
+      var response = await dio
+          .get(
+        apiurl,
+        queryParameters: data,
+        options: DIO.Options(headers: {
+          'accept': 'application/json',
+          "Authorization": "Bearer ${token.toString()}",
+        }),
+      )
+          .whenComplete(() {
+        debugPrint("Getting Process is Complete:");
+      }).catchError((onError) {
+        debugPrint("GET Error: ${onError.toString()}");
+      });
+
+      return response;
+    } catch (error) {
+      if (error is SocketException) {
+        toast(
+          context: context,
+          msg:"No internet connection!");
+      } else {
+        if (error is DIO.DioError) {
+          print(ServerError.withError(error: error).getErrorCode());
+
+          if (ServerError.withError(error: error).getErrorCode() == 401) {
+          
+          } else {
+            toast(
+              context: context,
+              msg:ServerError.withError(error: error)
+                .getErrorMessage()
+                .toString());
+          }
+        }
+      }
+    }
+    // } else {
+    //  toast( context: context, msg:"No internet connection, try later");
+    // }
+  }
+
   Future postRequest(BuildContext context,String apiurl, var data,) async {
     // if (await connectivityServices.onConnectivity()) {
     try {

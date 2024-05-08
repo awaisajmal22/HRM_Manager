@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hrm_manager/Model/filtration_response_model.dart';
@@ -46,14 +47,18 @@ class AvaliableWorkerServices {
     String? endPrice,
   }) async {
     List<Datum> filtrationResponseModel = <Datum>[];
-    var data = {
+    FormData data = FormData.fromMap({
       'TradeId': tradeID,
-      "City": city,
+      "Location": city == "" ? null : city,
       "StatusId": statusID,
       "FlagId": flagID,
-      "StartPrice": startPrice == null ? null : double.parse(startPrice),
-      "EndPrice": endPrice == null ? null : double.parse(endPrice)
-    };
+      "StartPrice": startPrice == '' || startPrice == null? null : double.parse(startPrice),
+      "EndPrice": endPrice == ''|| endPrice == null ? null : double.parse(endPrice)
+    });
+    print("Trade ID Is $tradeID");
+    print("FLag ID Is $flagID");
+    print("status ID Is $statusID");
+    print("city ID Is $city");
 
     try {
       final response =

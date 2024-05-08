@@ -37,9 +37,6 @@ Future  autoLogin({required BuildContext context}) async {
 SharedPreferences pref = await SharedPreferences.getInstance();
 if(!pref.containsKey('password') && !pref.containsKey('email')){
   
-
-
-  Navigator.pushReplacementNamed(context, AppRoutes.loginView);
 }else{
     final email = pref.getString('email');
   final password = pref. getString('password');

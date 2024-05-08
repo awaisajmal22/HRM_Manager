@@ -49,6 +49,11 @@ class _AvaliableWorkerViewState extends State<AvaliableWorkerView> {
       context: context,
       tradeID: widget.id,
     );
+  
+
+    print("Trade ID is ${widget.id}");
+    // pv.addFilter(widget.name);
+
     setState(() {
       _isFilterDataLoad = true;
     });
@@ -65,15 +70,30 @@ class _AvaliableWorkerViewState extends State<AvaliableWorkerView> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Padding(
-        padding: EdgeInsets.symmetric(horizontal: context.getSize.width * 0.33),
-        child: textButton(
-          radius: 100,
-          context: context,
-          onTap: () {
-            pv.generateCsvFile(context: context);
-          },
-          title: 'Export CSV',
+      floatingActionButton: SizedBox(
+        width: context.getSize.width,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            textButton(
+              width: context.getSize.width * 0.4,
+              radius: 100,
+              context: context,
+              onTap: () {
+                pv.generateCsvFile(context: context);
+              },
+              title: 'Export CSV',
+            ),
+            textButton(
+              width: context.getSize.width * 0.4,
+              radius: 100,
+              context: context,
+              onTap: () {
+                pv.generateCsvFile(context: context, isShare: true);
+              },
+              title: 'Share CSV',
+            )
+          ],
         ),
       ),
       body: Consumer<AvaliableWorkerProvider>(builder: (context, provider, __) {
@@ -126,6 +146,7 @@ class _AvaliableWorkerViewState extends State<AvaliableWorkerView> {
                     ),
                     FilterWidget(
                       name: widget.name,
+                      id: widget.id,
                     ),
                   ],
                 ),
