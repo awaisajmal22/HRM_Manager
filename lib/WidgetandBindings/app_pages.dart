@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hrm_manager/Model/worker_by_id_model.dart';
 import 'package:hrm_manager/WidgetandBindings/app_routes.dart';
 import 'package:hrm_manager/views/AddWorker/add_worker_view.dart';
 import 'package:hrm_manager/views/AvaliableWorker/avaliable_worker_view.dart';
@@ -30,12 +31,14 @@ class AppPages{
         return  AvaliableWorkerView(name: arguments[0],id: arguments[1],);
       });
       case (AppRoutes.workerProfileView): return MaterialPageRoute(builder: (context){
-
-        return const WorkerProfileView();
+        int id = settings.arguments as int;
+        return  WorkerProfileView(id:id);
       });
       case (AppRoutes.editWorkerDetailView): return MaterialPageRoute(builder: (context){
-
-        return const EditWorkerDetailView();
+WorkerByIdModel model = settings.arguments as WorkerByIdModel;
+        return EditWorkerDetailView(
+          workerModel: model,
+        );
       });
       case (AppRoutes.pdfView): return MaterialPageRoute(builder: (context){
         List<dynamic> args = settings.arguments as List<dynamic>;

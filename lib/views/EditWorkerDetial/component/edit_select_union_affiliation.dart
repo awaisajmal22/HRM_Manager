@@ -22,7 +22,7 @@ class EditSelectUnionAffiliation extends StatelessWidget {
         readOnly: true,
         onTap: () async {
           final String affiliation = await customDropDown(
-            dataList: provider.unionAffiliationList,
+            dataList: provider.timeSheetTypeList,
             context: context,
           );
           if (affiliation != '') {

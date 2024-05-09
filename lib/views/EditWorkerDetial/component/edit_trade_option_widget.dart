@@ -22,12 +22,15 @@ class EditSelectTradeOption extends StatelessWidget {
         height: context.getSize.height * 0.050,
         readOnly: true,
         onTap: () async {
-          final String tradeOption = await customDropDown(
+          final String tradeOption = await tradeDropDown(
             dataList: provider.tradeOptionList,
             context: context,
           );
           if (tradeOption != '') {
-            provider.selectTradeOption(tradeOption);
+            for(var data in provider.tradeOptionList){
+              if(data.tradeOptionName == tradeOption){
+            provider.selectTradeOption(tradeOption,data.id!);
+              }}
           }
         },
       );

@@ -1,7 +1,7 @@
 extension NullableNameExtension on String? {
 
   String  isNotNullableString(){
- if(this!.isEmpty || this == 'null' || this == null){
+ if(this == 'null' || this == null ||this!.isEmpty ){
   return '';
  }else{
   return this!;

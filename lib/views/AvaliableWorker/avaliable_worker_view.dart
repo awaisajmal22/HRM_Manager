@@ -163,14 +163,14 @@ class _AvaliableWorkerViewState extends State<AvaliableWorkerView> {
                         return GestureDetector(
                           onTap: () {
                             Navigator.pushNamed(
-                                context, AppRoutes.workerProfileView);
+                                context, AppRoutes.workerProfileView,arguments:int.parse(model.id.toString()));
                           },
                           child: WorkerWidget(
                             name:
                                 "${model.firstName.toString().isNotNullableString()} ${model.lastName.toString().isNotNullableString()}",
                             dateOfBirth: model.dateofBirth == null
                                 ? ''
-                                : dateFormater(model.dateofBirth!),
+                                : dateFormater(model.dateofBirth!.toString() ??''),
                             price: "\$${model.regularRate.toString()}/hr",
                             trade: model.trade ?? '',
                             status: model.workerStatus ?? '',

@@ -19,14 +19,17 @@ class SelectJobSite extends StatelessWidget {
     return Consumer<AddWorkerProvider>(builder: (context, provider, __) {
       return GestureDetector(
         onTap: () async {
-        final String selectedSite =  await customDropDown(
-          
-              dataList: provider.jobSitesList,
-              context: context,
-              );
-              if(selectedSite != ''){
-                provider.selectJobSite(selectedSite);
+          final String selectedSite = await customDropDown(
+            dataList: provider.jobSitesList,
+            context: context,
+          );
+          if (selectedSite != '') {
+            for (var job in provider.jobSitesList) {
+              if (job.name == selectedSite) {
+                provider.selectJobSite(selectedSite, job.id!);
               }
+            }
+          }
         },
         child: Container(
           alignment: Alignment.centerLeft,
@@ -52,6 +55,9 @@ class SelectJobSite extends StatelessWidget {
             children: List.generate(
               provider.selectedJobSitesList.length,
               (index) => Chip(
+                onDeleted: () {
+                  provider.removeJobSite(index);
+                },
                 shape: const StadiumBorder(
                     side: BorderSide(color: Colors.transparent)),
                 backgroundColor: AppColor.lightPinkColor,

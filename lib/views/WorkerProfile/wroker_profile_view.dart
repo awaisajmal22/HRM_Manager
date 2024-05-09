@@ -10,13 +10,40 @@ import 'package:hrm_manager/constant/rich_text.dart';
 import 'package:hrm_manager/constant/text_button.dart';
 import 'package:hrm_manager/constant/width_box.dart';
 import 'package:hrm_manager/constant/worker_widget.dart';
+import 'package:hrm_manager/extensions/date_of_birth_format.dart';
+import 'package:hrm_manager/extensions/nullable_string_extension.dart';
 import 'package:hrm_manager/extensions/size_extension.dart';
 import 'package:hrm_manager/provider/wroker_profile_provider.dart';
 import 'package:hrm_manager/constant/app_color.dart';
 import 'package:provider/provider.dart';
 
-class WorkerProfileView extends StatelessWidget {
-  const WorkerProfileView({super.key});
+class WorkerProfileView extends StatefulWidget {
+  final int id;
+  WorkerProfileView({super.key, required this.id});
+
+  @override
+  State<WorkerProfileView> createState() => _WorkerProfileViewState();
+}
+
+class _WorkerProfileViewState extends State<WorkerProfileView> {
+  bool _isLoaded = false;
+  @override
+  void initState() {
+    if (_isLoaded == false) {
+      _load();
+    }
+    super.initState();
+  }
+
+  _load() {
+    final pv = Provider.of<WorkerProfileProvider>(context, listen: false);
+    print("Worker ID is ${widget.id}");
+    pv.getWorkerData(context: context, id: widget.id);
+    print(pv.workerByIdModel.firstName);
+    setState(() {
+      _isLoaded = true;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +86,7 @@ class WorkerProfileView extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       Navigator.pushNamed(
-                          context, AppRoutes.editWorkerDetailView);
+                          context, AppRoutes.editWorkerDetailView,arguments:provider.workerByIdModel);
                     },
                     child: Container(
                       alignment: Alignment.center,
@@ -89,17 +116,32 @@ class WorkerProfileView extends StatelessWidget {
                 shrinkWrap: true,
                 children: [
                   WorkerWidget(
-                    name: provider.workerProfileModel.name!,
-                    status: provider.workerProfileModel.status!,
-                    dateOfBirth: provider.workerProfileModel.dob!,
-                    price: provider.workerProfileModel.price!,
-                    trade: provider.workerProfileModel.trade!,
+                    name:
+                        "${provider.workerByIdModel.firstName.toString().isNotNullableString()} ${provider.workerByIdModel.lastName.toString().isNotNullableString()}",
+                    //  provider.workerProfileModel.name!,
+                    status: provider.workerByIdModel.workerStatus
+                        .toString()
+                        .isNotNullableString(),
+                    // provider.workerProfileModel.status!,
+                    dateOfBirth: dateFormater(
+                        provider.workerByIdModel.dateofBirth.toString() ?? ''),
+                    // provider.workerProfileModel.dob!,
+                    price:
+                        "\$${provider.workerByIdModel.regularRate.toString().isNotNullableString()}/hr",
+                    // provider.workerProfileModel.price!,
+                    trade: provider.workerByIdModel.trade
+                        .toString()
+                        .isNotNullableString(),
+                    // provider.workerProfileModel.trade!,
                   ),
                   getHeight(context: context, height: 0.01),
                   richText(
                     context: context,
                     title: 'Experience: ',
-                    subtitle: provider.workerProfileModel.experience!,
+                    subtitle: provider.workerByIdModel.workExperience
+                        .toString()
+                        .isNotNullableString(),
+                    // provider.workerProfileModel.experience!,
                   ),
                   getHeight(context: context, height: 0.01),
                   richText(
@@ -121,33 +163,44 @@ class WorkerProfileView extends StatelessWidget {
                   ),
                   getHeight(context: context, height: 0.01),
                   richText(
-                    context: context,
-                    title: 'Transportation: ',
-                    subtitle: provider.workerProfileModel.transportation!,
-                  ),
+                      context: context,
+                      title: 'Transportation: ',
+                      subtitle: provider.workerByIdModel.ownTransportation
+                              .toString() ??
+                          "false"
+                      // provider.workerProfileModel.transportation!,
+                      ),
                   getHeight(context: context, height: 0.01),
                   richText(
-                    context: context,
-                    title: 'Home: ',
-                    subtitle: provider.workerProfileModel.home!,
-                  ),
+                      context: context,
+                      title: 'Home: ',
+                      subtitle: provider.workerByIdModel.address1
+                          .toString()
+                          .isNotNullableString()
+                      //  provider.workerProfileModel.home!,
+                      ),
                   getHeight(context: context, height: 0.01),
                   richText(
-                    context: context,
-                    title: 'Certificates: ',
-                    subtitle: provider.workerProfileModel.certificate!,
-                  ),
+                      context: context,
+                      title: 'Certificates: ',
+                      subtitle: provider.workerByIdModel.certificationsNotes
+                          .toString()
+                          .isNotNullableString()
+                      // provider.workerProfileModel.certificate!,
+                      ),
                   getHeight(context: context, height: 0.01),
                   richText(
                     context: context,
                     title: 'Special Tickets: ',
-                    subtitle: provider.workerProfileModel.specialTickets!,
+                    subtitle: 
+                     provider.workerProfileModel.specialTickets!,
                   ),
                   getHeight(context: context, height: 0.01),
                   richText(
                     context: context,
                     title: 'Note: ',
-                    subtitle: provider.workerProfileModel.note!,
+                    subtitle: provider.workerByIdModel.notes.toString().isNotNullableString(),
+                    // provider.workerProfileModel.note!,
                   ),
                   getHeight(context: context, height: 0.020),
                   Align(

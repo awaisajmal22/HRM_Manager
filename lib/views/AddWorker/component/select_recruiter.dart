@@ -24,7 +24,11 @@ class SelectRecruiter extends StatelessWidget {
             context: context,
           );
           if (recruiter != '') {
-            provider.selectRecruiter(recruiter);
+            for(var data in provider.recruiterList){
+              if(data.name == recruiter){
+            provider.selectRecruiter(recruiter,data.id!);
+            }
+            }
           }
         },
       );

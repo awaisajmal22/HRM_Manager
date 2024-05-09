@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hrm_manager/Model/add_worker_drop_down_model.dart';
+import 'package:hrm_manager/Model/worker_by_id_model.dart';
 import 'package:hrm_manager/constant/app_text.dart';
 import 'package:hrm_manager/constant/back.dart';
 import 'package:hrm_manager/constant/check_widget.dart';
@@ -10,13 +12,14 @@ import 'package:hrm_manager/constant/constant.dart';
 import 'package:hrm_manager/constant/height_box.dart';
 import 'package:hrm_manager/constant/text_button.dart';
 import 'package:hrm_manager/constant/width_box.dart';
+import 'package:hrm_manager/extensions/nullable_string_extension.dart';
 import 'package:hrm_manager/extensions/size_extension.dart';
 import 'package:hrm_manager/provider/add_worker_provider.dart';
 import 'package:hrm_manager/provider/edit_worker_detail_provider.dart';
 import 'package:hrm_manager/constant/app_color.dart';
 import 'package:hrm_manager/views/AddWorker/component/add_worker_field.dart';
 import 'package:hrm_manager/views/AddWorker/component/custom_two_textField_widget.dart';
-import 'package:hrm_manager/views/AddWorker/component/file_diplayer.dart';
+import 'package:hrm_manager/views/AddWorker/component/file_displayer.dart';
 import 'package:hrm_manager/views/AddWorker/component/select_certification_widget.dart';
 import 'package:hrm_manager/views/AddWorker/component/select_language_widget.dart';
 import 'package:hrm_manager/views/AddWorker/component/select_recruiter.dart';
@@ -46,7 +49,8 @@ import 'component/edit_work_experience_widget.dart';
 import 'component/edit_worker_flag_widget.dart';
 
 class EditWorkerDetailView extends StatefulWidget {
-  const EditWorkerDetailView({super.key});
+  final WorkerByIdModel workerModel;
+  const EditWorkerDetailView({super.key, required this.workerModel});
 
   @override
   State<EditWorkerDetailView> createState() => _EditWorkerDetailViewState();
@@ -55,20 +59,67 @@ class EditWorkerDetailView extends StatefulWidget {
 class _EditWorkerDetailViewState extends State<EditWorkerDetailView> {
   late EditWorkerDetailProvider pv;
 
+  bool isSuccess = false;
   @override
   void initState() {
-    pv = Provider.of<EditWorkerDetailProvider>(context,listen: false);
+    if (isSuccess == false) {
+      loadData();
+    }
     super.initState();
   }
- @override
+
+  loadData() {
+    pv = Provider.of<EditWorkerDetailProvider>(context, listen: false);
+    pv.getExperienceData(context: context);
+    pv.getJobSiteData(context: context);
+    pv.getRecruiterData(context: context);
+    pv.getUnionAffliciationData(context: context);
+    pv.getLanguagesData(context: context);
+    pv.getCertificationList(context: context);
+    pv.getWorkerPickupLocationData(context: context);
+    pv.getTimeSheetTypeData(context: context);
+    pv.getStatusData(context: context);
+    pv.getFlagData(context: context);
+    pv.getTradeOption(context: context);
+    setState(() {
+      isSuccess = true;
+    });
+  }
+
+  @override
   void dispose() {
-pv.clearData();
+    pv.clearData();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Consumer<EditWorkerDetailProvider>(builder: (context, provider, __) {
+      body:
+          Consumer<EditWorkerDetailProvider>(builder: (context, provider, __) {
+
+        print(widget.workerModel.lastName.toString().isNotNullableString());
+        provider.lastNameController.text =
+            widget.workerModel.lastName.toString().isNotNullableString();
+        provider.firstNameController.text =
+            widget.workerModel.firstName.toString().isNotNullableString();
+AddWorkerDropDownModel recruiter = provider.recruiterList.firstWhere(
+
+  (e) => e.id == widget.workerModel.assignedRecuriterId,
+  orElse: () {
+    return AddWorkerDropDownModel();
+  },
+  
+);
+if(recruiter.id != null){
+provider.selectRecruiter(recruiter.name!, recruiter.id!);
+}
+provider.emergencyContact1Controller.text = widget.workerModel.emergencyContact1.toString().isNotNullableString();
+provider.emergencyContact2Controller.text = widget.workerModel.emergencyContact2.toString().isNotNullableString();
+provider.address1Controller.text = widget.workerModel.address1.toString().isNotNullableString();
+provider.address2Controller.text = widget.workerModel.address2.toString().isNotNullableString();
+provider.ageController.text = widget.workerModel.age;
+provider.businessNameController.text = widget.workerModel.bussinessName.toString().isNotNullableString();
         return SafeArea(
             child: Column(
           children: [
@@ -308,6 +359,7 @@ pv.clearData();
                           ),
                           getHeight(context: context, height: 0.005),
                           editAddWorkerTextField(
+                            readOnly: true,
                             textInputType: TextInputType.number,
                             color: Color(0xffF5F5F5),
                             context: context,
@@ -354,7 +406,7 @@ pv.clearData();
                             fontWeight: FontWeight.w500,
                           ),
                           getHeight(context: context, height: 0.005),
-                         const EditSelectLanguageWidget()
+                          const EditSelectLanguageWidget()
                         ],
                       )),
                     ],
@@ -625,7 +677,7 @@ pv.clearData();
                     titleRight: 'Address Line 2',
                   ),
                   getHeight(context: context, height: 0.010),
-                 EditCustomTwoTextFieldWidget(
+                  EditCustomTwoTextFieldWidget(
                     controllerLeft: provider.cityController,
                     controllerRight: provider.provinceController,
                     titleLeft: 'City',
@@ -1075,7 +1127,107 @@ pv.clearData();
                         vPadding: 0.020,
                         radius: 100,
                         context: context,
-                        onTap: () {},
+                        onTap: () {
+                          provider.addWorkerData(
+                            context: context,
+                            workerID: widget.workerModel.workerId,
+                            internalWorkerID: provider.workerIdController.text,
+                            clientWorkerID: provider.clientIdController.text,
+                            age: provider.ageController.text.isEmpty
+                                ? null
+                                : int.parse(provider.ageController.text),
+                            firstName: provider.firstNameController.text,
+                            lastName: provider.lastNameController.text,
+                            jobSites: provider.selectedJobSitesIDList,
+                            recruiterAssingId: provider.recruiterId,
+                            dateOfBirth: provider.dobController.text,
+                            englishFluency:
+                                provider.isEnglishFluence == 0 ? true : false,
+                            languageId: provider.selectedLanguageId.toString(),
+                            legalToWork:
+                                provider.islegalToWork == 0 ? true : false,
+                            ownTransport:
+                                provider.isOwnTransport == 0 ? true : false,
+                            socialInsuranceNo:
+                                provider.socialInsuranceController.text,
+                            workPermitNo: provider.workPermitController.text,
+                            workerHireDate: provider.hireDateController.text,
+                            workerTerminateDate:
+                                provider.terminationDateController.text,
+                            workerStatusId: provider.selectedStatusID,
+                            workerFlagId:
+                                provider.selectedWorkerFlagID.toString(),
+                            businessWIBSno:
+                                provider.businessWSIBNoController.text,
+                            pastWIBSClaim:
+                                provider.pastWSIBClaim == 0 ? true : false,
+                            wibsClaimNotes:
+                                provider.wSIBClaimNoteController.text,
+                            businessName: provider.businessNameController.text,
+                            businessTele:
+                                provider.businessTelephoneController.text,
+                            address1: provider.address1Controller.text,
+                            address2: provider.address2Controller.text,
+                            city: provider.cityController.text,
+                            province: provider.provinceController.text,
+                            postalCode: provider.postalCodeController.text,
+                            country: provider.countryController.text,
+                            mobile: provider.mobileTelephoneController.text,
+                            homeTele: provider.homeTelephoneController.text,
+                            email: provider.emailController.text,
+                            emergencyContact1:
+                                provider.emergencyContact1Controller.text,
+                            emergencyContact2:
+                                provider.emergencyContact2Controller.text,
+                            emergencyTele1:
+                                provider.emergencyTelephone1Controller.text,
+                            emergencyTele2:
+                                provider.emergencyTelephone2Controller.text,
+                            tradeOptionId: provider.tradeOptionId,
+                            regularRate:
+                                provider.regularRateController.text.isEmpty
+                                    ? null
+                                    : double.parse(
+                                        provider.regularRateController.text),
+                            overTimeRate:
+                                provider.overTimeRateController.text.isEmpty
+                                    ? null
+                                    : double.parse(
+                                        provider.overTimeRateController.text),
+                            // clientPayWSIB: provider.clientRateController.text.isEmpty ? null : double.parse(provider.clientRateController.text),
+                            workExperience:
+                                provider.workExperienceController.text,
+                            workExperienceNotes:
+                                provider.workExperienceNoteController.text,
+                            tradeLicenseNo:
+                                provider.tradeLicenseNoController.text,
+                            unionAffilation:
+                                provider.unionAffiliationController.text,
+                            unionAffilationNotes:
+                                provider.unionAffiliationNotesController.text,
+                            employeHistoryNotes:
+                                provider.employmentHistoryNoteController.text,
+                            certificationId: provider.certificateId.toString(),
+                            certificationNotes:
+                                provider.certificationController.text,
+                            isRecruiterComission:
+                                provider.recruiterPaymentDelivery == 0
+                                    ? true
+                                    : false,
+                            workerPickupLocation: provider.workerPickUpId,
+                            recruiterComission: provider
+                                    .recruiterCommissionController.text.isEmpty
+                                ? null
+                                : double.parse(provider
+                                    .recruiterCommissionController.text),
+                            submitOwnHours:
+                                provider.submitOwnHours == 0 ? true : false,
+                            timeSheetType: provider.timeSheetTypeId,
+                            paymentNotes: provider.paymentNotesController.text,
+                            clientPayWSIB:
+                                provider.clientPaysWSIB == 0 ? true : false,
+                          );
+                        },
                         title: "Update",
                       )),
                 ],

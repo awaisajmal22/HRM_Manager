@@ -140,18 +140,18 @@ class _ProfileViewState extends State<ProfileView> {
                     height: context.getSize.height * 0.048,
                     onChanged: (val) {},
                   ),
-                  getWidth(
-                    context: context,
-                    width: 0.01,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      provider.isWriteName = !provider.isWriteName;
-                    },
-                    child: Icon(provider.isWriteName == false
-                        ? Icons.close
-                        : Icons.edit_outlined),
-                  )
+                  // getWidth(
+                  //   context: context,
+                  //   width: 0.01,
+                  // ),
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     provider.isWriteName = !provider.isWriteName;
+                  //   },
+                  //   child: Icon(provider.isWriteName == false
+                  //       ? Icons.close
+                  //       : Icons.edit_outlined),
+                  // )
                 ],
               ),
               getHeight(context: context, height: 0.030),
@@ -170,18 +170,18 @@ class _ProfileViewState extends State<ProfileView> {
                     height: context.getSize.height * 0.048,
                     onChanged: (val) {},
                   )),
-                  getWidth(
-                    context: context,
-                    width: 0.01,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      provider.isWriteEmail = !provider.isWriteEmail;
-                    },
-                    child: Icon(provider.isWriteEmail == false
-                        ? Icons.close
-                        : Icons.edit_outlined),
-                  )
+                  // getWidth(
+                  //   context: context,
+                  //   width: 0.01,
+                  // ),
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     provider.isWriteEmail = !provider.isWriteEmail;
+                  //   },
+                  //   child: Icon(provider.isWriteEmail == false
+                  //       ? Icons.close
+                  //       : Icons.edit_outlined),
+                  // )
                 ],
               ),
               divider(color: AppColor.purpleColor.withOpacity(0.08)),
@@ -201,18 +201,18 @@ class _ProfileViewState extends State<ProfileView> {
                     height: context.getSize.height * 0.048,
                     onChanged: (val) {},
                   )),
-                  getWidth(
-                    context: context,
-                    width: 0.01,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      provider.isWritePhone = !provider.isWritePhone;
-                    },
-                    child: Icon(provider.isWritePhone == false
-                        ? Icons.close
-                        : Icons.edit_outlined),
-                  )
+                  // getWidth(
+                  //   context: context,
+                  //   width: 0.01,
+                  // ),
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     provider.isWritePhone = !provider.isWritePhone;
+                  //   },
+                  //   child: Icon(provider.isWritePhone == false
+                  //       ? Icons.close
+                  //       : Icons.edit_outlined),
+                  // )
                 ],
               ),
               divider(color: AppColor.purpleColor.withOpacity(0.08)),

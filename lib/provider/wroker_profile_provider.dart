@@ -6,8 +6,10 @@ import 'package:external_path/external_path.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hrm_manager/Model/worker_by_id_model.dart';
 import 'package:hrm_manager/Model/worker_profile_model.dart';
 import 'package:hrm_manager/Network/Server/permission_handler.dart';
+import 'package:hrm_manager/Services/worker_profile_services.dart';
 import 'package:hrm_manager/constant/app_color.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
@@ -206,5 +208,16 @@ class WorkerProfileProvider extends ChangeNotifier {
     }
   }
 
+WorkerByIdModel workerByIdModel = WorkerByIdModel();
+getWorkerData({required BuildContext context,required int id}) async{
+  workerByIdModel = WorkerByIdModel();
+  
+  final result = await WorkerServices().getWorkerData(context: context, id: id);
+  if(result != null){
+    workerByIdModel = result;
+    
+  }
+  notifyListeners();
+}
   
 }

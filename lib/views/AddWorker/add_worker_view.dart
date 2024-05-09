@@ -15,7 +15,7 @@ import 'package:hrm_manager/provider/add_worker_provider.dart';
 import 'package:hrm_manager/constant/app_color.dart';
 import 'package:hrm_manager/views/AddWorker/component/add_worker_field.dart';
 import 'package:hrm_manager/views/AddWorker/component/custom_two_textField_widget.dart';
-import 'package:hrm_manager/views/AddWorker/component/file_diplayer.dart';
+import 'package:hrm_manager/views/AddWorker/component/file_displayer.dart';
 import 'package:hrm_manager/views/AddWorker/component/select_certification_widget.dart';
 import 'package:hrm_manager/views/AddWorker/component/select_language_widget.dart';
 import 'package:hrm_manager/views/AddWorker/component/select_recruiter.dart';
@@ -40,17 +40,39 @@ class AddWorkerView extends StatefulWidget {
 
 class _AddWorkerViewState extends State<AddWorkerView> {
   late AddWorkerProvider pv;
-
+  bool isSuccess = false;
   @override
   void initState() {
-    pv = Provider.of<AddWorkerProvider>(context,listen: false);
+    if (isSuccess == false) {
+      loadData();
+    }
     super.initState();
   }
- @override
+
+  loadData() {
+    pv = Provider.of<AddWorkerProvider>(context, listen: false);
+    pv.getExperienceData(context: context);
+    pv.getJobSiteData(context: context);
+    pv.getRecruiterData(context: context);
+    pv.getUnionAffliciationData(context: context);
+    pv.getLanguagesData(context: context);
+    pv.getCertificationList(context: context);
+    pv.getWorkerPickupLocationData(context: context);
+    pv.getTimeSheetTypeData(context: context);
+    pv.getStatusData(context: context);
+    pv.getFlagData(context: context);
+    pv.getTradeOption(context: context);
+    setState(() {
+      isSuccess = true;
+    });
+  }
+
+  @override
   void dispose() {
-pv.clearData();
+    pv.clearData();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -294,6 +316,7 @@ pv.clearData();
                           ),
                           getHeight(context: context, height: 0.005),
                           addWorkerTextField(
+                            readOnly:  true,
                             textInputType: TextInputType.number,
                             color: Color(0xffF5F5F5),
                             context: context,
@@ -361,6 +384,7 @@ pv.clearData();
                           getHeight(context: context, height: 0.005),
                           checkWidget(
                             onTap: (index) {
+                              print(index);
                               provider.changeLegalToWork(index);
                             },
                             context: context,
@@ -619,7 +643,7 @@ pv.clearData();
                   ),
                   getHeight(context: context, height: 0.010),
                   CustomTwoTextFieldWidget(
-                    rightReadOnly: true,
+                    rightReadOnly: false,
                     controllerLeft: provider.postalCodeController,
                     controllerRight: provider.countryController,
                     titleLeft: 'Postal Code',
@@ -1061,7 +1085,106 @@ pv.clearData();
                         vPadding: 0.020,
                         radius: 100,
                         context: context,
-                        onTap: () {},
+                        onTap: () {
+                          provider.addWorkerData(
+                            context: context,
+                            internalWorkerID: provider.workerIdController.text,
+                            clientWorkerID: provider.clientIdController.text,
+                            age: provider.ageController.text.isEmpty
+                                ? null
+                                : int.parse(provider.ageController.text),
+                            firstName: provider.firstNameController.text,
+                            lastName: provider.lastNameController.text,
+                            jobSites: provider.selectedJobSitesIDList,
+                            recruiterAssingId: provider.recruiterId,
+                            dateOfBirth: provider.dobController.text,
+                            englishFluency:
+                                provider.isEnglishFluence == 0 ? true : false,
+                            languageId: provider.selectedLanguageId.toString(),
+                            legalToWork:
+                                provider.islegalToWork == 0 ? true : false,
+                            ownTransport:
+                                provider.isOwnTransport == 0 ? true : false,
+                            socialInsuranceNo:
+                                provider.socialInsuranceController.text,
+                            workPermitNo: provider.workPermitController.text,
+                            workerHireDate: provider.hireDateController.text,
+                            workerTerminateDate:
+                                provider.terminationDateController.text,
+                            workerStatusId: provider.selectedStatusID,
+                            workerFlagId:
+                                provider.selectedWorkerFlagID.toString(),
+                            businessWIBSno:
+                                provider.businessWSIBNoController.text,
+                            pastWIBSClaim:
+                                provider.pastWSIBClaim == 0 ? true : false,
+                            wibsClaimNotes:
+                                provider.wSIBClaimNoteController.text,
+                            businessName: provider.businessNameController.text,
+                            businessTele:
+                                provider.businessTelephoneController.text,
+                            address1: provider.address1Controller.text,
+                            address2: provider.address2Controller.text,
+                            city: provider.cityController.text,
+                            province: provider.provinceController.text,
+                            postalCode: provider.postalCodeController.text,
+                            country: provider.countryController.text,
+                            mobile: provider.mobileTelephoneController.text,
+                            homeTele: provider.homeTelephoneController.text,
+                            email: provider.emailController.text,
+                            emergencyContact1:
+                                provider.emergencyContact1Controller.text,
+                            emergencyContact2:
+                                provider.emergencyContact2Controller.text,
+                            emergencyTele1:
+                                provider.emergencyTelephone1Controller.text,
+                            emergencyTele2:
+                                provider.emergencyTelephone2Controller.text,
+                            tradeOptionId: provider.tradeOptionId,
+                            regularRate:
+                                provider.regularRateController.text.isEmpty
+                                    ? null
+                                    : double.parse(
+                                        provider.regularRateController.text),
+                            overTimeRate:
+                                provider.overTimeRateController.text.isEmpty
+                                    ? null
+                                    : double.parse(
+                                        provider.overTimeRateController.text),
+                            // clientPayWSIB: provider.clientRateController.text.isEmpty ? null : double.parse(provider.clientRateController.text),
+                            workExperience:
+                                provider.workExperienceController.text,
+                            workExperienceNotes:
+                                provider.workExperienceNoteController.text,
+                            tradeLicenseNo:
+                                provider.tradeLicenseNoController.text,
+                            unionAffilation:
+                                provider.unionAffiliationController.text,
+                            unionAffilationNotes:
+                                provider.unionAffiliationNotesController.text,
+                            employeHistoryNotes:
+                                provider.employmentHistoryNoteController.text,
+                            certificationId: provider.certificateId.toString(),
+                            certificationNotes:
+                                provider.certificationController.text,
+                            isRecruiterComission:
+                                provider.recruiterPaymentDelivery == 0
+                                    ? true
+                                    : false,
+                            workerPickupLocation: provider.workerPickUpId,
+                            recruiterComission: provider
+                                    .recruiterCommissionController.text.isEmpty
+                                ? null
+                                : double.parse(provider
+                                    .recruiterCommissionController.text),
+                            submitOwnHours:
+                                provider.submitOwnHours == 0 ? true : false,
+                            timeSheetType: provider.timeSheetTypeId,
+                            paymentNotes: provider.paymentNotesController.text,
+                            clientPayWSIB:
+                                provider.clientPaysWSIB == 0 ? true : false,
+                          );
+                        },
                         title: "Update",
                       )),
                 ],

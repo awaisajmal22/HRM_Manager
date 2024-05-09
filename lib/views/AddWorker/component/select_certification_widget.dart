@@ -24,7 +24,11 @@ class SelectCertification extends StatelessWidget {
             context: context,
           );
           if (certificate != '') {
-            provider.selectCertificate(certificate);
+            for (var data in provider.certificationList) {
+              if (data.name == certificate) {
+                provider.selectCertificate(certificate, data.id!);
+              }
+            }
           }
         },
       );

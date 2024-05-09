@@ -20,7 +20,7 @@ class SelectWorkExperience extends StatelessWidget {
         readOnly: true,
         onTap: () async {
           final String workExp = await customDropDown(
-            dataList: provider.workExperienceList,
+            dataList: provider.workerExperienceList,
             context: context,
           );
           if (workExp != '') {

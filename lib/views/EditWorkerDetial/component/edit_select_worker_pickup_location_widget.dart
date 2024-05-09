@@ -30,7 +30,12 @@ class EditSelectWorkerPickUpLocationWidget extends StatelessWidget {
             context: context,
           );
           if (location != '') {
-            provider.selectWorkerPickupLocation(location);
+            for(var data in provider.workerPickUpLocationList){
+              if(data.name == location){
+ provider.selectWorkerPickupLocation(location,data.id!);
+              }
+            }
+           
           }
         },
       );

@@ -20,7 +20,7 @@ class SelectUnionAffiliation extends StatelessWidget {
         readOnly: true,
         onTap: () async {
           final String affiliation = await customDropDown(
-            dataList: provider.unionAffiliationList,
+            dataList: provider.unionAfflicationList,
             context: context,
           );
           if (affiliation != '') {

@@ -24,7 +24,10 @@ class WorkerStatus extends StatelessWidget {
             context: context,
           );
           if (status != '') {
-            provider.selectStatus(status);
+            for(var data in provider.workerStatusList)
+            if(data.name == status){
+            provider.selectStatus(status,data.id!);
+            }
           }
         },
       );

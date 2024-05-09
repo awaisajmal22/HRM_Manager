@@ -139,7 +139,7 @@ class AvaliableWorkerProvider extends ChangeNotifier {
         row.add(
             filtrationResponseList[i].trade.toString().isNotNullableString());
         row.add(dateFormater(
-            filtrationResponseList[i].dateofBirth ?? DateTime.now()));
+            filtrationResponseList[i].dateofBirth!.toIso8601String() ?? ''));
 
         rows.add(row);
       }

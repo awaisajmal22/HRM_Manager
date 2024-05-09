@@ -1,261 +1,238 @@
 import 'dart:convert';
 
-FiltrationResponseModel filtrationResponseModelFromJson(dynamic str) =>
-    FiltrationResponseModel.fromJson(json.decode(str));
+WorkerByIdModel workerByIdModelFromJson(String str) => WorkerByIdModel.fromJson(json.decode(str));
 
-dynamic filtrationResponseModelToJson(FiltrationResponseModel data) =>
-    json.encode(data.toJson());
+String workerByIdModelToJson(WorkerByIdModel data) => json.encode(data.toJson());
 
-class FiltrationResponseModel {
-  List<Datum>? data;
-  dynamic? message;
+class WorkerByIdModel {
+    dynamic? internalWorkerId;
+    dynamic age;
+    dynamic? firstName;
+    dynamic nameContact1;
+    dynamic mobileContact1;
+    dynamic emailContact1;
+    dynamic titleContact1;
+    dynamic emailAdminContact1;
+    dynamic contractorAdminPhone;
+    dynamic adminEmail;
+    dynamic adminExtention;
+    dynamic addedDate;
+    dynamic pickUpLocation;
+    dynamic workerManagerPickUpLocation;
+    dynamic? workerPickUpLocation;
+    dynamic workerManagerWorkerPickUpLocation;
+    dynamic? workerId;
+    dynamic? lastName;
+    dynamic socialInsuranceNumber;
+    dynamic bussinessName;
+    dynamic bussinessRegistrationNo;
+    dynamic bussinessWsibNo;
+    dynamic address1;
+    dynamic address2;
+    dynamic state;
+    dynamic province;
+    dynamic postalCode;
+    dynamic? country;
+    dynamic city;
+    dynamic fax;
+    dynamic homeTele;
+    dynamic businessTele;
+    dynamic? mobile;
+    dynamic? email;
+    dynamic paymentNotes;
+    dynamic workExperience;
+    dynamic workExperienceNotes;
+    dynamic employeeHistoryNotes;
+    dynamic unionAffillationsId;
+    dynamic unionAffillationNotes;
+    bool? paymentDelivery;
+    bool? submitsOwnHours;
+    bool? pastWsibClaim;
+    dynamic wsibClaimNotes;
+    dynamic isTeamLeader;
+    bool? legalToWork;
+    dynamic twoRateSimple;
+    dynamic dollarFlatRate;
+    dynamic percentageRate;
+    dynamic adminFeePercentageRate;
+    dynamic transactionFee;
+    dynamic paymentprocessor;
+    bool? isDefaultBooth;
+    dynamic managmentFee;
+    dynamic fundsAdvanceFeeRate;
+    dynamic workerHireDate;
+    dynamic workerTerminationDate;
+    dynamic dateofBirth;
+    dynamic? regularRate;
+    dynamic? overTimeRate;
+    dynamic isRecruiterCommission;
+    dynamic? recruiterCommission;
+    dynamic? billRate;
+    dynamic tradeLicenseNo;
+    dynamic paymentRuleId;
+    dynamic workerFlagId;
+    dynamic? workerStatusId;
+    dynamic lanaguageId;
+    dynamic workPermitNo;
+    bool? ownTransportation;
+    bool? englishFluency;
+    dynamic notes;
+    bool? clientPaysWsib;
+    dynamic wsibRate;
+    dynamic? type;
+    dynamic? tradeOptionId;
+    dynamic trade;
+    dynamic certificationId;
+    dynamic certificationsNotes;
+    dynamic unionAffiliation;
+    dynamic unionAffiliationNotes;
+    dynamic emergencyContact1;
+    dynamic emergencyContact2;
+    dynamic emergencyTelephone1;
+    dynamic emergencyTelephone2;
+    dynamic? assignedRecuriterId;
+    dynamic? timeSheettype;
+    dynamic? userId;
+    dynamic user;
+    dynamic paymentRule;
+    dynamic workerStatus;
+    dynamic jobSiteWorkers;
+    dynamic assignJobSite;
+    dynamic assignJobSitetoWorker;
+    dynamic workerManagerTradeOptions;
+    dynamic assignClient;
+    dynamic workerDocuments;
+    dynamic workerJobsite;
+    dynamic workerHoursByClient;
+    dynamic workerHoursByWorker;
+    dynamic dailyWorkerHours;
+    dynamic extraLineItem;
+    dynamic recruiterExtraLineItem;
+    dynamic? id;
+    dynamic createdby;
+    bool? isDeleted;
+    dynamic deleterUserId;
+    dynamic deletionTime;
+    dynamic createdDate;
+    dynamic lastModificationTime;
+    dynamic lastModifierUserId;
 
-  FiltrationResponseModel({
-    this.data,
-    this.message,
-  });
+    WorkerByIdModel({
+        this.internalWorkerId,
+        this.age,
+        this.firstName,
+        this.nameContact1,
+        this.mobileContact1,
+        this.emailContact1,
+        this.titleContact1,
+        this.emailAdminContact1,
+        this.contractorAdminPhone,
+        this.adminEmail,
+        this.adminExtention,
+        this.addedDate,
+        this.pickUpLocation,
+        this.workerManagerPickUpLocation,
+        this.workerPickUpLocation,
+        this.workerManagerWorkerPickUpLocation,
+        this.workerId,
+        this.lastName,
+        this.socialInsuranceNumber,
+        this.bussinessName,
+        this.bussinessRegistrationNo,
+        this.bussinessWsibNo,
+        this.address1,
+        this.address2,
+        this.state,
+        this.province,
+        this.postalCode,
+        this.country,
+        this.city,
+        this.fax,
+        this.homeTele,
+        this.businessTele,
+        this.mobile,
+        this.email,
+        this.paymentNotes,
+        this.workExperience,
+        this.workExperienceNotes,
+        this.employeeHistoryNotes,
+        this.unionAffillationsId,
+        this.unionAffillationNotes,
+        this.paymentDelivery,
+        this.submitsOwnHours,
+        this.pastWsibClaim,
+        this.wsibClaimNotes,
+        this.isTeamLeader,
+        this.legalToWork,
+        this.twoRateSimple,
+        this.dollarFlatRate,
+        this.percentageRate,
+        this.adminFeePercentageRate,
+        this.transactionFee,
+        this.paymentprocessor,
+        this.isDefaultBooth,
+        this.managmentFee,
+        this.fundsAdvanceFeeRate,
+        this.workerHireDate,
+        this.workerTerminationDate,
+        this.dateofBirth,
+        this.regularRate,
+        this.overTimeRate,
+        this.isRecruiterCommission,
+        this.recruiterCommission,
+        this.billRate,
+        this.tradeLicenseNo,
+        this.paymentRuleId,
+        this.workerFlagId,
+        this.workerStatusId,
+        this.lanaguageId,
+        this.workPermitNo,
+        this.ownTransportation,
+        this.englishFluency,
+        this.notes,
+        this.clientPaysWsib,
+        this.wsibRate,
+        this.type,
+        this.tradeOptionId,
+        this.trade,
+        this.certificationId,
+        this.certificationsNotes,
+        this.unionAffiliation,
+        this.unionAffiliationNotes,
+        this.emergencyContact1,
+        this.emergencyContact2,
+        this.emergencyTelephone1,
+        this.emergencyTelephone2,
+        this.assignedRecuriterId,
+        this.timeSheettype,
+        this.userId,
+        this.user,
+        this.paymentRule,
+        this.workerStatus,
+        this.jobSiteWorkers,
+        this.assignJobSite,
+        this.assignJobSitetoWorker,
+        this.workerManagerTradeOptions,
+        this.assignClient,
+        this.workerDocuments,
+        this.workerJobsite,
+        this.workerHoursByClient,
+        this.workerHoursByWorker,
+        this.dailyWorkerHours,
+        this.extraLineItem,
+        this.recruiterExtraLineItem,
+        this.id,
+        this.createdby,
+        this.isDeleted,
+        this.deleterUserId,
+        this.deletionTime,
+        this.createdDate,
+        this.lastModificationTime,
+        this.lastModifierUserId,
+    });
 
-  factory FiltrationResponseModel.fromJson(Map<dynamic, dynamic> json) =>
-      FiltrationResponseModel(
-        data: json["data"] == null
-            ? []
-            : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
-        message: json["message"],
-      );
-
-  Map<dynamic, dynamic> toJson() => {
-        "data": data == null
-            ? []
-            : List<dynamic>.from(data!.map((x) => x.toJson())),
-        "message": message,
-      };
-}
-
-class Datum {
-  dynamic dynamicernalWorkerId;
-  dynamic age;
-  dynamic firstName;
-  dynamic nameContact1;
-  dynamic mobileContact1;
-  dynamic emailContact1;
-  dynamic titleContact1;
-  dynamic emailAdminContact1;
-  dynamic contractorAdminPhone;
-  dynamic adminEmail;
-  dynamic adminExtention;
-  dynamic addedDate;
-  dynamic pickUpLocation;
-  dynamic workerManagerPickUpLocation;
-  dynamic? workerPickUpLocation;
-  dynamic workerManagerWorkerPickUpLocation;
-  dynamic? workerId;
-  dynamic? lastName;
-  dynamic? socialInsuranceNumber;
-  dynamic? bussinessName;
-  dynamic bussinessRegistrationNo;
-  dynamic? bussinessWsibNo;
-  dynamic address1;
-  dynamic address2;
-  dynamic state;
-  dynamic? province;
-  dynamic? postalCode;
-  dynamic? country;
-  dynamic? city;
-  dynamic fax;
-  dynamic? homeTele;
-  dynamic? businessTele;
-  dynamic? mobile;
-  dynamic? email;
-  dynamic paymentNotes;
-  dynamic? workExperience;
-  dynamic? workExperienceNotes;
-  dynamic employeeHistoryNotes;
-  dynamic unionAffillationsId;
-  dynamic unionAffillationNotes;
-  bool? paymentDelivery;
-  bool? submitsOwnHours;
-  bool? pastWsibClaim;
-  dynamic? wsibClaimNotes;
-  dynamic isTeamLeader;
-  bool? legalToWork;
-  dynamic twoRateSimple;
-  dynamic dollarFlatRate;
-  dynamic percentageRate;
-  dynamic adminFeePercentageRate;
-  dynamic transactionFee;
-  dynamic paymentprocessor;
-  dynamic managmentFee;
-  dynamic fundsAdvanceFeeRate;
-  DateTime? workerHireDate;
-  DateTime? workerTerminationDate;
-  DateTime? dateofBirth;
-  dynamic? regularRate;
-  dynamic? overTimeRate;
-  dynamic isRecruiterCommission;
-  dynamic? recruiterCommission;
-  dynamic? billRate;
-  dynamic? tradeLicenseNo;
-  dynamic paymentRuleId;
-  dynamic? workerFlagId;
-  dynamic? workerStatusId;
-  dynamic? lanaguageId;
-  dynamic? workPermitNo;
-  bool? ownTransportation;
-  bool? englishFluency;
-  dynamic notes;
-  bool? clientPaysWsib;
-  dynamic wsibRate;
-  dynamic? type;
-  dynamic? tradeOptionId;
-  dynamic trade;
-  dynamic certificationId;
-  dynamic certificationsNotes;
-  dynamic unionAffiliation;
-  dynamic unionAffiliationNotes;
-  dynamic emergencyContact1;
-  dynamic emergencyContact2;
-  dynamic emergencyTelephone1;
-  dynamic emergencyTelephone2;
-  dynamic? timeSheettype;
-  dynamic? userId;
-  dynamic user;
-  dynamic paymentRule;
-  dynamic workerStatus;
-  dynamic jobSiteWorkers;
-  dynamic assignJobSite;
-  dynamic assignJobSitetoWorker;
-  dynamic workerManagerTradeOptions;
-  dynamic assignClient;
-  dynamic workerDocuments;
-  dynamic workerJobsite;
-  dynamic workerHoursByClient;
-  dynamic workerHoursByWorker;
-  dynamic dailyWorkerHours;
-  dynamic extraLineItem;
-  dynamic recruiterExtraLineItem;
-  dynamic? id;
-  dynamic createdby;
-  bool? isDeleted;
-  dynamic deleterUserId;
-  dynamic deletionTime;
-  dynamic createdDate;
-  dynamic lastModificationTime;
-  dynamic lastModifierUserId;
-
-  Datum({
-    this.dynamicernalWorkerId,
-    this.age,
-    this.firstName,
-    this.nameContact1,
-    this.mobileContact1,
-    this.emailContact1,
-    this.titleContact1,
-    this.emailAdminContact1,
-    this.contractorAdminPhone,
-    this.adminEmail,
-    this.adminExtention,
-    this.addedDate,
-    this.pickUpLocation,
-    this.workerManagerPickUpLocation,
-    this.workerPickUpLocation,
-    this.workerManagerWorkerPickUpLocation,
-    this.workerId,
-    this.lastName,
-    this.socialInsuranceNumber,
-    this.bussinessName,
-    this.bussinessRegistrationNo,
-    this.bussinessWsibNo,
-    this.address1,
-    this.address2,
-    this.state,
-    this.province,
-    this.postalCode,
-    this.country,
-    this.city,
-    this.fax,
-    this.homeTele,
-    this.businessTele,
-    this.mobile,
-    this.email,
-    this.paymentNotes,
-    this.workExperience,
-    this.workExperienceNotes,
-    this.employeeHistoryNotes,
-    this.unionAffillationsId,
-    this.unionAffillationNotes,
-    this.paymentDelivery,
-    this.submitsOwnHours,
-    this.pastWsibClaim,
-    this.wsibClaimNotes,
-    this.isTeamLeader,
-    this.legalToWork,
-    this.twoRateSimple,
-    this.dollarFlatRate,
-    this.percentageRate,
-    this.adminFeePercentageRate,
-    this.transactionFee,
-    this.paymentprocessor,
-    this.managmentFee,
-    this.fundsAdvanceFeeRate,
-    this.workerHireDate,
-    this.workerTerminationDate,
-    this.dateofBirth,
-    this.regularRate,
-    this.overTimeRate,
-    this.isRecruiterCommission,
-    this.recruiterCommission,
-    this.billRate,
-    this.tradeLicenseNo,
-    this.paymentRuleId,
-    this.workerFlagId,
-    this.workerStatusId,
-    this.lanaguageId,
-    this.workPermitNo,
-    this.ownTransportation,
-    this.englishFluency,
-    this.notes,
-    this.clientPaysWsib,
-    this.wsibRate,
-    this.type,
-    this.tradeOptionId,
-    this.trade,
-    this.certificationId,
-    this.certificationsNotes,
-    this.unionAffiliation,
-    this.unionAffiliationNotes,
-    this.emergencyContact1,
-    this.emergencyContact2,
-    this.emergencyTelephone1,
-    this.emergencyTelephone2,
-    this.timeSheettype,
-    this.userId,
-    this.user,
-    this.paymentRule,
-    this.workerStatus,
-    this.jobSiteWorkers,
-    this.assignJobSite,
-    this.assignJobSitetoWorker,
-    this.workerManagerTradeOptions,
-    this.assignClient,
-    this.workerDocuments,
-    this.workerJobsite,
-    this.workerHoursByClient,
-    this.workerHoursByWorker,
-    this.dailyWorkerHours,
-    this.extraLineItem,
-    this.recruiterExtraLineItem,
-    this.id,
-    this.createdby,
-    this.isDeleted,
-    this.deleterUserId,
-    this.deletionTime,
-    this.createdDate,
-    this.lastModificationTime,
-    this.lastModifierUserId,
-  });
-
-  factory Datum.fromJson(Map<dynamic, dynamic> json) => Datum(
-        dynamicernalWorkerId: json["internalWorkerID"],
+    factory WorkerByIdModel.fromJson(Map<String, dynamic> json) => WorkerByIdModel(
+        internalWorkerId: json["internalWorkerID"],
         age: json["age"],
         firstName: json["firstName"],
         nameContact1: json["nameContact1"],
@@ -270,8 +247,7 @@ class Datum {
         pickUpLocation: json["pickUpLocation"],
         workerManagerPickUpLocation: json["workerManagerPickUpLocation"],
         workerPickUpLocation: json["workerPickUpLocation"],
-        workerManagerWorkerPickUpLocation:
-            json["workerManagerWorkerPickUpLocation"],
+        workerManagerWorkerPickUpLocation: json["workerManagerWorkerPickUpLocation"],
         workerId: json["workerId"],
         lastName: json["lastName"],
         socialInsuranceNumber: json["socialInsuranceNumber"],
@@ -308,17 +284,12 @@ class Datum {
         adminFeePercentageRate: json["adminFeePercentageRate"],
         transactionFee: json["transactionFee"],
         paymentprocessor: json["paymentprocessor"],
+        isDefaultBooth: json["isDefaultBooth"],
         managmentFee: json["managmentFee"],
         fundsAdvanceFeeRate: json["fundsAdvanceFeeRate"],
-        workerHireDate: json["workerHireDate"] == null
-            ? null
-            : DateTime.parse(json["workerHireDate"]),
-        workerTerminationDate: json["workerTerminationDate"] == null
-            ? null
-            : DateTime.parse(json["workerTerminationDate"]),
-        dateofBirth: json["dateofBirth"] == null
-            ? null
-            : DateTime.parse(json["dateofBirth"]),
+        workerHireDate: json["workerHireDate"],
+        workerTerminationDate: json["workerTerminationDate"],
+        dateofBirth: json["dateofBirth"],
         regularRate: json["regularRate"],
         overTimeRate: json["overTimeRate"],
         isRecruiterCommission: json["isRecruiterCommission"],
@@ -346,6 +317,7 @@ class Datum {
         emergencyContact2: json["emergencyContact2"],
         emergencyTelephone1: json["emergencyTelephone1"],
         emergencyTelephone2: json["emergencyTelephone2"],
+        assignedRecuriterId: json["assignedRecuriterId"],
         timeSheettype: json["timeSheettype"],
         userId: json["userId"],
         user: json["user"],
@@ -371,10 +343,10 @@ class Datum {
         createdDate: json["createdDate"],
         lastModificationTime: json["lastModificationTime"],
         lastModifierUserId: json["lastModifierUserId"],
-      );
+    );
 
-  Map<dynamic, dynamic> toJson() => {
-        "internalWorkerID": dynamicernalWorkerId,
+    Map<String, dynamic> toJson() => {
+        "internalWorkerID": internalWorkerId,
         "age": age,
         "firstName": firstName,
         "nameContact1": nameContact1,
@@ -426,11 +398,12 @@ class Datum {
         "adminFeePercentageRate": adminFeePercentageRate,
         "transactionFee": transactionFee,
         "paymentprocessor": paymentprocessor,
+        "isDefaultBooth": isDefaultBooth,
         "managmentFee": managmentFee,
         "fundsAdvanceFeeRate": fundsAdvanceFeeRate,
-        "workerHireDate": workerHireDate?.toIso8601String(),
-        "workerTerminationDate": workerTerminationDate?.toIso8601String(),
-        "dateofBirth": dateofBirth?.toIso8601String(),
+        "workerHireDate": workerHireDate,
+        "workerTerminationDate": workerTerminationDate,
+        "dateofBirth": dateofBirth,
         "regularRate": regularRate,
         "overTimeRate": overTimeRate,
         "isRecruiterCommission": isRecruiterCommission,
@@ -458,6 +431,7 @@ class Datum {
         "emergencyContact2": emergencyContact2,
         "emergencyTelephone1": emergencyTelephone1,
         "emergencyTelephone2": emergencyTelephone2,
+        "assignedRecuriterId": assignedRecuriterId,
         "timeSheettype": timeSheettype,
         "userId": userId,
         "user": user,
@@ -483,5 +457,5 @@ class Datum {
         "createdDate": createdDate,
         "lastModificationTime": lastModificationTime,
         "lastModifierUserId": lastModifierUserId,
-      };
+    };
 }

@@ -29,7 +29,11 @@ class EditSelectTimeSheetTypeWidget extends StatelessWidget {
             context: context,
           );
           if (timeSheet != '') {
-            provider.changeTimeSheetType(timeSheet);
+            for(var data in provider.timeSheetTypeList){
+              if(data.name == timeSheet){
+            provider.changeTimeSheetType(timeSheet,data.id!);
+            }
+            }
           }
         },
       );
