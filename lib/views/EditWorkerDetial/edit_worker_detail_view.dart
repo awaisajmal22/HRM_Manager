@@ -1130,7 +1130,7 @@ provider.businessNameController.text = widget.workerModel.bussinessName.toString
                         onTap: () {
                           provider.addWorkerData(
                             context: context,
-                            workerID: widget.workerModel.workerId,
+                            workerID: int.parse(widget.workerModel.workerId),
                             internalWorkerID: provider.workerIdController.text,
                             clientWorkerID: provider.clientIdController.text,
                             age: provider.ageController.text.isEmpty
@@ -1226,6 +1226,14 @@ provider.businessNameController.text = widget.workerModel.bussinessName.toString
                             paymentNotes: provider.paymentNotesController.text,
                             clientPayWSIB:
                                 provider.clientPaysWSIB == 0 ? true : false,
+                                       whimsFilePath: provider.wHIMSFilePath,
+
+                           otherFilePath: provider.otherFilePath,
+
+                           termsOfEmployeFilePath: provider.termsOfEmpPath,
+                           employementReleaseFilePath: provider.empReleasePath, profileImage: provider.pickedImage, workingFormHeightFilePath: provider.workingFormHeightPath,
+                           firstAidFilePath: provider.firstAidPath,
+                           
                           );
                         },
                         title: "Update",

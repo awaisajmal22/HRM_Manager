@@ -9,7 +9,7 @@ import 'Server/connectivity_plus.dart';
 import 'Server/server_error.dart';
 
 class API {
-  CheckConnectivityServices connectivityServices = CheckConnectivityServices();
+  // CheckConnectivityServices connectivityServices = CheckConnectivityServices();
   Future getRequest(
      BuildContext context,
     String apiurl,

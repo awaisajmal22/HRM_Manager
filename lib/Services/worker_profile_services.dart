@@ -13,14 +13,12 @@ class WorkerServices {
       final response =
           await API().getRequest(context, "${ApiUrl.getWorkerByIdUrl}/$id");
       if (response.statusCode == 200) {
-print(response.data);
+        print(response.data);
         model = WorkerByIdModel.fromJson(response.data);
 
-        print("Worker name ${model.firstName}");
+        print("Worker name ${model.id}");
       }
     } catch (e) {}
     return model;
   }
-
-  
 }

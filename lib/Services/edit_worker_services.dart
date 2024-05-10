@@ -267,6 +267,13 @@ class EditWorkerServices {
     String? emergencyTele2,
     int? timeSheetType,
     List<int>? jobSites,
+    String? whimsFilePath,
+    String? profileImage,
+    String? workingFormHeightFilePath,
+    String? termsOfEmployeFilePath,
+    String? firstAidFilePath,
+    String? employementReleaseFilePath,
+    String? otherFilePath,
   }) async {
     try {
       FormData data = FormData.fromMap({
@@ -359,14 +366,87 @@ class EditWorkerServices {
       final response =
           await API().postRequestHeader(context, ApiUrl.saveWorker, data);
       if (response.statusCode == 200) {
-                toast(msg: "Worker Update Successfully", context: context);
-        hideOpenDialog(context: context);
+        print("Response Data Add Worker ${response.data}");
+        final id = response.data['id'];
+        toast(msg: "Worker Add Successfully", context: context);
+        if (profileImage != '' || profileImage != null) {
+          uploadFile(
+              context: context,
+              workerID: id!,
+              filePath: profileImage!,
+              apiUrl: ApiUrl.uploadPorfileImage);
+        }
+        if (whimsFilePath != '' || whimsFilePath != null) {
+          uploadFile(
+              context: context,
+              workerID: id!,
+              filePath: whimsFilePath!,
+              apiUrl: ApiUrl.uploadWHIMS);
+        }
+        if (employementReleaseFilePath != '' ||
+            employementReleaseFilePath != null) {
+          uploadFile(
+              context: context,
+              workerID: id!,
+              filePath: employementReleaseFilePath!,
+              apiUrl: ApiUrl.uploadEmployementRelease);
+        }
+        if (workingFormHeightFilePath != '' ||
+            workingFormHeightFilePath != null) {
+          uploadFile(
+              context: context,
+              workerID: id!,
+              filePath: workingFormHeightFilePath!,
+              apiUrl: ApiUrl.uploadWorkingFormHeights);
+        }
+        if (otherFilePath != '' || otherFilePath != null) {
+          uploadFile(
+              context: context,
+              workerID: id!,
+              filePath: otherFilePath!,
+              apiUrl: ApiUrl.uploadOtherFile);
+        }
+        if (termsOfEmployeFilePath != '' || termsOfEmployeFilePath != null) {
+          uploadFile(
+              context: context,
+              workerID: id!,
+              filePath: termsOfEmployeFilePath!,
+              apiUrl: ApiUrl.uploadEmployeTerms);
+        }
+        if (firstAidFilePath != '' || firstAidFilePath != null) {
+          uploadFile(
+              context: context,
+              workerID: id!,
+              filePath: firstAidFilePath!,
+              apiUrl: ApiUrl.uploadFirstAid);
+        }
+
         print("Add Worker Successfully");
+        hideOpenDialog(context: context);
       } else {
         hideOpenDialog(context: context);
       }
     } catch (e) {
       hideOpenDialog(context: context);
     }
+  }
+
+  uploadFile(
+      {required BuildContext context,
+      required int workerID,
+      required String filePath,
+      required String apiUrl}) async {
+    try {
+      FormData data = FormData.fromMap({
+        "WorkerId": workerID,
+        "File": await MultipartFile.fromFile(
+          filePath,
+        ),
+      });
+      final response = await API().postRequestHeader(context, apiUrl, data);
+      if (response.statusCode == 200) {
+        print('Image upload Success');
+      }
+    } catch (e) {}
   }
 }
