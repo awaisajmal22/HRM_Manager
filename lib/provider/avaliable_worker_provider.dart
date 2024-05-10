@@ -297,7 +297,7 @@ class AvaliableWorkerProvider extends ChangeNotifier {
   }) async {
     _filtrationResponseList.clear();
     filtrationResponseList.clear();
-
+    print("Trade ID $tradeID");
     final result = await AvaliableWorkerServices().getFiltrationData(
       context: context,
       tradeID: tradeID,

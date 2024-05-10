@@ -6,6 +6,7 @@ import 'package:hrm_manager/Model/add_worker_drop_down_model.dart';
 import 'package:hrm_manager/Network/api_services.dart';
 import 'package:hrm_manager/Network/api_url.dart';
 import 'package:hrm_manager/constant/spinkit_view.dart';
+import 'package:hrm_manager/constant/toast.dart';
 
 class EditWorkerServices {
   Future getWorkerExperience({required BuildContext context}) async {
@@ -358,6 +359,7 @@ class EditWorkerServices {
       final response =
           await API().postRequestHeader(context, ApiUrl.saveWorker, data);
       if (response.statusCode == 200) {
+                toast(msg: "Worker Update Successfully", context: context);
         hideOpenDialog(context: context);
         print("Add Worker Successfully");
       } else {

@@ -1183,6 +1183,15 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                             paymentNotes: provider.paymentNotesController.text,
                             clientPayWSIB:
                                 provider.clientPaysWSIB == 0 ? true : false,
+                           whimsFilePath: provider.wHIMSFilePath,
+
+                           otherFilePath: provider.otherFilePath,
+
+                           termsOfEmployeFilePath: provider.termsOfEmpPath,
+                           employementReleaseFilePath: provider.empReleasePath, profileImage: provider.pickedImage, workingFormHeightFilePath: provider.workingFormHeightPath,
+                           firstAidFilePath: provider.firstAidPath,
+                           
+                                
                           );
                         },
                         title: "Update",

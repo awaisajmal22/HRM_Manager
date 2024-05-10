@@ -7,7 +7,7 @@ import 'package:hrm_manager/Model/filtration_response_model.dart';
 import 'package:hrm_manager/Model/worker_status_and_flag_model.dart';
 import 'package:hrm_manager/Network/api_services.dart';
 import 'package:hrm_manager/Network/api_url.dart';
-
+import 'package:http/http.dart' as http;
 class AvaliableWorkerServices {
   Future<List<StatusAndFlagModel>> getWorkerStatus(
       {required BuildContext context}) async {
@@ -52,8 +52,11 @@ class AvaliableWorkerServices {
       "Location": city == "" ? null : city,
       "StatusId": statusID,
       "FlagId": flagID,
-      "StartPrice": startPrice == '' || startPrice == null? null : double.parse(startPrice),
-      "EndPrice": endPrice == ''|| endPrice == null ? null : double.parse(endPrice)
+      "StartPrice": startPrice == '' || startPrice == null
+          ? null
+          : double.parse(startPrice),
+      "EndPrice":
+          endPrice == '' || endPrice == null ? null : double.parse(endPrice)
     });
     print("Trade ID Is $tradeID");
     print("FLag ID Is $flagID");
@@ -64,8 +67,8 @@ class AvaliableWorkerServices {
       final response =
           await API().postRequest(context, ApiUrl.filterationUrl, data);
       if (response.statusCode == 200) {
-        print(response.statusCode);
-        print(response.data);
+        print("Fil Data is ${response.statusCode}");
+        print("Fil Data is ${response.data}");
 
         response.data['data'].forEach((element) {
           filtrationResponseModel.add(Datum.fromJson(element));

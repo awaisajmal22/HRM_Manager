@@ -118,7 +118,7 @@ provider.emergencyContact1Controller.text = widget.workerModel.emergencyContact1
 provider.emergencyContact2Controller.text = widget.workerModel.emergencyContact2.toString().isNotNullableString();
 provider.address1Controller.text = widget.workerModel.address1.toString().isNotNullableString();
 provider.address2Controller.text = widget.workerModel.address2.toString().isNotNullableString();
-provider.ageController.text = widget.workerModel.age;
+provider.ageController.text = widget.workerModel.age.toString().isNotNullableString();
 provider.businessNameController.text = widget.workerModel.bussinessName.toString().isNotNullableString();
         return SafeArea(
             child: Column(

@@ -514,7 +514,7 @@ int? get selectedLanguageId => _selectedLanguageId;
       _certificationList.clear();
       certificationList.clear();
     }
-    final result = await AddWorkerServices().getLanguage(context: context);
+    final result = await AddWorkerServices().getCertificate(context: context);
     if (result.isNotEmpty) {
       _certificationList = result;
       print("Length ${_certificationList.length}");
@@ -697,9 +697,23 @@ String? emergencyTele1,
 String? emergencyTele2,
 int? timeSheetType,
 List<int>? jobSites,
+required String whimsFilePath,
+required String profileImage,
+required String workingFormHeightFilePath,
+required String termsOfEmployeFilePath,
+required String firstAidFilePath,
+required String otherFilePath,
+required String employementReleaseFilePath,
 
 }) async{
   final result = await AddWorkerServices().addWorker(context: context,
+  whimsFilePath: whimsFilePath,
+  profileImage: profileImage,
+  workingFormHeightFilePath: workingFormHeightFilePath,
+  termsOfEmployeFilePath: termsOfEmployeFilePath,
+  firstAidFilePath: firstAidFilePath,
+  otherFilePath: otherFilePath,
+  employementReleaseFilePath: employementReleaseFilePath,
   workerID :workerID,
   internalWorkerID: internalWorkerID,
  clientWorkerID : clientWorkerID,

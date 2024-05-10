@@ -2,10 +2,13 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:hrm_manager/Model/add_worker_drop_down_model.dart';
 import 'package:hrm_manager/Network/api_services.dart';
 import 'package:hrm_manager/Network/api_url.dart';
 import 'package:hrm_manager/constant/spinkit_view.dart';
+import 'package:hrm_manager/constant/toast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AddWorkerServices {
   Future getWorkerExperience({required BuildContext context}) async {
@@ -266,6 +269,13 @@ class AddWorkerServices {
     String? emergencyTele2,
     int? timeSheetType,
     List<int>? jobSites,
+    String? whimsFilePath,
+    String? profileImage,
+    String? workingFormHeightFilePath,
+    String? termsOfEmployeFilePath,
+    String? firstAidFilePath,
+    String? employementReleaseFilePath,
+    String? otherFilePath,
   }) async {
     try {
       FormData data = FormData.fromMap({
@@ -358,6 +368,61 @@ class AddWorkerServices {
       final response =
           await API().postRequestHeader(context, ApiUrl.saveWorker, data);
       if (response.statusCode == 200) {
+        print("Response Data Add Worker ${response.data}");
+        final id = response.data['id'];
+        toast(msg: "Worker Add Successfully", context: context);
+        if (profileImage != '' || profileImage != null) {
+          uploadFile(
+              context: context,
+              workerID: id!,
+              filePath: profileImage!,
+              apiUrl: ApiUrl.uploadPorfileImage);
+        }
+        if (whimsFilePath != '' || whimsFilePath != null) {
+          uploadFile(
+              context: context,
+              workerID: id!,
+              filePath: whimsFilePath!,
+              apiUrl: ApiUrl.uploadWHIMS);
+        }
+        if (employementReleaseFilePath != '' ||
+            employementReleaseFilePath != null) {
+          uploadFile(
+              context: context,
+              workerID: id!,
+              filePath: employementReleaseFilePath!,
+              apiUrl: ApiUrl.uploadEmployementRelease);
+        }
+        if (workingFormHeightFilePath != '' ||
+            workingFormHeightFilePath != null) {
+          uploadFile(
+              context: context,
+              workerID: id!,
+              filePath: workingFormHeightFilePath!,
+              apiUrl: ApiUrl.uploadWorkingFormHeights);
+        }
+        if (otherFilePath != '' || otherFilePath != null) {
+          uploadFile(
+              context: context,
+              workerID: id!,
+              filePath: otherFilePath!,
+              apiUrl: ApiUrl.uploadOtherFile);
+        }
+        if (termsOfEmployeFilePath != '' || termsOfEmployeFilePath != null) {
+          uploadFile(
+              context: context,
+              workerID: id!,
+              filePath: termsOfEmployeFilePath!,
+              apiUrl: ApiUrl.uploadEmployeTerms);
+        }
+        if (firstAidFilePath != '' || firstAidFilePath != null) {
+          uploadFile(
+              context: context,
+              workerID: id!,
+              filePath: firstAidFilePath!,
+              apiUrl: ApiUrl.uploadFirstAid);
+        }
+
         print("Add Worker Successfully");
         hideOpenDialog(context: context);
       } else {
@@ -366,5 +431,24 @@ class AddWorkerServices {
     } catch (e) {
       hideOpenDialog(context: context);
     }
+  }
+
+  uploadFile(
+      {required BuildContext context,
+      required int workerID,
+      required String filePath,
+      required String apiUrl}) async {
+    try {
+      FormData data = FormData.fromMap({
+        "WorkerId": workerID,
+        "File": await MultipartFile.fromFile(
+          filePath,
+        ),
+      });
+      final response = await API().postRequestHeader(context, apiUrl, data);
+      if (response.statusCode == 200) {
+        print('Image upload Success');
+      }
+    } catch (e) {}
   }
 }

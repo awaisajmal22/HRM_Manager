@@ -39,64 +39,7 @@ class WorkerProfileProvider extends ChangeNotifier {
     certificate: '',
     home: 'Toronto (King & Young)',
   );
-// DateTime date = DateTime.now();
-//   void generateCsvFile({required BuildContext context}) async {
-//     Map<Permission, PermissionStatus> statuses = await [
-//       Permission.storage,
-//     ].request();
 
-//     List<List<dynamic>> rows = [];
-
-//     List<dynamic> row = [];
-//     List<dynamic> row2 = [];
-//     row.add("Name");
-//     row.add("Price");
-//     row.add("Trade");
-//     row.add("Status");
-//     row.add("Date of birth");
-//     row.add('Experience');
-//     row.add('Previous Employment');
-//     row.add('Union Affiliation');
-//     row.add('Flag');
-//     row.add('Transportation');
-//     row.add('Home');
-//     row.add('Certificates');
-//     row.add('Special Tickets');
-//     row.add('Note');
-//     row2.add(workerProfileModel.name);
-//     row2.add(workerProfileModel.price);
-//     row2.add(workerProfileModel.status!);
-//     row2.add(workerProfileModel.trade);
-//     row2.add(workerProfileModel.dob);
-//     row2.add(workerProfileModel.experience);
-//     row2.add(workerProfileModel.previousEmployment);
-//     row2.add(workerProfileModel.unionAffiliation);
-//     row2.add(workerProfileModel.flag);
-//     row2.add(workerProfileModel.transportation);
-//     row2.add(workerProfileModel.home);
-//     row2.add(workerProfileModel.certificate);
-//     row2.add(workerProfileModel.specialTickets);
-//     row2.add(workerProfileModel.note);
-//     rows.add(row);
-//     rows.add(row2);
-
-//     String csv = const ListToCsvConverter().convert(rows);
-
-//     String dir = await ExternalPath.getExternalStoragePublicDirectory(
-//         ExternalPath.DIRECTORY_DOWNLOADS);
-//     print("dir $dir");
-//     String file = "$dir";
-
-//     File f = File("$file/${workerProfileModel.name}HRMfile.csv");
-// //${workerProfileModel.name}${DateFormat.yMMMMd(date).toString()}-${DateFormat.jms(date).toString()}-
-//     f.writeAsString(csv).then((val) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-//         content: appText(
-//       context: context,
-//       title: 'File Exported Successfully',
-//       textColor: AppColor.whiteColor,
-//     ))));
-
-//   }
 
   generateCsvFile({required BuildContext context}) async {
     Directory directory;

@@ -299,7 +299,9 @@ class API {
         onSendProgress: (int sent, int total) {
           debugPrint("total ${total.toString()} " "   sent ${sent.toString()}");
         },
+        
       ).whenComplete(() {
+        
         debugPrint("POST Complete:");
       }).catchError((onError) {
         debugPrint("POST Error: $onError");
@@ -321,7 +323,9 @@ class API {
             }
           }
         }
+
       });
+      print("RES IS ${response}");
 
       return response;
     } catch (error) {

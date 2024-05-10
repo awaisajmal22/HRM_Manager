@@ -17,5 +17,13 @@ class ApiUrl{
   static const getWorkerPickUpLocationUrl ='$mainUrl/WorkerPickUpLocation';
   static const getTimeSheetUrl ='$mainUrl/TimeSheetType';
   static const saveWorker ='$mainUrl/SaveWorker';
+  static const uploadPorfileImage ='$mainUrl/SaveProfileImage';
+  static const uploadWHIMS ='$mainUrl/SaveWHIMS';
+  static const uploadWorkingFormHeights ='$mainUrl/SaveWorkingHeights';
+  static const uploadEmployementRelease ='$mainUrl/SaveEmployeementRelease';
+  static const uploadOtherFile ='$mainUrl/SaveOthers';
+  static const uploadEmployeTerms ='$mainUrl/SaveTermsEmployeement';
+
+  static const uploadFirstAid ='$mainUrl/SaveFirstAid';
 
 }

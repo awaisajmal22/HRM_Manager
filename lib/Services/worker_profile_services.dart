@@ -15,9 +15,12 @@ class WorkerServices {
       if (response.statusCode == 200) {
 print(response.data);
         model = WorkerByIdModel.fromJson(response.data);
+
         print("Worker name ${model.firstName}");
       }
     } catch (e) {}
     return model;
   }
+
+  
 }
