@@ -9,6 +9,8 @@ import 'package:flutter/widgets.dart';
 import 'package:hrm_manager/Model/worker_by_id_model.dart';
 import 'package:hrm_manager/Model/worker_profile_model.dart';
 import 'package:hrm_manager/Network/Server/permission_handler.dart';
+import 'package:hrm_manager/Network/api_services.dart';
+import 'package:hrm_manager/Network/api_url.dart';
 import 'package:hrm_manager/Services/worker_profile_services.dart';
 import 'package:hrm_manager/constant/app_color.dart';
 import 'package:intl/intl.dart';
@@ -162,5 +164,20 @@ getWorkerData({required BuildContext context,required int id}) async{
   }
   notifyListeners();
 }
-  
+List<String> _files = <String>[];
+List<String> get files => _files;
+getFileData({
+  required String api,
+  required BuildContext context,
+}) async {
+  final result = await WorkerServices().getFiles(api: api, context: context);
+  if(result.isEmpty){
+
+  }else{
+    _files.add(result);
+    print("FIle Length${_files.length}");
+  }
+  notifyListeners();
+}
+
 }

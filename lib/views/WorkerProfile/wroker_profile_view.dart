@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hrm_manager/Network/api_url.dart';
 import 'package:hrm_manager/WidgetandBindings/app_routes.dart';
 import 'package:hrm_manager/constant/app_text.dart';
 import 'package:hrm_manager/constant/back.dart';
@@ -39,6 +40,10 @@ class _WorkerProfileViewState extends State<WorkerProfileView> {
     final pv = Provider.of<WorkerProfileProvider>(context, listen: false);
     print("Worker ID is ${widget.id}");
     pv.getWorkerData(context: context, id: widget.id);
+    pv.getFileData(
+        api: "${ApiUrl.getProfileImage}/${widget.id}", context: context);
+    pv.getFileData(
+        api: "${ApiUrl.getProfileImage}/${widget.id}", context: context);
     print(pv.workerByIdModel.firstName);
     setState(() {
       _isLoaded = true;
@@ -86,7 +91,8 @@ class _WorkerProfileViewState extends State<WorkerProfileView> {
                   GestureDetector(
                     onTap: () {
                       Navigator.pushNamed(
-                          context, AppRoutes.editWorkerDetailView,arguments:provider.workerByIdModel);
+                          context, AppRoutes.editWorkerDetailView,
+                          arguments: provider.workerByIdModel);
                     },
                     child: Container(
                       alignment: Alignment.center,
@@ -192,14 +198,15 @@ class _WorkerProfileViewState extends State<WorkerProfileView> {
                   richText(
                     context: context,
                     title: 'Special Tickets: ',
-                    subtitle: 
-                     provider.workerProfileModel.specialTickets!,
+                    subtitle: provider.workerProfileModel.specialTickets!,
                   ),
                   getHeight(context: context, height: 0.01),
                   richText(
                     context: context,
                     title: 'Note: ',
-                    subtitle: provider.workerByIdModel.notes.toString().isNotNullableString(),
+                    subtitle: provider.workerByIdModel.notes
+                        .toString()
+                        .isNotNullableString(),
                     // provider.workerProfileModel.note!,
                   ),
                   getHeight(context: context, height: 0.020),

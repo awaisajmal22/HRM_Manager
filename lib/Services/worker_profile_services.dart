@@ -21,4 +21,22 @@ class WorkerServices {
     } catch (e) {}
     return model;
   }
+
+  Future<String> getFiles({
+    required String api,
+    required BuildContext context,
+  }) async {
+    String data = '';
+    try {
+      print(api);
+      final response = await API().getRequest(context, api);
+      print("Status is There ${response.statusCode}");
+      if (response.statusCode == 200) {
+        data = response.data;
+      }
+    } catch (e) {
+      print(e);
+    }
+    return data;
+  }
 }

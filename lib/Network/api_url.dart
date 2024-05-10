@@ -1,5 +1,5 @@
 class ApiUrl{
-  static const mainUrl ='https://joetalic-001-site2.atempurl.com';
+  static const mainUrl ='http://joetalic-001-site4.htempurl.com';
   static const loginUrl ='$mainUrl/Authentication/Managerlogin';
   static const allTradeUrl = '$mainUrl/AllTrades';
   static const workerFlagUrl ='$mainUrl/WorkerFlag';
@@ -25,5 +25,6 @@ class ApiUrl{
   static const uploadEmployeTerms ='$mainUrl/SaveTermsEmployeement';
 
   static const uploadFirstAid ='$mainUrl/SaveFirstAid';
+  static const getProfileImage ='$mainUrl/GetWorkerProfileById';
 
 }
