@@ -6,28 +6,33 @@ appText({
   required String title,
   String fontFamily = "Roboto",
   double fontSize = 14,
- FontWeight fontWeight = FontWeight.w400,
- TextAlign textAlign = TextAlign.center,
- Color textColor = Colors.black,
-}){
-  return Text(title,
-  textAlign: textAlign,
-  style: textStyle(context: context,fontSize: fontSize,fontWeight: fontWeight,textColor: textColor),);
+  FontWeight fontWeight = FontWeight.w400,
+  TextAlign textAlign = TextAlign.center,
+  Color textColor = Colors.black,
+}) {
+  return Text(
+    title,
+    textAlign: textAlign,
+    style: textStyle(
+        context: context,
+        fontSize: fontSize,
+        fontWeight: fontWeight,
+        textColor: textColor),
+  );
 }
 
 TextStyle textStyle({
   required BuildContext context,
-
   String fontFamily = "Roboto",
   double fontSize = 14,
- FontWeight fontWeight = FontWeight.w400,
-
- Color textColor = Colors.black,
+  FontWeight fontWeight = FontWeight.w400,
+  Color textColor = Colors.black,
 }) {
   return TextStyle(
-  color: textColor,
-  fontFamily: fontFamily,
-  fontSize:context.fontSize(fontSize),
-  fontWeight: fontWeight,
-);
+    decoration: TextDecoration.none,
+    color: textColor,
+    fontFamily: fontFamily,
+    fontSize: context.fontSize(fontSize),
+    fontWeight: fontWeight,
+  );
 }

@@ -47,7 +47,8 @@ class EditSelectJobSite extends StatelessWidget {
                 color: Colors.black.withOpacity(0.06),
                 width: 1,
               )),
-          child: Wrap(
+          child: provider.selectedJobSitesList.isEmpty ? appText(context: context, title: 'Select',textColor: AppColor.lightPurpleColor.withOpacity(0.67,))
+         : Wrap(
             spacing: 10,
             runSpacing: 0,
             direction: Axis.horizontal,

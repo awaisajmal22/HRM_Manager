@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:hrm_manager/Model/worker_by_id_model.dart';
+import 'package:hrm_manager/Model/worker_doc_model.dart';
 import 'package:hrm_manager/Network/api_services.dart';
 import 'package:hrm_manager/Network/api_url.dart';
 
@@ -22,17 +23,17 @@ class WorkerServices {
     return model;
   }
 
-  Future<String> getFiles({
+  Future<WorkerDocModel> getFiles({
     required String api,
     required BuildContext context,
   }) async {
-    String data = '';
+    WorkerDocModel data = WorkerDocModel();
     try {
       print(api);
       final response = await API().getRequest(context, api);
       print("Status is There ${response.statusCode}");
       if (response.statusCode == 200) {
-        data = response.data;
+        data = WorkerDocModel.fromJson(response.data);
       }
     } catch (e) {
       print(e);

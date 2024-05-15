@@ -46,29 +46,34 @@ class SelectJobSite extends StatelessWidget {
                 color: Colors.black.withOpacity(0.06),
                 width: 1,
               )),
-          child: Wrap(
-            spacing: 10,
-            runSpacing: 0,
-            direction: Axis.horizontal,
-            runAlignment: WrapAlignment.start,
-            alignment: WrapAlignment.start,
-            children: List.generate(
-              provider.selectedJobSitesList.length,
-              (index) => Chip(
-                onDeleted: () {
-                  provider.removeJobSite(index);
-                },
-                shape: const StadiumBorder(
-                    side: BorderSide(color: Colors.transparent)),
-                backgroundColor: AppColor.lightPinkColor,
-                label: appText(
+          child: provider.selectedJobSitesList.isEmpty
+              ? appText(
                   context: context,
-                  title: provider.selectedJobSitesList[index],
+                  title: 'Select',
+                  textColor: AppColor.lightPurpleColor.withOpacity(0.67))
+              : Wrap(
+                  spacing: 10,
+                  runSpacing: 0,
+                  direction: Axis.horizontal,
+                  runAlignment: WrapAlignment.start,
+                  alignment: WrapAlignment.start,
+                  children: List.generate(
+                    provider.selectedJobSitesList.length,
+                    (index) => Chip(
+                      onDeleted: () {
+                        provider.removeJobSite(index);
+                      },
+                      shape: const StadiumBorder(
+                          side: BorderSide(color: Colors.transparent)),
+                      backgroundColor: AppColor.lightPinkColor,
+                      label: appText(
+                        context: context,
+                        title: provider.selectedJobSitesList[index],
+                      ),
+                    ),
+                    growable: true,
+                  ),
                 ),
-              ),
-              growable: true,
-            ),
-          ),
         ),
       );
     });

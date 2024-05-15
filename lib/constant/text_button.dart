@@ -25,8 +25,13 @@ textButton({
         horizontal: context.getSize.width * hPadding,
         vertical: context.getSize.height * vPadding,
       ),
-      decoration: BoxDecoration(
-          color: color, borderRadius: BorderRadius.circular(radius)),
+      decoration: BoxDecoration(boxShadow: [
+        BoxShadow(
+            color: AppColor.lightPurpleColor.withOpacity(0.5),
+            blurRadius: 5,
+            spreadRadius: 1,
+            offset: Offset(0, 1))
+      ], color: color, borderRadius: BorderRadius.circular(radius)),
       child: appText(
         context: context,
         title: title,

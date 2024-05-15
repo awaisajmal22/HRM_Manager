@@ -16,7 +16,7 @@ class EditWorkerStatus extends StatelessWidget {
     return Consumer<EditWorkerDetailProvider>(builder: (context, provider, __) {
       return editAddWorkerTextField(
         context: context,
-        hintText: '',
+        hintText: 'Select',
         controller: provider.statusController,
         height: context.getSize.height * 0.050,
         readOnly: true,

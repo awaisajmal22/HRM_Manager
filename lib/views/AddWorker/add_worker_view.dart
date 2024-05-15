@@ -8,7 +8,9 @@ import 'package:hrm_manager/constant/back.dart';
 import 'package:hrm_manager/constant/check_widget.dart';
 import 'package:hrm_manager/constant/constant.dart';
 import 'package:hrm_manager/constant/height_box.dart';
+import 'package:hrm_manager/constant/rich_text.dart';
 import 'package:hrm_manager/constant/text_button.dart';
+import 'package:hrm_manager/constant/toast.dart';
 import 'package:hrm_manager/constant/width_box.dart';
 import 'package:hrm_manager/extensions/size_extension.dart';
 import 'package:hrm_manager/provider/add_worker_provider.dart';
@@ -75,9 +77,9 @@ class _AddWorkerViewState extends State<AddWorkerView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Consumer<AddWorkerProvider>(builder: (context, provider, __) {
-        return SafeArea(
+    return Consumer<AddWorkerProvider>(builder: (context, provider, __) {
+      return Scaffold(
+        body: SafeArea(
             child: Column(
           children: [
             Container(
@@ -178,7 +180,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                   getHeight(context: context, height: 0.005),
                   addWorkerTextField(
                     context: context,
-                    hintText: 'WR00001',
+                    hintText: 'WR000001',
                     controller: provider.workerIdController,
                     height: context.getSize.height * 0.050,
                   ),
@@ -189,12 +191,14 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                           child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          appText(
-                            textAlign: TextAlign.left,
-                            context: context,
-                            title: 'Assigned To Recruiter*',
-                            fontWeight: FontWeight.w500,
-                          ),
+                          richText(
+                              context: context,
+                              title: 'Assigned To Recruiter',
+                              subtitle: '*',
+                              fontSize: 14,
+                              twoendTextColor: Colors.red,
+                              fontWeight1: FontWeight.w500,
+                              fontWeight2: FontWeight.w500),
                           getHeight(context: context, height: 0.005),
                           const SelectRecruiter()
                         ],
@@ -204,12 +208,14 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                           child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          appText(
-                            textAlign: TextAlign.left,
-                            context: context,
-                            title: 'Client Worker ID*',
-                            fontWeight: FontWeight.w500,
-                          ),
+                          richText(
+                              context: context,
+                              title: 'Client Worker ID',
+                              subtitle: '*',
+                              fontSize: 14,
+                              twoendTextColor: Colors.red,
+                              fontWeight1: FontWeight.w500,
+                              fontWeight2: FontWeight.w500),
                           getHeight(context: context, height: 0.005),
                           addWorkerTextField(
                             context: context,
@@ -240,16 +246,18 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                           child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          appText(
-                            textAlign: TextAlign.left,
-                            context: context,
-                            title: 'Worker First Name*',
-                            fontWeight: FontWeight.w500,
-                          ),
+                          richText(
+                              context: context,
+                              title: 'Worker First Name',
+                              subtitle: '*',
+                              fontSize: 14,
+                              twoendTextColor: Colors.red,
+                              fontWeight1: FontWeight.w500,
+                              fontWeight2: FontWeight.w500),
                           getHeight(context: context, height: 0.005),
                           addWorkerTextField(
                             context: context,
-                            hintText: 'Jovany',
+                            hintText: 'Enter First Name',
                             controller: provider.firstNameController,
                             height: context.getSize.height * 0.050,
                           ),
@@ -260,16 +268,18 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                           child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          appText(
-                            textAlign: TextAlign.left,
-                            context: context,
-                            title: 'Worker Last Name',
-                            fontWeight: FontWeight.w500,
-                          ),
+                          richText(
+                              context: context,
+                              title: 'Worker Last Name',
+                              subtitle: '*',
+                              fontSize: 14,
+                              twoendTextColor: Colors.red,
+                              fontWeight1: FontWeight.w500,
+                              fontWeight2: FontWeight.w500),
                           getHeight(context: context, height: 0.005),
                           addWorkerTextField(
                             context: context,
-                            hintText: 'Italiano',
+                            hintText: 'Enter Last Name',
                             controller: provider.lastNameController,
                             height: context.getSize.height * 0.050,
                           ),
@@ -316,11 +326,11 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                           ),
                           getHeight(context: context, height: 0.005),
                           addWorkerTextField(
-                            readOnly:  true,
+                            readOnly: true,
                             textInputType: TextInputType.number,
                             color: Color(0xffF5F5F5),
                             context: context,
-                            hintText: '',
+                            hintText: 'Age',
                             controller: provider.ageController,
                             height: context.getSize.height * 0.050,
                           ),
@@ -363,7 +373,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                             fontWeight: FontWeight.w500,
                           ),
                           getHeight(context: context, height: 0.005),
-                          SelectLanguageWidget()
+                          const SelectLanguageWidget()
                         ],
                       )),
                     ],
@@ -431,7 +441,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                           getHeight(context: context, height: 0.005),
                           addWorkerTextField(
                             context: context,
-                            hintText: '',
+                            hintText: 'Enter Social Insurance Number',
                             controller: provider.socialInsuranceController,
                             height: context.getSize.height * 0.050,
                           ),
@@ -451,7 +461,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                           getHeight(context: context, height: 0.005),
                           addWorkerTextField(
                             context: context,
-                            hintText: '',
+                            hintText: 'Enter Work Permit No',
                             controller: provider.workPermitController,
                             height: context.getSize.height * 0.050,
                           ),
@@ -518,12 +528,14 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                           child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          appText(
-                            textAlign: TextAlign.left,
-                            context: context,
-                            title: 'Worker Status*',
-                            fontWeight: FontWeight.w500,
-                          ),
+                          richText(
+                              context: context,
+                              title: 'Worker Status',
+                              subtitle: '*',
+                              fontSize: 14,
+                              twoendTextColor: Colors.red,
+                              fontWeight1: FontWeight.w500,
+                              fontWeight2: FontWeight.w500),
                           getHeight(context: context, height: 0.005),
                           const WorkerStatus()
                         ],
@@ -556,7 +568,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                   addWorkerTextField(
                     maxLines: 2,
                     context: context,
-                    hintText: '',
+                    hintText: 'Enter Notes',
                     controller: provider.flagNotesController,
                     height: null,
                   ),
@@ -576,7 +588,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                           getHeight(context: context, height: 0.005),
                           addWorkerTextField(
                             context: context,
-                            hintText: '',
+                            hintText: 'Enter Business WSIB Number',
                             controller: provider.businessWSIBNoController,
                             height: context.getSize.height * 0.050,
                           ),
@@ -616,12 +628,14 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                   addWorkerTextField(
                     maxLines: 2,
                     context: context,
-                    hintText: '',
+                    hintText: 'Enter WSIB Claim Notes',
                     controller: provider.wSIBClaimNoteController,
                     height: null,
                   ),
                   getHeight(context: context, height: 0.010),
                   CustomTwoTextFieldWidget(
+                    hintLeft: 'Enter Business Name',
+                    hintRight: 'Enter Business Telephone',
                     controllerLeft: provider.businessNameController,
                     controllerRight: provider.businessTelephoneController,
                     titleLeft: 'Business Name',
@@ -633,6 +647,8 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                     controllerRight: provider.address2Controller,
                     titleLeft: 'Address Line 1',
                     titleRight: 'Address Line 2',
+                    hintLeft: 'Enter Address Line 1',
+                    hintRight: 'Enter Address Line 2',
                   ),
                   getHeight(context: context, height: 0.010),
                   CustomTwoTextFieldWidget(
@@ -640,6 +656,8 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                     controllerRight: provider.provinceController,
                     titleLeft: 'City',
                     titleRight: 'Province',
+                    hintLeft: 'Enter City',
+                    hintRight: 'Enter Province',
                   ),
                   getHeight(context: context, height: 0.010),
                   CustomTwoTextFieldWidget(
@@ -648,6 +666,8 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                     controllerRight: provider.countryController,
                     titleLeft: 'Postal Code',
                     titleRight: 'Country',
+                    hintLeft: 'Enter Postal Code',
+                    hintRight: 'Enter Country',
                   ),
                   getHeight(context: context, height: 0.010),
                   CustomTwoTextFieldWidget(
@@ -655,18 +675,22 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                     controllerRight: provider.homeTelephoneController,
                     titleLeft: 'Mobile Telephone',
                     titleRight: 'Home Telephone',
+                    hintLeft: 'Enter Mobile Telephone',
+                    hintRight: 'Enter Home Telephone',
                   ),
                   getHeight(context: context, height: 0.010),
-                  appText(
-                    textAlign: TextAlign.left,
-                    context: context,
-                    title: 'Email*',
-                    fontWeight: FontWeight.w500,
-                  ),
+                  richText(
+                      context: context,
+                      title: 'Email',
+                      subtitle: '*',
+                      fontSize: 14,
+                      twoendTextColor: Colors.red,
+                      fontWeight1: FontWeight.w500,
+                      fontWeight2: FontWeight.w500),
                   getHeight(context: context, height: 0.005),
                   addWorkerTextField(
                     context: context,
-                    hintText: '',
+                    hintText: 'Enter Email Address',
                     controller: provider.emailController,
                     height: context.getSize.height * 0.050,
                   ),
@@ -676,6 +700,8 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                     controllerRight: provider.emergencyTelephone1Controller,
                     titleLeft: 'Emergency Contact 1',
                     titleRight: 'Emergency Telephone 1',
+                    hintLeft: 'Enter Emergency Contact 1',
+                    hintRight: 'Enter Emergency Telephone 1',
                   ),
                   getHeight(context: context, height: 0.010),
                   CustomTwoTextFieldWidget(
@@ -683,6 +709,8 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                     controllerRight: provider.emergencyTelephone2Controller,
                     titleLeft: 'Emergency Contact 2',
                     titleRight: 'Emergency Telephone 2',
+                    hintLeft: 'Enter Emergency Contact 2',
+                    hintRight: 'Enter Emergency Telephone 2',
                   ),
                   getHeight(context: context, height: 0.010),
                   Row(
@@ -716,7 +744,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                           addWorkerTextField(
                             textInputType: TextInputType.number,
                             context: context,
-                            hintText: '',
+                            hintText: 'Enter Regular Rate',
                             controller: provider.regularRateController,
                             height: context.getSize.height * 0.050,
                           ),
@@ -732,6 +760,8 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                     controllerRight: provider.clientRateController,
                     titleLeft: 'Over Time Rate',
                     titleRight: 'Client Rate',
+                    hintLeft: 'Enter Over Time Rate',
+                    hintRight: 'Enter Client Rate',
                   ),
                   getHeight(context: context, height: 0.010),
                   Row(
@@ -765,7 +795,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                           addWorkerTextField(
                             textInputType: TextInputType.text,
                             context: context,
-                            hintText: '',
+                            hintText: 'Enter Work Experience Note',
                             controller: provider.workExperienceNoteController,
                             height: context.getSize.height * 0.050,
                           ),
@@ -783,7 +813,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                   getHeight(context: context, height: 0.005),
                   addWorkerTextField(
                     context: context,
-                    hintText: '',
+                    hintText: 'Enter Trade License No',
                     controller: provider.tradeLicenseNoController,
                     height: context.getSize.height * 0.050,
                   ),
@@ -819,7 +849,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                           addWorkerTextField(
                             textInputType: TextInputType.text,
                             context: context,
-                            hintText: '',
+                            hintText: 'Enter Union Affiliation Notes',
                             controller:
                                 provider.unionAffiliationNotesController,
                             height: context.getSize.height * 0.050,
@@ -839,7 +869,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                   addWorkerTextField(
                     maxLines: 2,
                     context: context,
-                    hintText: '',
+                    hintText: 'Enter Employment History Notes',
                     controller: provider.employmentHistoryNoteController,
                     height: null,
                   ),
@@ -875,7 +905,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                           addWorkerTextField(
                             textInputType: TextInputType.text,
                             context: context,
-                            hintText: '',
+                            hintText: 'Enter Certifications Notes',
                             controller: provider.certificationNotesController,
                             height: context.getSize.height * 0.050,
                           ),
@@ -944,12 +974,14 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                           child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          appText(
-                            textAlign: TextAlign.left,
-                            context: context,
-                            title: 'Recruiter Payment Delivery*',
-                            fontWeight: FontWeight.w500,
-                          ),
+                          richText(
+                              context: context,
+                              fontSize: 14,
+                              title: 'Recruiter Payment Delivery',
+                              subtitle: '*',
+                              twoendTextColor: Colors.red,
+                              fontWeight1: FontWeight.w500,
+                              fontWeight2: FontWeight.w500),
                           getHeight(context: context, height: 0.005),
                           checkWidget(
                             onTap: (index) {
@@ -965,12 +997,14 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                           child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          appText(
-                            textAlign: TextAlign.left,
-                            context: context,
-                            title: 'Worker Pick Up Location*',
-                            fontWeight: FontWeight.w500,
-                          ),
+                          richText(
+                              context: context,
+                              title: 'Worker Pick Up Location',
+                              subtitle: '*',
+                              fontSize: 14,
+                              twoendTextColor: Colors.red,
+                              fontWeight1: FontWeight.w500,
+                              fontWeight2: FontWeight.w500),
                           getHeight(context: context, height: 0.005),
                           const SelectWorkerPickUpLocationWidget()
                         ],
@@ -984,16 +1018,19 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                           child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          appText(
-                            textAlign: TextAlign.left,
-                            context: context,
-                            title: 'Recruiter Commission*',
-                            fontWeight: FontWeight.w500,
-                          ),
+                          richText(
+                              context: context,
+                              title: 'Recruiter Commission',
+                              subtitle: '*',
+                              fontSize: 14,
+                              twoendTextColor: Colors.red,
+                              fontWeight1: FontWeight.w500,
+                              fontWeight2: FontWeight.w500),
                           getHeight(context: context, height: 0.005),
                           addWorkerTextField(
+                            textInputType: TextInputType.number,
                             context: context,
-                            hintText: '',
+                            hintText: 'Enter Recruiter Commission',
                             controller: provider.recruiterCommissionController,
                             height: context.getSize.height * 0.050,
                           ),
@@ -1004,12 +1041,14 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                           child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          appText(
-                            textAlign: TextAlign.left,
-                            context: context,
-                            title: 'Submits Own Hours',
-                            fontWeight: FontWeight.w500,
-                          ),
+                          richText(
+                              context: context,
+                              title: 'Submits Own Hours',
+                              subtitle: '*',
+                              fontSize: 14,
+                              twoendTextColor: Colors.red,
+                              fontWeight1: FontWeight.w500,
+                              fontWeight2: FontWeight.w500),
                           getHeight(context: context, height: 0.005),
                           checkWidget(
                             onTap: (index) {
@@ -1029,12 +1068,14 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                           child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          appText(
-                            textAlign: TextAlign.left,
-                            context: context,
-                            title: 'TimeSheet Type*',
-                            fontWeight: FontWeight.w500,
-                          ),
+                          richText(
+                              context: context,
+                              title: 'TimeSheet Type',
+                              subtitle: '*',
+                              fontSize: 14,
+                              twoendTextColor: Colors.red,
+                              fontWeight1: FontWeight.w500,
+                              fontWeight2: FontWeight.w500),
                           getHeight(context: context, height: 0.005),
                           const SelectTimeSheetTypeWidget(),
                         ],
@@ -1073,135 +1114,190 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                   addWorkerTextField(
                     maxLines: 2,
                     context: context,
-                    hintText: '',
+                    hintText: 'Enter Payment Notes',
                     controller: provider.paymentNotesController,
                     height: null,
                   ),
                   getHeight(context: context, height: 0.010),
-                  Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: context.getSize.width * 0.30),
-                      child: textButton(
-                        vPadding: 0.020,
-                        radius: 100,
-                        context: context,
-                        onTap: () {
-                          provider.addWorkerData(
-                            context: context,
-                            internalWorkerID: provider.workerIdController.text,
-                            clientWorkerID: provider.clientIdController.text,
-                            age: provider.ageController.text.isEmpty
-                                ? null
-                                : int.parse(provider.ageController.text),
-                            firstName: provider.firstNameController.text,
-                            lastName: provider.lastNameController.text,
-                            jobSites: provider.selectedJobSitesIDList,
-                            recruiterAssingId: provider.recruiterId,
-                            dateOfBirth: provider.dobController.text,
-                            englishFluency:
-                                provider.isEnglishFluence == 0 ? true : false,
-                            languageId: provider.selectedLanguageId.toString(),
-                            legalToWork:
-                                provider.islegalToWork == 0 ? true : false,
-                            ownTransport:
-                                provider.isOwnTransport == 0 ? true : false,
-                            socialInsuranceNo:
-                                provider.socialInsuranceController.text,
-                            workPermitNo: provider.workPermitController.text,
-                            workerHireDate: provider.hireDateController.text,
-                            workerTerminateDate:
-                                provider.terminationDateController.text,
-                            workerStatusId: provider.selectedStatusID,
-                            workerFlagId:
-                                provider.selectedWorkerFlagID.toString(),
-                            businessWIBSno:
-                                provider.businessWSIBNoController.text,
-                            pastWIBSClaim:
-                                provider.pastWSIBClaim == 0 ? true : false,
-                            wibsClaimNotes:
-                                provider.wSIBClaimNoteController.text,
-                            businessName: provider.businessNameController.text,
-                            businessTele:
-                                provider.businessTelephoneController.text,
-                            address1: provider.address1Controller.text,
-                            address2: provider.address2Controller.text,
-                            city: provider.cityController.text,
-                            province: provider.provinceController.text,
-                            postalCode: provider.postalCodeController.text,
-                            country: provider.countryController.text,
-                            mobile: provider.mobileTelephoneController.text,
-                            homeTele: provider.homeTelephoneController.text,
-                            email: provider.emailController.text,
-                            emergencyContact1:
-                                provider.emergencyContact1Controller.text,
-                            emergencyContact2:
-                                provider.emergencyContact2Controller.text,
-                            emergencyTele1:
-                                provider.emergencyTelephone1Controller.text,
-                            emergencyTele2:
-                                provider.emergencyTelephone2Controller.text,
-                            tradeOptionId: provider.tradeOptionId,
-                            regularRate:
-                                provider.regularRateController.text.isEmpty
-                                    ? null
-                                    : double.parse(
-                                        provider.regularRateController.text),
-                            overTimeRate:
-                                provider.overTimeRateController.text.isEmpty
-                                    ? null
-                                    : double.parse(
-                                        provider.overTimeRateController.text),
-                            // clientPayWSIB: provider.clientRateController.text.isEmpty ? null : double.parse(provider.clientRateController.text),
-                            workExperience:
-                                provider.workExperienceController.text,
-                            workExperienceNotes:
-                                provider.workExperienceNoteController.text,
-                            tradeLicenseNo:
-                                provider.tradeLicenseNoController.text,
-                            unionAffilation:
-                                provider.unionAffiliationController.text,
-                            unionAffilationNotes:
-                                provider.unionAffiliationNotesController.text,
-                            employeHistoryNotes:
-                                provider.employmentHistoryNoteController.text,
-                            certificationId: provider.certificateId.toString(),
-                            certificationNotes:
-                                provider.certificationController.text,
-                            isRecruiterComission:
-                                provider.recruiterPaymentDelivery == 0
-                                    ? true
-                                    : false,
-                            workerPickupLocation: provider.workerPickUpId,
-                            recruiterComission: provider
-                                    .recruiterCommissionController.text.isEmpty
-                                ? null
-                                : double.parse(provider
-                                    .recruiterCommissionController.text),
-                            submitOwnHours:
-                                provider.submitOwnHours == 0 ? true : false,
-                            timeSheetType: provider.timeSheetTypeId,
-                            paymentNotes: provider.paymentNotesController.text,
-                            clientPayWSIB:
-                                provider.clientPaysWSIB == 0 ? true : false,
-                           whimsFilePath: provider.wHIMSFilePath,
-
-                           otherFilePath: provider.otherFilePath,
-
-                           termsOfEmployeFilePath: provider.termsOfEmpPath,
-                           employementReleaseFilePath: provider.empReleasePath, profileImage: provider.pickedImage, workingFormHeightFilePath: provider.workingFormHeightPath,
-                           firstAidFilePath: provider.firstAidPath,
-                           
-                                
-                          );
-                        },
-                        title: "Update",
-                      )),
                 ],
               ),
             ),
+            getHeight(context: context, height: 0.08),
           ],
-        ));
-      }),
-    );
+        )),
+        bottomSheet: SizedBox(
+          height: context.getSize.height * 0.08,
+          width: context.getSize.width,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              textButton(
+                vPadding: 0.020,
+                width: context.getSize.width * 0.3,
+                radius: 100,
+                fontSize: 16,
+                context: context,
+                onTap: () {
+                  if (provider.recruiterId == null) {
+                    toast(msg: 'Kindly assign recruiter', context: context);
+                  } else if (provider.clientIdController.text.isEmpty ||
+                      provider.clientIdController.text == '') {
+                    toast(msg: 'Client id cannot be empty', context: context);
+                  } else if (provider.firstNameController.text.isEmpty ||
+                      provider.firstNameController.text == '') {
+                    toast(
+                        msg: 'Please enter worker first name',
+                        context: context);
+                  } else if (provider.lastNameController.text.isEmpty ||
+                      provider.lastNameController.text == '') {
+                    toast(
+                        msg: 'Please enter worker last name', context: context);
+                  } else if (provider.selectedStatusID == null) {
+                    toast(msg: 'please select worker status', context: context);
+                  } else if (provider.emailController.text.isEmpty ||
+                      provider.emailController.text == '') {
+                    toast(
+                        msg: 'Please enter worker email address',
+                        context: context);
+                  } else if (!Constant.regExp
+                      .hasMatch(provider.emailController.text)) {
+                    toast(
+                        msg: 'Please enter valid email address',
+                        context: context);
+                  } else if (provider.workerPickUpId == null) {
+                    toast(
+                        msg: 'Please select worker pickup location',
+                        context: context);
+                  } else if (provider
+                          .recruiterCommissionController.text.isEmpty ||
+                      provider.recruiterCommissionController.text == '') {
+                    toast(
+                        msg: 'Please enter recruiter commission',
+                        context: context);
+                  } else if (provider.timeSheetTypeId == null) {
+                    toast(
+                        msg: "Please select TimeSheet Type", context: context);
+                  } else {
+                    provider.addWorkerData(
+                        context: context,
+                        internalWorkerID: provider.workerIdController.text,
+                        clientWorkerID: provider.clientIdController.text,
+                        age: provider.ageController.text.isEmpty
+                            ? null
+                            : int.parse(provider.ageController.text),
+                        firstName: provider.firstNameController.text,
+                        lastName: provider.lastNameController.text,
+                        jobSites: provider.selectedJobSitesIDList,
+                        recruiterAssingId: provider.recruiterId,
+                        dateOfBirth: provider.dobController.text,
+                        englishFluency:
+                            provider.isEnglishFluence == 0 ? true : false,
+                        languageId: provider.selectedLanguageIdList
+                            .join(', ')
+                            .toString(),
+                        legalToWork: provider.islegalToWork == 0 ? true : false,
+                        ownTransport:
+                            provider.isOwnTransport == 0 ? true : false,
+                        socialInsuranceNo:
+                            provider.socialInsuranceController.text,
+                        workPermitNo: provider.workPermitController.text,
+                        workerHireDate: provider.hireDateController.text,
+                        workerTerminateDate:
+                            provider.terminationDateController.text,
+                        workerStatusId: provider.selectedStatusID,
+                        workerFlagId: provider.selectedWorkerFlagIdList
+                            .join(', ')
+                            .toString(),
+                        businessWIBSno: provider.businessWSIBNoController.text,
+                        pastWIBSClaim:
+                            provider.pastWSIBClaim == 0 ? true : false,
+                        wibsClaimNotes: provider.wSIBClaimNoteController.text,
+                        businessName: provider.businessNameController.text,
+                        businessTele: provider.businessTelephoneController.text,
+                        address1: provider.address1Controller.text,
+                        address2: provider.address2Controller.text,
+                        city: provider.cityController.text,
+                        province: provider.provinceController.text,
+                        postalCode: provider.postalCodeController.text,
+                        country: provider.countryController.text,
+                        mobile: provider.mobileTelephoneController.text,
+                        homeTele: provider.homeTelephoneController.text,
+                        email: provider.emailController.text,
+                        emergencyContact1:
+                            provider.emergencyContact1Controller.text,
+                        emergencyContact2:
+                            provider.emergencyContact2Controller.text,
+                        emergencyTele1:
+                            provider.emergencyTelephone1Controller.text,
+                        emergencyTele2:
+                            provider.emergencyTelephone2Controller.text,
+                        tradeOptionId: provider.tradeOptionId,
+                        regularRate: provider.regularRateController.text.isEmpty
+                            ? null
+                            : double.parse(provider.regularRateController.text),
+                        billRate: provider.clientRateController.text.isEmpty
+                            ? null
+                            : double.parse(provider.clientRateController.text),
+                        overTimeRate:
+                            provider.overTimeRateController.text.isEmpty
+                                ? null
+                                : double.parse(
+                                    provider.overTimeRateController.text),
+                        // clientPayWSIB: provider.clientRateController.text.isEmpty ? null : double.parse(provider.clientRateController.text),
+                        workExperience: provider.selectedWorkExpIDList
+                            .join(', ')
+                            .toString(),
+                        // provider.workExperienceController.text,
+                        workExperienceNotes:
+                            provider.workExperienceNoteController.text,
+                        tradeLicenseNo: provider.tradeLicenseNoController.text,
+                        unionAffilation: provider.selectedUnionAfflicationIdList
+                            .join(', ')
+                            .toString(),
+                        // provider.unionAffiliationController.text,
+                        unionAffilationNotes:
+                            provider.unionAffiliationNotesController.text,
+                        employeHistoryNotes:
+                            provider.employmentHistoryNoteController.text,
+                        certificationId: provider.selectedcertificateIdList
+                            .join(', ')
+                            .toString(),
+                        // provider.certificateId.toString(),
+                        certificationNotes:
+                            provider.certificationNotesController.text,
+                        isRecruiterComission:
+                            provider.recruiterPaymentDelivery == 0
+                                ? true
+                                : false,
+                        workerPickupLocation: provider.workerPickUpId,
+                        recruiterComission: provider
+                                .recruiterCommissionController.text.isEmpty
+                            ? null
+                            : double.parse(
+                                provider.recruiterCommissionController.text),
+                        submitOwnHours:
+                            provider.submitOwnHours == 0 ? true : false,
+                        timeSheetType: provider.timeSheetTypeId,
+                        paymentNotes: provider.paymentNotesController.text,
+                        clientPayWSIB:
+                            provider.clientPaysWSIB == 0 ? true : false,
+                        whimsFilePath: provider.wHIMSFilePath,
+                        otherFilePath: provider.otherFilePath,
+                        termsOfEmployeFilePath: provider.termsOfEmpPath,
+                        employementReleaseFilePath: provider.empReleasePath,
+                        profileImage: provider.pickedImage,
+                        workingFormHeightFilePath: provider.workingFormHeightPath,
+                        firstAidFilePath: provider.firstAidPath,
+                        notes: provider.flagNotesController.text);
+                  }
+                },
+                title: "Update",
+              ),
+            ],
+          ),
+        ),
+      );
+    });
   }
 }

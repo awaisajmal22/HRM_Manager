@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hrm_manager/WidgetandBindings/app_routes.dart';
 import 'package:hrm_manager/constant/app_text.dart';
 import 'package:hrm_manager/constant/back.dart';
 import 'package:hrm_manager/constant/height_box.dart';
@@ -61,7 +62,9 @@ class LocationView extends StatelessWidget {
                     hintText: 'City, postal code',
                     controller: provider.locationController,
                     height: context.getSize.height * 0.048,
-                    onChanged: (val) {},
+                    onChanged: (val) {
+                      provider.searchQuery(val);
+                    },
                     cancel: () {},
                   ),
                 ],
@@ -69,13 +72,19 @@ class LocationView extends StatelessWidget {
             ),
             Expanded(
                 child: ListView.builder(
-                    itemCount: provider.locations.length,
+                    itemCount: provider.locationController.text.isEmpty
+                        ? provider.locations.length
+                        : provider.searchedList.length,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
+                      String location = provider.locationController.text.isEmpty
+                          ? provider.locations[index]
+                          : provider.searchedList[index];
                       return GestureDetector(
                         onTap: () {
-                          provider.selectLocation(
-                              provider.locations[index], index);
+                          provider.selectLocation(location, index);
+                            Navigator.pushNamed(
+                            context, AppRoutes.avaliableWorkerView,arguments: ['Select',0,location]);
                         },
                         child: Container(
                           padding: EdgeInsets.symmetric(
@@ -102,7 +111,7 @@ class LocationView extends StatelessWidget {
                               getWidth(context: context, width: 0.010),
                               appText(
                                 context: context,
-                                title: provider.locations[index],
+                                title: location,
                                 fontSize: 16,
                                 textColor: AppColor.iconColor,
                               )

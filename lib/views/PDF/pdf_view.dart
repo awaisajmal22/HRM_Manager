@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hrm_manager/Model/worker_doc_model.dart';
+import 'package:hrm_manager/constant/text_button.dart';
 import 'package:pdfx/pdfx.dart';
 import 'package:hrm_manager/constant/app_text.dart';
 import 'package:hrm_manager/constant/width_box.dart';
@@ -11,7 +15,7 @@ import '../../constant/app_color.dart';
 
 class PDFView extends StatefulWidget {
   final String title;
-  final String pdfPath;
+  final WorkerDocModel pdfPath;
   const PDFView({super.key, required this.title, required this.pdfPath});
 
   @override
@@ -25,13 +29,31 @@ class _PDFViewState extends State<PDFView> {
     print(widget.pdfPath);
     // TODO: implement initState
     super.initState();
-    _pdfControllerPinch =
-        PdfControllerPinch(document: PdfDocument.openAsset(widget.pdfPath));
+    if (widget.pdfPath.contentType!.contains('pdf')) {
+      _pdfControllerPinch = PdfControllerPinch(
+          document: PdfDocument.openFile("${widget.pdfPath.wasabiBytes}"));
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomSheet: SizedBox(
+        height: context.getSize.height * 0.08,
+        width: context.getSize.width,
+        child: Center(
+          child: textButton(
+              vPadding: 0.020,
+              width: context.getSize.width * 0.3,
+              radius: 50,
+              fontSize: 16,
+              context: context,
+              onTap: () {
+                back(context: context);
+              },
+              title: 'Close'),
+        ),
+      ),
       body: SafeArea(
           child: Column(
         children: [
@@ -63,7 +85,12 @@ class _PDFViewState extends State<PDFView> {
               ],
             ),
           ),
-          Expanded(child: PdfViewPinch(controller: _pdfControllerPinch))
+          Expanded(
+            child: widget.pdfPath.contentType!.contains('pdf')
+                ? PdfViewPinch(controller: _pdfControllerPinch)
+                : Image.file(File(widget.pdfPath.wasabiBytes!),
+                    fit: BoxFit.cover),
+          )
         ],
       )),
     );

@@ -14,7 +14,7 @@ class SelectRecruiter extends StatelessWidget {
     return Consumer<AddWorkerProvider>(builder: (context, provider, __) {
       return addWorkerTextField(
         context: context,
-        hintText: 'RC1',
+        hintText: 'Select',
         controller: provider.recruiterController,
         height: context.getSize.height * 0.050,
         readOnly: true,
@@ -24,10 +24,10 @@ class SelectRecruiter extends StatelessWidget {
             context: context,
           );
           if (recruiter != '') {
-            for(var data in provider.recruiterList){
-              if(data.name == recruiter){
-            provider.selectRecruiter(recruiter,data.id!);
-            }
+            for (var data in provider.recruiterList) {
+              if (data.name == recruiter) {
+                provider.selectRecruiter(recruiter, data.id!);
+              }
             }
           }
         },

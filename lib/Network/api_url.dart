@@ -26,5 +26,13 @@ class ApiUrl{
 
   static const uploadFirstAid ='$mainUrl/SaveFirstAid';
   static const getProfileImage ='$mainUrl/GetWorkerProfileById';
+  static const getWHIMSById ='$mainUrl/GetWHIMSById';
+  static const getTermsEmployeementById ='$mainUrl/GetTermsEmployeementById';
+  static const getFirstAidById ='$mainUrl/GetFirstAidById';
+  static const getWorkingHeightsById ='$mainUrl/GetWorkingHeightsById';
+  static const getOthersById ='$mainUrl/GetOthersById';
+  static const getEmployeementReleaseById ='$mainUrl/GetEmployeementReleaseById';
+  static const getJobSiteByIdUrl ='$mainUrl/GetJobsiteWorkerId';
+  static const getAssginRecruiterByIdUrl ='$mainUrl/GetAssignedRecruiterByWorkerId';
 
 }

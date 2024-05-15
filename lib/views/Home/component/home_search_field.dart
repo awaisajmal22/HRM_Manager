@@ -28,14 +28,16 @@ homeSearchField({
       controller: controller,
       decoration: InputDecoration(
         hintStyle: textStyle(
+          textColor: AppColor.lightPurpleColor.withOpacity(0.67),
           context: context,
           fontSize: 16,
           fontWeight: FontWeight.w400,
           fontFamily: "Roboto",
         ),
         prefixIcon: const Icon(Icons.search),
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 10,),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 10,
+        ),
         hintText: hintText,
         border: border,
         errorBorder: border,

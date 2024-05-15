@@ -15,7 +15,7 @@ class EditSelectRecruiter extends StatelessWidget {
     return Consumer<EditWorkerDetailProvider>(builder: (context, provider, __) {
       return addWorkerTextField(
         context: context,
-        hintText: 'RC1',
+        hintText: 'Select',
         controller: provider.recruiterController,
         height: context.getSize.height * 0.050,
         readOnly: true,

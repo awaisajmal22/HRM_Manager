@@ -19,6 +19,7 @@ List<AllTradeModel> get tradesList => _tradesList;
   
 final result =await AllTradesServices().getAllTrade(context: context);
 if(result.isNotEmpty){
+  result.sort((a, b) => a.tradeOptionName!.compareTo(b.tradeOptionName!));
   _tradesList = result;
   print(_tradesList.length);
   

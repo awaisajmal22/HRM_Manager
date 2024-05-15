@@ -49,7 +49,8 @@ editAddWorkerTextField({
       decoration: InputDecoration(
         hintStyle: textStyle(
           context: context,
-          fontSize: 16,
+          fontSize: 14,
+          textColor: AppColor.lightPurpleColor.withOpacity(0.67),
           fontWeight: FontWeight.w400,
           fontFamily: "Roboto",
         ),

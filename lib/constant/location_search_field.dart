@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hrm_manager/constant/app_text.dart';
 import 'package:hrm_manager/constant/app_color.dart';
+
 typedef OnChanged = Function(String);
 typedef Cancel = Function();
 locationSearchField({
@@ -30,13 +31,13 @@ locationSearchField({
       decoration: InputDecoration(
         hintStyle: textStyle(
           context: context,
+          textColor: AppColor.lightPurpleColor.withOpacity(0.67),
           fontSize: 16,
           fontWeight: FontWeight.w400,
           fontFamily: "Roboto",
         ),
-        suffixIcon: GestureDetector(
-          onTap:cancel,
-          child: const Icon(Icons.close)),
+        suffixIcon:
+            GestureDetector(onTap: cancel, child: const Icon(Icons.close)),
         contentPadding: const EdgeInsets.symmetric(horizontal: 10),
         hintText: hintText,
         border: border,

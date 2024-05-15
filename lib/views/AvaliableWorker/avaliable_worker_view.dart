@@ -1,12 +1,17 @@
+import 'dart:typed_data';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hrm_manager/Model/all_trades_model.dart';
 import 'package:hrm_manager/Model/avaliable_worker_model.dart';
 import 'package:hrm_manager/Model/filtration_response_model.dart';
+import 'package:hrm_manager/Model/worker_status_and_flag_model.dart';
 import 'package:hrm_manager/WidgetandBindings/app_routes.dart';
 import 'package:hrm_manager/constant/app_text.dart';
 import 'package:hrm_manager/constant/back.dart';
 import 'package:hrm_manager/constant/constant.dart';
+import 'package:hrm_manager/constant/drop_down.dart';
 import 'package:hrm_manager/constant/height_box.dart';
 import 'package:hrm_manager/constant/text_button.dart';
 import 'package:hrm_manager/constant/width_box.dart';
@@ -22,8 +27,10 @@ import 'package:provider/provider.dart';
 
 class AvaliableWorkerView extends StatefulWidget {
   final String name;
+  final String location;
   final int id;
-  AvaliableWorkerView({super.key, this.name = '', required this.id});
+  AvaliableWorkerView(
+      {super.key, this.name = '', required this.id, required this.location});
 
   @override
   State<AvaliableWorkerView> createState() => _AvaliableWorkerViewState();
@@ -35,24 +42,34 @@ class _AvaliableWorkerViewState extends State<AvaliableWorkerView> {
   @override
   void initState() {
     pv = Provider.of<AvaliableWorkerProvider>(context, listen: false);
-    if (_isFilterDataLoad == false) {
-      _loadData();
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_isFilterDataLoad == false) {
+        _loadData();
+      }
+    });
     super.initState();
   }
 
   _loadData() {
     final pv = Provider.of<AvaliableWorkerProvider>(context, listen: false);
     pv.getStatusList(context: context);
+
+    pv.getTradeOption(context: context).whenComplete(() {
+      if (widget.name != '') {
+        pv.selectTradeOption(widget.name, widget.id);
+      }
+    }).whenComplete(() {
+      pv.getFiltrationDataFunc(
+        context: context,
+        tradeID: pv.tradeOptionId,
+      );
+    });
+
     pv.getFlagList(context: context);
-    pv.getFiltrationDataFunc(
-      context: context,
-      tradeID: widget.id,
-    );
-  
 
     print("Trade ID is ${widget.id}");
     // pv.addFilter(widget.name);
+    // pv.getStatusList(context: context);
 
     setState(() {
       _isFilterDataLoad = true;
@@ -69,14 +86,16 @@ class _AvaliableWorkerViewState extends State<AvaliableWorkerView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: SizedBox(
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomSheet: SizedBox(
+        height: context.getSize.height * 0.08,
         width: context.getSize.width,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             textButton(
-              width: context.getSize.width * 0.4,
+              vPadding: 0.02,
+              width: context.getSize.width * 0.3,
               radius: 100,
               context: context,
               onTap: () {
@@ -85,7 +104,8 @@ class _AvaliableWorkerViewState extends State<AvaliableWorkerView> {
               title: 'Export CSV',
             ),
             textButton(
-              width: context.getSize.width * 0.4,
+              vPadding: 0.02,
+              width: context.getSize.width * 0.3,
               radius: 100,
               context: context,
               onTap: () {
@@ -134,17 +154,42 @@ class _AvaliableWorkerViewState extends State<AvaliableWorkerView> {
                     ),
                     getHeight(context: context, height: 0.010),
                     filterSearchField(
+                      tradeList: provider.tradeNameList,
+                      // onTap: () async {
+                      //   final String tradeOption = await tradeDropDown(
+                      //     dataList: provider.tradeOptionList,
+                      //     context: context,
+                      //   );
+                      //   if (tradeOption != '') {
+                      //     for (var data in provider.tradeOptionList) {
+                      //       if (data.tradeOptionName == tradeOption) {
+                      //         provider.selectTradeOption(tradeOption, data.id!);
+                      //       }
+                      //     }
+                      //   }
+                      // },
                       isOpenFilter: provider.isFilterOpen,
                       context: context,
-                      hintText: '',
-                      controller: provider.workerTypeController,
+                      hintText: provider.tradeOptionName,
+                      // controller: provider.workerTypeController,
                       height: context.getSize.height * 0.048,
-                      onChanged: (val) {},
+                      onChanged: (val) {
+                        for (var data in provider.tradeOptionList) {
+                          if (data.tradeOptionName == val) {
+                            provider.selectTradeOption(
+                                data.tradeOptionName!, data.id!);
+                            provider.getFiltrationDataFunc(
+                                context: context,
+                                tradeID: provider.tradeOptionId);
+                          }
+                        }
+                      },
                       openFilter: () {
                         provider.openFilter(!provider.isFilterOpen);
                       },
                     ),
                     FilterWidget(
+                      location: widget.location,
                       name: widget.name,
                       id: widget.id,
                     ),
@@ -153,6 +198,7 @@ class _AvaliableWorkerViewState extends State<AvaliableWorkerView> {
               ),
               Expanded(
                   child: ListView.builder(
+                      physics: const BouncingScrollPhysics(),
                       itemCount: provider.filtrationResponseList.length,
                       padding: EdgeInsets.symmetric(
                         horizontal: context.getSize.width * 0.045,
@@ -160,23 +206,53 @@ class _AvaliableWorkerViewState extends State<AvaliableWorkerView> {
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         Datum model = provider.filtrationResponseList[index];
-                        return GestureDetector(
-                          onTap: () {
-                            Navigator.pushNamed(
-                                context, AppRoutes.workerProfileView,arguments:int.parse(model.id.toString()));
-                          },
-                          child: WorkerWidget(
-                            name:
-                                "${model.firstName.toString().isNotNullableString()} ${model.lastName.toString().isNotNullableString()}",
-                            dateOfBirth: model.dateofBirth == null
-                                ? ''
-                                : dateFormater(model.dateofBirth!.toString() ??''),
-                            price: "\$${model.regularRate.toString()}/hr",
-                            trade: model.trade ?? '',
-                            status: model.workerStatus ?? '',
-                          ),
+                        StatusAndFlagModel status =
+                            provider.workerStatusList.firstWhere(
+                          (e) => e.id == model.statusId,
+                          orElse: () => StatusAndFlagModel(),
                         );
-                      }))
+                        AllTradeModel trade =
+                            provider.tradeOptionList.firstWhere(
+                          (e) => e.id == model.tradeId,
+                          orElse: () => AllTradeModel(),
+                        );
+
+                        return FutureBuilder<String>(
+                            future: model.profileBytes == null
+                                ? null
+                                : provider.saveUint8ListToFile(
+                                    context,
+                                    provider.stringToUint8List(
+                                      model.profileBytes,
+                                    ),
+                                    true,
+                                    index,
+                                    model.profileType,
+                                    model.id.toString()),
+                            builder: (context, snapshot) {
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                      context, AppRoutes.workerProfileView,
+                                      arguments:
+                                          int.parse(model.id.toString()));
+                                },
+                                child: WorkerWidget(
+                                  imageUrl: snapshot.data ?? '',
+                                  name:
+                                      "${model.firstName.toString().isNotNullableString()} ${model.lastName.toString().isNotNullableString()}",
+                                  dateOfBirth: model.dob == null
+                                      ? ''
+                                      : dateFormater(
+                                          model.dob!.toString() ?? ''),
+                                  price: "\$${model.regularRate.toString()}/hr",
+                                  trade: trade.tradeOptionName ?? '',
+                                  status: status.name ?? '',
+                                ),
+                              );
+                            });
+                      })),
+              getHeight(context: context, height: 0.080)
             ],
           ),
         );

@@ -17,77 +17,84 @@ class EditSelectLanguageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<EditWorkerDetailProvider>(builder: (context, provider, __) {
-      return addWorkerTextField(
-        context: context,
-        hintText: 'Language',
-        controller: provider.selectedLanguage,
-        height: context.getSize.height * 0.050,
-        readOnly: true,
-        onTap: () async {
-          final String language = await customDropDown(
-            dataList: provider.languagesList,
-            context: context,
-          );
-          if (language != '') {
+      return 
+      // addWorkerTextField(
+      //   context: context,
+      //   hintText: 'Language',
+      //   controller: provider.selectedLanguage,
+      //   height: context.getSize.height * 0.050,
+      //   readOnly: true,
+      //   onTap: () async {
+      //     final String language = await customDropDown(
+      //       dataList: provider.languagesList,
+      //       context: context,
+      //     );
+      //     if (language != '') {
+      //       for (var data in provider.languagesList) {
+      //         if (data.name == language) {
+      //           provider.selectLanguage(language, data.id!);
+      //         }
+      //       }
+      //     }
+      //   },
+      // );
+      
+      GestureDetector(
+        onTap: () async{
+         String value = await customDropDown(
+              dataList: provider.languagesList,
+              context: context,
+              );
+               if (value != '') {
             for (var data in provider.languagesList) {
-              if (data.name == language) {
-                provider.selectLanguage(language, data.id!);
+              if (data.name == value) {
+                provider.selectLanguage(value, data.id!);
               }
             }
           }
         },
+        child: Container(
+          alignment: Alignment.centerLeft,
+          height: provider.selectedLanguageList.isEmpty
+              ? context.getSize.height * 0.050
+              : null,
+          width: provider.selectedLanguageList.isEmpty
+              ? context.getSize.width
+              : null,
+          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(
+                color: Color(0xffF5F5F5),
+                width: 1,
+              )),
+          child:provider.selectedLanguageList.isEmpty ? appText(context: context, title: 'Select',textColor: AppColor.lightPurpleColor.withOpacity(0.67,))
+         :
+           Wrap(
+            spacing: 10,
+            runSpacing: 0,
+            direction: Axis.horizontal,
+            runAlignment: WrapAlignment.start,
+            alignment: WrapAlignment.start,
+            children: List.generate(
+              provider.selectedLanguageList.length,
+              (index) => Chip(
+                onDeleted: () {
+                  provider.removeSelectedLanguage(index);
+                },
+                shape: const StadiumBorder(
+                    side: BorderSide(color: Colors.transparent)),
+                backgroundColor: AppColor.lightPinkColor,
+                label: appText(
+                  context: context,
+                  title: provider.selectedLanguageList[index],
+                ),
+              ),
+              growable: true,
+            ),
+          ),
+        ),
       );
-      
-    //   GestureDetector(
-    //     onTap: () async{
-    //      String value = await customDropDown(
-    //           dataList: provider.languagesList,
-    //           context: context,
-    //           );
-    //           if(value != ''){
-    //             provider.selectLanguage(value);
-    //           }
-    //     },
-    //     child: Container(
-    //       alignment: Alignment.centerLeft,
-    //       height: provider.selectedLanguageList.isEmpty
-    //           ? context.getSize.height * 0.050
-    //           : null,
-    //       width: provider.selectedLanguageList.isEmpty
-    //           ? context.getSize.width
-    //           : null,
-    //       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-    //       decoration: BoxDecoration(
-    //           borderRadius: BorderRadius.circular(8),
-    //           border: Border.all(
-    //             color: Color(0xffF5F5F5),
-    //             width: 1,
-    //           )),
-    //       child: Wrap(
-    //         spacing: 10,
-    //         runSpacing: 0,
-    //         direction: Axis.horizontal,
-    //         runAlignment: WrapAlignment.start,
-    //         alignment: WrapAlignment.start,
-    //         children: List.generate(
-    //           provider.selectedLanguageList.length,
-    //           (index) => Chip(
-    //             onDeleted: () {
-    //               provider.removeSelectedLanguage(index);
-    //             },
-    //             shape: const StadiumBorder(
-    //                 side: BorderSide(color: Colors.transparent)),
-    //             backgroundColor: AppColor.lightPinkColor,
-    //             label: appText(
-    //               context: context,
-    //               title: provider.selectedLanguageList[index],
-    //             ),
-    //           ),
-    //           growable: true,
-    //         ),
-    //       ),
-    //     ),
-    //   );
     });
   }
 }

@@ -2,13 +2,31 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:hrm_manager/Model/add_worker_drop_down_model.dart';
+import 'package:hrm_manager/Model/jobsite_model.dart';
+import 'package:hrm_manager/Model/success_model.dart';
 import 'package:hrm_manager/Network/api_services.dart';
 import 'package:hrm_manager/Network/api_url.dart';
 import 'package:hrm_manager/constant/spinkit_view.dart';
 import 'package:hrm_manager/constant/toast.dart';
 
 class EditWorkerServices {
+  Future<List<JobSiteModel>> getJobSiteById({
+    required int id,
+    required BuildContext context,
+  }) async {
+    List<JobSiteModel> model = <JobSiteModel>[];
+    try {
+      final response =
+          await API().getRequest(context, "${ApiUrl.getJobSiteByIdUrl}/$id");
+      if (response.statusCode == 200) {
+        response.data.forEach((e) => model.add(JobSiteModel.fromJson(e)));
+      }
+    } catch (e) {}
+    return model;
+  }
+
   Future getWorkerExperience({required BuildContext context}) async {
     List<AddWorkerDropDownModel> dropDownList = <AddWorkerDropDownModel>[];
     try {
@@ -276,6 +294,7 @@ class EditWorkerServices {
     String? otherFilePath,
   }) async {
     try {
+      print("Image Path is $profileImage");
       FormData data = FormData.fromMap({
         "Id": workerID,
         "InternalWorkerID": internalWorkerID,
@@ -367,19 +386,21 @@ class EditWorkerServices {
           await API().postRequestHeader(context, ApiUrl.saveWorker, data);
       if (response.statusCode == 200) {
         print("Response Data Add Worker ${response.data}");
-        final id = response.data['id'];
+        final decodedData = jsonDecode(response.data);
+        SuccessModel model = SuccessModel.fromJson(decodedData);
         toast(msg: "Worker Add Successfully", context: context);
         if (profileImage != '' || profileImage != null) {
           uploadFile(
-              context: context,
-              workerID: id!,
-              filePath: profileImage!,
-              apiUrl: ApiUrl.uploadPorfileImage);
+                  context: context,
+                  workerID: model.id!,
+                  filePath: profileImage!,
+                  apiUrl: ApiUrl.uploadPorfileImage)
+              .whenComplete(() => print("Image Upload Successfully"));
         }
         if (whimsFilePath != '' || whimsFilePath != null) {
           uploadFile(
               context: context,
-              workerID: id!,
+              workerID: model.id!,
               filePath: whimsFilePath!,
               apiUrl: ApiUrl.uploadWHIMS);
         }
@@ -387,7 +408,7 @@ class EditWorkerServices {
             employementReleaseFilePath != null) {
           uploadFile(
               context: context,
-              workerID: id!,
+              workerID: model.id!,
               filePath: employementReleaseFilePath!,
               apiUrl: ApiUrl.uploadEmployementRelease);
         }
@@ -395,28 +416,28 @@ class EditWorkerServices {
             workingFormHeightFilePath != null) {
           uploadFile(
               context: context,
-              workerID: id!,
+              workerID: model.id!,
               filePath: workingFormHeightFilePath!,
               apiUrl: ApiUrl.uploadWorkingFormHeights);
         }
         if (otherFilePath != '' || otherFilePath != null) {
           uploadFile(
               context: context,
-              workerID: id!,
+              workerID: model.id!,
               filePath: otherFilePath!,
               apiUrl: ApiUrl.uploadOtherFile);
         }
         if (termsOfEmployeFilePath != '' || termsOfEmployeFilePath != null) {
           uploadFile(
               context: context,
-              workerID: id!,
+              workerID: model.id!,
               filePath: termsOfEmployeFilePath!,
               apiUrl: ApiUrl.uploadEmployeTerms);
         }
         if (firstAidFilePath != '' || firstAidFilePath != null) {
           uploadFile(
               context: context,
-              workerID: id!,
+              workerID: model.id!,
               filePath: firstAidFilePath!,
               apiUrl: ApiUrl.uploadFirstAid);
         }
@@ -431,7 +452,7 @@ class EditWorkerServices {
     }
   }
 
-  uploadFile(
+  Future uploadFile(
       {required BuildContext context,
       required int workerID,
       required String filePath,
@@ -449,4 +470,21 @@ class EditWorkerServices {
       }
     } catch (e) {}
   }
+
+  Future<int> getAssignRecruiterId(
+      {required int id, required BuildContext context}) async {
+    int recId = 0;
+    try {
+      final response = await API()
+          .getRequest(context, "${ApiUrl.getAssginRecruiterByIdUrl}/$id");
+      if (response.statusCode == 200) {
+        print("Recruiter ID of Assig ${response.data}");
+        recId = response.data;
+      }
+    } catch (e) {}
+    return recId;
+  }
 }
+
+
+

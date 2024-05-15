@@ -24,14 +24,16 @@ class _HomeViewState extends State<HomeView> {
   bool _isDataFetch = false;
   @override
   void initState() {
-    if(_isDataFetch == false){
-      Provider.of<HomeProvider>(context,listen: false).getAllTradeFunc(context: context);
+    if (_isDataFetch == false) {
+      Provider.of<HomeProvider>(context, listen: false)
+          .getAllTradeFunc(context: context);
       setState(() {
         _isDataFetch = true;
       });
     }
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<HomeProvider>(builder: (context, provider, __) {
@@ -75,7 +77,8 @@ class _HomeViewState extends State<HomeView> {
                     return GestureDetector(
                       onTap: () {
                         Navigator.pushNamed(
-                            context, AppRoutes.avaliableWorkerView,arguments: [trade.tradeOptionName,trade.id]);
+                            context, AppRoutes.avaliableWorkerView,
+                            arguments: [trade.tradeOptionName, trade.id, '']);
                       },
                       child: Container(
                         margin: EdgeInsets.symmetric(
@@ -87,6 +90,13 @@ class _HomeViewState extends State<HomeView> {
                         alignment: Alignment.centerLeft,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
+                          boxShadow: const [
+                            BoxShadow(
+                                color: AppColor.lightPinkColor,
+                                blurRadius: 5,
+                                spreadRadius: 1,
+                                offset: Offset(0, 1))
+                          ],
                           color: AppColor.purpleColor.withOpacity(0.08),
                         ),
                         child: appText(

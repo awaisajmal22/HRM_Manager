@@ -1,14 +1,18 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:csv/csv.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:external_path/external_path.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hrm_manager/Model/all_trades_model.dart';
 import 'package:hrm_manager/Model/filtration_response_model.dart';
 import 'package:hrm_manager/Model/worker_status_and_flag_model.dart';
 import 'package:hrm_manager/Network/Server/permission_handler.dart';
+import 'package:hrm_manager/Services/all_trades_Services.dart';
 import 'package:hrm_manager/Services/avaliable_worker_services.dart';
 import 'package:hrm_manager/constant/app_text.dart';
 import 'package:hrm_manager/constant/app_color.dart';
@@ -46,6 +50,7 @@ class AvaliableWorkerProvider extends ChangeNotifier {
       return StatusAndFlagModel();
     });
     _selectedStatusID = model.id!;
+
     notifyListeners();
   }
 
@@ -96,6 +101,7 @@ class AvaliableWorkerProvider extends ChangeNotifier {
     locationController.clear();
     maxController.clear();
     minController.clear();
+    // selectTradeOption('Select', 0);
   }
 
   generateCsvFile({required BuildContext context, bool isShare = false}) async {
@@ -120,10 +126,12 @@ class AvaliableWorkerProvider extends ChangeNotifier {
       for (int i = 0; i < filtrationResponseList.length; i++) {
         List<dynamic> row = [];
         // row.add(associateList[i]["number"] - 1);
-        row.add(filtrationResponseList[i]
-            .firstName
-            .toString()
-            .isNotNullableString());
+        row.insert(
+            0,
+            filtrationResponseList[i]
+                .firstName
+                .toString()
+                .isNotNullableString());
         row.add(filtrationResponseList[i]
             .lastName
             .toString()
@@ -132,15 +140,23 @@ class AvaliableWorkerProvider extends ChangeNotifier {
             .regularRate
             .toString()
             .isNotNullableString());
-        row.add(filtrationResponseList[i]
-            .workerStatus
-            .toString()
-            .isNotNullableString());
-        row.add(
-            filtrationResponseList[i].trade.toString().isNotNullableString());
-        row.add(dateFormater(
-            filtrationResponseList[i].dateofBirth!.toIso8601String() ?? ''));
-
+        for (var data in tradeOptionList) {
+          if (data.id == filtrationResponseList[i].tradeId) {
+            row.add(data.tradeOptionName.toString().isNotNullableString());
+          }
+        }
+        for (var data in workerStatusList) {
+          if (data.id == filtrationResponseList[i].statusId) {
+            row.add(data.name.toString().isNotNullableString());
+          }
+        }
+        if (filtrationResponseList[i].dob == null) {
+          row.add(' ');
+        } else {
+          row.add(dateFormater(
+              filtrationResponseList[i].dob.toString().isNotNullableString() ??
+                  ''));
+        }
         rows.add(row);
       }
 
@@ -323,5 +339,112 @@ class AvaliableWorkerProvider extends ChangeNotifier {
       print("Data not found");
     }
     notifyListeners();
+  }
+
+  List<AllTradeModel> _tradeOptionList = <AllTradeModel>[];
+  List<AllTradeModel> get tradeOptionList => _tradeOptionList;
+  List<String> _tradeNameList = <String>[];
+  List<String> get tradeNameList => _tradeNameList;
+  Future getTradeOption({required BuildContext context}) async {
+    // showLoadingIndicator(context: context);
+    _tradeOptionList.clear();
+    tradeOptionList.clear();
+    _tradeNameList.clear();
+    tradeNameList.clear();
+
+    final result = await AllTradesServices().getAllTrade(context: context);
+    if (result.isNotEmpty) {
+      result.sort((a, b) => a.tradeOptionName!.compareTo(b.tradeOptionName!));
+      result.add(
+          AllTradeModel(id: 0, description: '', tradeOptionName: 'Select'));
+      _tradeOptionList = result;
+
+      for (var data in result) {
+        _tradeNameList.add(data.tradeOptionName!);
+      }
+      print(_tradeOptionList.length);
+    }
+
+    notifyListeners();
+  }
+
+  String _tradeOptionName = 'Select';
+  String get tradeOptionName => _tradeOptionName;
+
+  int _tradeOptionId = 0;
+  int get tradeOptionId => _tradeOptionId;
+  selectTradeOption(String tradeOption, int id) {
+    if (!tradeOptionName.contains(tradeOption)) {
+      _tradeOptionName = tradeOption;
+      _tradeOptionId = id;
+      notifyListeners();
+    }
+  }
+
+  Uint8List stringToUint8List(
+    String input,
+  ) {
+    List<int> bytes = base64.decode(input);
+    return Uint8List.fromList(bytes);
+  }
+
+  Directory? directory;
+  Future<String> saveUint8ListToFile(BuildContext context, Uint8List data,
+      bool isProfile, int index, String type, String title) async {
+    if (Platform.isAndroid) {
+      if (await requestPermission()) {
+        directory = (await getExternalStorageDirectory())!;
+        String newPath = "";
+
+        print(directory);
+        List<String> paths = directory!.path.split("/");
+        for (int x = 1; x < paths.length; x++) {
+          String folder = paths[x];
+          if (folder != "Android") {
+            newPath += "/$folder";
+          } else {
+            break;
+          }
+        }
+        newPath = "$newPath/HRM";
+        directory = Directory(newPath);
+        print(directory!.path);
+      } else {}
+    } else {
+      if (await requestPermission()) {
+        directory = await getTemporaryDirectory();
+      } else {}
+    }
+
+    String saveFile = '';
+    if (isProfile) {
+      saveFile = "${directory!.path}/$title.png";
+    } else if (type.contains('png')) {
+      saveFile = "${directory!.path}/${index}${title}_file.png";
+    } else if (type.contains('jpeg')) {
+      saveFile = "${directory!.path}/${index}${title}_file.jpeg";
+    } else if (type.contains('pdf')) {
+      saveFile = "${directory!.path}/${index}${title}_file.pdf";
+    } else if (type.contains('.document')) {
+      saveFile = "${directory!.path}/${index}${title}_file.docx";
+    } else if (type.contains('text/plain')) {
+      saveFile = "${directory!.path}/${index}${title}_file.cpp";
+    } else if (type.contains('.sheet')) {
+      saveFile = "${directory!.path}/${index}${title}_file.xlsx";
+    }
+
+    if (!await directory!.exists()) {
+      await directory!
+          .create(
+            recursive: true,
+          )
+          .then((value) => File(saveFile).writeAsBytes(data));
+
+      print('Directory Created');
+    }
+    if (await directory!.exists()) {
+      File(saveFile).writeAsBytes(data);
+    }
+    return saveFile;
   }
 }

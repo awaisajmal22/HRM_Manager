@@ -14,7 +14,7 @@ class WorkerStatus extends StatelessWidget {
     return Consumer<AddWorkerProvider>(builder: (context, provider, __) {
       return addWorkerTextField(
         context: context,
-        hintText: '',
+        hintText: 'Select',
         controller: provider.statusController,
         height: context.getSize.height * 0.050,
         readOnly: true,
@@ -24,10 +24,10 @@ class WorkerStatus extends StatelessWidget {
             context: context,
           );
           if (status != '') {
-            for(var data in provider.workerStatusList)
-            if(data.name == status){
-            provider.selectStatus(status,data.id!);
-            }
+            for (var data in provider.workerStatusList)
+              if (data.name == status) {
+                provider.selectStatus(status, data.id!);
+              }
           }
         },
       );

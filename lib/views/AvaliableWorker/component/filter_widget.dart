@@ -17,7 +17,12 @@ import 'package:provider/provider.dart';
 class FilterWidget extends StatelessWidget {
   final String name;
   final int id;
-  const FilterWidget({super.key, required this.name, required this.id});
+  final String location;
+  const FilterWidget(
+      {super.key,
+      required this.name,
+      required this.id,
+      required this.location});
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +84,7 @@ class FilterWidget extends StatelessWidget {
                 locationSearchField(
                     context: context,
                     hintText: 'Toronto',
-                    controller: provider.locationController,
+                    controller: provider.locationController..text = location,
                     height: context.getSize.height * 0.048,
                     onChanged: (val) {},
                     cancel: () {
@@ -199,14 +204,17 @@ class FilterWidget extends StatelessWidget {
                           toast(
                               msg: 'min price must be lower than max price',
                               context: context);
-                        } else {
-                          provider.addFilter(name);
-                          provider.addFilter(
-                            provider.locationController.text,
-                          );
-                          provider.addFilter(
-                            provider.selectedStatus,
-                          );
+                        } 
+                          if (provider.tradeOptionName != 'Select' ||
+                              provider.tradeOptionName != '') {
+                            provider.addFilter(provider.tradeOptionName);
+                          }
+                          if (provider.selectedStatus != 'Select' ||
+                              provider.selectedStatus != '') {
+                            provider.addFilter(
+                              provider.selectedStatus,
+                            );
+                          }
                           provider.addFilter(
                             provider.selectedFlag,
                           );
@@ -215,13 +223,18 @@ class FilterWidget extends StatelessWidget {
                               "min ${provider.minController.text}",
                             );
                           }
+                          print("Location is $location");
+                          if (location != '') {
+                            provider.addFilter(location);
+                          }
                           if (provider.maxController.text.isNotEmpty) {
                             provider.addFilter(
                                 "max ${provider.maxController.text}");
                           }
                           provider.getFiltrationDataFunc(
+                            city: location,
                             context: context,
-                            tradeID: id,
+                            tradeID: provider.tradeOptionId,
                             statusID: provider.selectedStatusID,
                             flagID: provider.selectedFalgID,
                             startPrice: provider.minController.text,
@@ -229,7 +242,7 @@ class FilterWidget extends StatelessWidget {
                           );
                           provider.openFilter(false);
                           provider.clearTextField();
-                        }
+                        
                       },
                       title: "Apply",
                       width: context.getSize.width * 0.2),

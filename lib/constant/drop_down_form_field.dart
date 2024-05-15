@@ -15,7 +15,7 @@ class AppDropdownInput<T> extends StatelessWidget {
     required this.border,
   });
 
-final InputBorder border;
+  final InputBorder border;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -30,7 +30,8 @@ final InputBorder border;
                   fontSize: 14),
               fillColor: AppColor.whiteColor,
               filled: true,
-              contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               border: border,
               errorBorder: border,
               enabledBorder: border,
@@ -41,7 +42,7 @@ final InputBorder border;
             isEmpty: value == null || value == '',
             child: DropdownButtonHideUnderline(
               child: DropdownButton<T>(
-                icon:  const Icon(
+                icon: const Icon(
                   Icons.keyboard_arrow_down,
                   color: AppColor.iconColor,
                 ),
@@ -71,3 +72,70 @@ final InputBorder border;
   }
 }
 
+class AppDropdownInput2<T> extends StatelessWidget {
+  final List<T> options;
+  final T value;
+  final void Function(T) onChanged;
+  AppDropdownInput2({
+    this.options = const [],
+    required this.value,
+    required this.onChanged,
+    required this.border,
+  });
+
+  final InputBorder border;
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: context.getSize.height * 0.048,
+      child: FormField<T>(
+        builder: (FormFieldState<T> state) {
+          return InputDecorator(
+            decoration: InputDecoration(
+              hintStyle: textStyle(
+                  context: context,
+                  textColor: AppColor.iconColor,
+                  fontSize: 14),
+              fillColor: AppColor.whiteColor,
+              filled: true,
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              border: border,
+              errorBorder: border,
+              enabledBorder: border,
+              focusedBorder: border,
+              disabledBorder: border,
+              focusedErrorBorder: border,
+            ),
+            isEmpty: value == null || value == '',
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton<T>(
+                icon: const Icon(
+                  Icons.keyboard_arrow_down,
+                  color: Colors.transparent,
+                ),
+                value: value,
+                isDense: true,
+                onChanged: (value) {
+                  onChanged(value!);
+                },
+                items: options.map((T value) {
+                  return DropdownMenuItem<T>(
+                      value: value,
+                      child: value == ''
+                          ? const SizedBox.shrink()
+                          : Text(value.toString(),
+                              style: textStyle(
+                                context: context,
+                                textColor: AppColor.iconColor,
+                                fontSize: 14,
+                              )));
+                }).toList(),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}

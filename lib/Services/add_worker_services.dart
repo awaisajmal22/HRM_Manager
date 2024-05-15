@@ -3,7 +3,10 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:hrm_manager/Model/add_worker_drop_down_model.dart';
+import 'package:hrm_manager/Model/jobsite_model.dart';
+import 'package:hrm_manager/Model/success_model.dart';
 import 'package:hrm_manager/Network/api_services.dart';
 import 'package:hrm_manager/Network/api_url.dart';
 import 'package:hrm_manager/constant/spinkit_view.dart';
@@ -369,19 +372,20 @@ class AddWorkerServices {
           await API().postRequestHeader(context, ApiUrl.saveWorker, data);
       if (response.statusCode == 200) {
         print("Response Data Add Worker ${response.data}");
-        final id = response.data['id'];
+        final decodedData = jsonDecode(response.data);
+        SuccessModel model = SuccessModel.fromJson(decodedData);
         toast(msg: "Worker Add Successfully", context: context);
         if (profileImage != '' || profileImage != null) {
           uploadFile(
               context: context,
-              workerID: id!,
+              workerID: model.id!,
               filePath: profileImage!,
               apiUrl: ApiUrl.uploadPorfileImage);
         }
         if (whimsFilePath != '' || whimsFilePath != null) {
           uploadFile(
               context: context,
-              workerID: id!,
+              workerID: model.id!,
               filePath: whimsFilePath!,
               apiUrl: ApiUrl.uploadWHIMS);
         }
@@ -389,7 +393,7 @@ class AddWorkerServices {
             employementReleaseFilePath != null) {
           uploadFile(
               context: context,
-              workerID: id!,
+              workerID: model.id!,
               filePath: employementReleaseFilePath!,
               apiUrl: ApiUrl.uploadEmployementRelease);
         }
@@ -397,28 +401,28 @@ class AddWorkerServices {
             workingFormHeightFilePath != null) {
           uploadFile(
               context: context,
-              workerID: id!,
+              workerID: model.id!,
               filePath: workingFormHeightFilePath!,
               apiUrl: ApiUrl.uploadWorkingFormHeights);
         }
         if (otherFilePath != '' || otherFilePath != null) {
           uploadFile(
               context: context,
-              workerID: id!,
+              workerID: model.id!,
               filePath: otherFilePath!,
               apiUrl: ApiUrl.uploadOtherFile);
         }
         if (termsOfEmployeFilePath != '' || termsOfEmployeFilePath != null) {
           uploadFile(
               context: context,
-              workerID: id!,
+              workerID: model.id!,
               filePath: termsOfEmployeFilePath!,
               apiUrl: ApiUrl.uploadEmployeTerms);
         }
         if (firstAidFilePath != '' || firstAidFilePath != null) {
           uploadFile(
               context: context,
-              workerID: id!,
+              workerID: model.id!,
               filePath: firstAidFilePath!,
               apiUrl: ApiUrl.uploadFirstAid);
         }
@@ -451,4 +455,6 @@ class AddWorkerServices {
       }
     } catch (e) {}
   }
+
+  
 }

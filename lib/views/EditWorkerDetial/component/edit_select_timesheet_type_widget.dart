@@ -19,7 +19,7 @@ class EditSelectTimeSheetTypeWidget extends StatelessWidget {
     return Consumer<EditWorkerDetailProvider>(builder: (context, provider, __) {
       return addWorkerTextField(
         context: context,
-        hintText: 'Select TimeSheet Tpe',
+        hintText: 'Select TimeSheet Type',
         controller: provider.timeSheetTypeController,
         height: context.getSize.height * 0.050,
         readOnly: true,

@@ -20,4 +20,14 @@ String get selectedLocation => _selectedLocation;
     _selectedLocationIndex =index;
     notifyListeners();
   }
+
+  List<String> _searchedList = <String>[];
+  List<String> get searchedList => _searchedList;
+
+  searchQuery(String value){
+_searchedList.clear();
+searchedList.clear();
+_searchedList = locations.where((element) => element.toLowerCase().contains(value.toLowerCase())).toList();
+notifyListeners();
+  }
 }

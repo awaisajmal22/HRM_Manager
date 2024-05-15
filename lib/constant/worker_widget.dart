@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:hrm_manager/constant/app_text.dart';
 import 'package:hrm_manager/constant/constant.dart';
@@ -13,11 +15,11 @@ class WorkerWidget extends StatelessWidget {
   final String name;
   final String price;
   final String trade;
-  const  WorkerWidget({
+  const WorkerWidget({
     super.key,
     this.dateOfBirth = '1979, Dec 2',
     this.name = 'Jovany Italiano',
-    this.imageUrl = Constant.dummyImage,
+    this.imageUrl = '',
     this.price = '\$47.00/hr',
     this.trade = 'Carpenter',
     this.status = 'Now on site',
@@ -33,14 +35,16 @@ class WorkerWidget extends StatelessWidget {
             //   horizontal: context.getSize.width * 0.045,
             vertical: context.getSize.height * 0.010,
           ),
-          height: context.getSize.height * 0.12,
-          width: context.getSize.width * 0.166,
+          height: context.getSize.height * 0.08,
+          width: context.getSize.width * 0.12,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
-              image: DecorationImage(
-                image: NetworkImage(imageUrl),
-                fit: BoxFit.cover,
-              )),
+              image: imageUrl == ''
+                  ? null
+                  : DecorationImage(
+                      image: FileImage(File(imageUrl)),
+                      fit: BoxFit.cover,
+                    )),
         ),
         getWidth(context: context, width: 0.020),
         Column(
