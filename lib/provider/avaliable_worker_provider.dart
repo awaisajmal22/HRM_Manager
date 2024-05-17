@@ -299,6 +299,8 @@ class AvaliableWorkerProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+bool _isLoaded = false;
+bool get isLoaded => _isLoaded;
   List<Datum> _filtrationResponseList = <Datum>[];
   List<Datum> get filtrationResponseList => _filtrationResponseList;
   Future getFiltrationDataFunc({
@@ -310,6 +312,7 @@ class AvaliableWorkerProvider extends ChangeNotifier {
     String? startPrice,
     String? endPrice,
   }) async {
+    _isLoaded = false;
     _filtrationResponseList.clear();
     filtrationResponseList.clear();
     print("Trade ID $tradeID");
@@ -325,6 +328,7 @@ class AvaliableWorkerProvider extends ChangeNotifier {
     if (result != null) {
       print(tradeID);
       _filtrationResponseList = result;
+      _isLoaded = true;
       // final List<Datum>
       // _filtrationResponseList = result
       //     .where((item) =>
@@ -335,6 +339,7 @@ class AvaliableWorkerProvider extends ChangeNotifier {
       //     .toList();
       print("FIlterData ${_filtrationResponseList.length}");
     } else {
+      _isLoaded = true;
       print("Data not found");
     }
     notifyListeners();

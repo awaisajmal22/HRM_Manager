@@ -198,7 +198,7 @@ class _AvaliableWorkerViewState extends State<AvaliableWorkerView> {
                 ),
               ),
               Expanded(
-                  child: provider.filtrationResponseList.isEmpty
+                  child: provider.filtrationResponseList.isEmpty && provider.isLoaded == false
                       ? _avaliableWorkerShimmer(context: context)
                       : ListView.builder(
                           physics: const BouncingScrollPhysics(),
