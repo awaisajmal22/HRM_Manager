@@ -43,7 +43,9 @@ class _AvaliableWorkerViewState extends State<AvaliableWorkerView> {
   @override
   void initState() {
     pv = Provider.of<AvaliableWorkerProvider>(context, listen: false);
+    
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      pv.changeLoadedData();
       if (_isFilterDataLoad == false) {
         _loadData();
       }

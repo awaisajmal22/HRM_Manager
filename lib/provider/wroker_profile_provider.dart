@@ -294,11 +294,15 @@ class WorkerProfileProvider extends ChangeNotifier {
         directory = Directory(newPath);
         print(directory!.path);
       } else {}
+    } else if (Platform.isIOS) {
+    if (await requestPermission()) {
+      directory = await getTemporaryDirectory();
     } else {
-      if (await requestPermission()) {
-        directory = await getTemporaryDirectory();
-      } else {}
+      throw Exception("Photos permission denied");
     }
+  } else {
+    throw Exception("Unsupported platform");
+  }
 
     String saveFile = '';
     if (isProfile) {
@@ -323,23 +327,12 @@ class WorkerProfileProvider extends ChangeNotifier {
             recursive: true,
           )
           .then((value) => File(saveFile).writeAsBytes(data));
-      // .then(
-      //     (val) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      //             content: appText(
-      //           context: context,
-      //           title: 'File Exported Successfully',
-      //           textColor: AppColor.whiteColor,
-      //         )))));
+      
       print('Directory Created');
     }
     if (await directory!.exists()) {
       File(saveFile).writeAsBytes(data);
-      // .then((val) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      //         content: appText(
-      //       context: context,
-      //       title: 'File Exported Successfully',
-      //       textColor: AppColor.whiteColor,
-      //     ))));
+      
     }
     return saveFile;
   }

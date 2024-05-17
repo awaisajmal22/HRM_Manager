@@ -82,8 +82,7 @@ class _HomeViewState extends State<HomeView> {
                                 : provider.searchedList[index];
                         return GestureDetector(
                           onTap: () {
-                            final pv = Provider.of<AvaliableWorkerProvider>(context,listen: false);
-                            pv.changeLoadedData();
+                           
                             Navigator.pushNamed(
                                 context, AppRoutes.avaliableWorkerView,
                                 arguments: [

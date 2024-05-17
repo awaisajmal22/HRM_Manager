@@ -134,7 +134,7 @@ class _ProfileViewState extends State<ProfileView> {
                             shape: BoxShape.circle,
                             image: provider.image != ''
                                 ? DecorationImage(
-                                    image: FileImage(File(provider.image)))
+                                    image: FileImage(File(provider.image)),fit:BoxFit.cover)
                                 : const DecorationImage(
                                     image: AssetImage(Constant.dummyImage),
                                     fit: BoxFit.cover,

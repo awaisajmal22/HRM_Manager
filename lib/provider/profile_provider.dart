@@ -161,11 +161,15 @@ class ProfileProvider extends ChangeNotifier {
         directory = Directory(newPath);
         print(directory!.path);
       } else {}
+    } else if (Platform.isIOS) {
+    if (await requestPermission()) {
+      directory = await getTemporaryDirectory();
     } else {
-      if (await requestPermission()) {
-        directory = await getTemporaryDirectory();
-      } else {}
+      throw Exception("Photos permission denied");
     }
+  } else {
+    throw Exception("Unsupported platform");
+  }
 
     String saveFile = '';
 
