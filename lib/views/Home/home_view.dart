@@ -7,6 +7,7 @@ import 'package:hrm_manager/constant/app_text.dart';
 import 'package:hrm_manager/constant/height_box.dart';
 import 'package:hrm_manager/constant/width_box.dart';
 import 'package:hrm_manager/extensions/size_extension.dart';
+import 'package:hrm_manager/provider/avaliable_worker_provider.dart';
 import 'package:hrm_manager/provider/home_provider.dart';
 import 'package:hrm_manager/constant/app_color.dart';
 import 'package:hrm_manager/views/Home/component/home_search_field.dart';
@@ -81,6 +82,8 @@ class _HomeViewState extends State<HomeView> {
                                 : provider.searchedList[index];
                         return GestureDetector(
                           onTap: () {
+                            final pv = Provider.of<AvaliableWorkerProvider>(context,listen: false);
+                            pv.changeLoadedData();
                             Navigator.pushNamed(
                                 context, AppRoutes.avaliableWorkerView,
                                 arguments: [

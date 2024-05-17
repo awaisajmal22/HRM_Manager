@@ -80,7 +80,7 @@ class AvaliableWorkerProvider extends ChangeNotifier {
     // notifyListeners();
   }
 
-  Future removeFilter(int index, BuildContext context) async{
+  Future removeFilter(int index, BuildContext context) async {
     _filteredList.removeAt(index);
     notifyListeners();
   }
@@ -88,8 +88,8 @@ class AvaliableWorkerProvider extends ChangeNotifier {
   void clearData() {
     _filteredList.clear();
     filteredList.clear();
-  _filtrationResponseList.clear();
-  filtrationResponseList.clear();
+    _filtrationResponseList.clear();
+    filtrationResponseList.clear();
     _isFilterOpen = false;
 
     print("dispoe true");
@@ -299,8 +299,13 @@ class AvaliableWorkerProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-bool _isLoaded = false;
-bool get isLoaded => _isLoaded;
+  bool _isLoaded = false;
+  bool get isLoaded => _isLoaded;
+  changeLoadedData() {
+    _isLoaded = false;
+    notifyListeners();
+  }
+
   List<Datum> _filtrationResponseList = <Datum>[];
   List<Datum> get filtrationResponseList => _filtrationResponseList;
   Future getFiltrationDataFunc({
@@ -452,8 +457,8 @@ bool get isLoaded => _isLoaded;
     return saveFile;
   }
 
-  bool containsMatchingName(List<String> list1, List<StatusAndFlagModel> list2,
-      String value ) {
+  bool containsMatchingName(
+      List<String> list1, List<StatusAndFlagModel> list2, String value) {
     bool foundMatch = false;
 
     for (var model in list2) {
