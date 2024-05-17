@@ -198,68 +198,80 @@ class _AvaliableWorkerViewState extends State<AvaliableWorkerView> {
                 ),
               ),
               Expanded(
-                  child: provider.filtrationResponseList.isEmpty && provider.isLoaded == false
+                  child: provider.filtrationResponseList.isEmpty &&
+                          provider.isLoaded == false
                       ? _avaliableWorkerShimmer(context: context)
-                      : ListView.builder(
-                          physics: const BouncingScrollPhysics(),
-                          itemCount: provider.filtrationResponseList.length,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: context.getSize.width * 0.045,
-                          ),
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            Datum model =
-                                provider.filtrationResponseList[index];
-                            StatusAndFlagModel status =
-                                provider.workerStatusList.firstWhere(
-                              (e) => e.id == model.statusId,
-                              orElse: () => StatusAndFlagModel(),
-                            );
-                            AllTradeModel trade =
-                                provider.tradeOptionList.firstWhere(
-                              (e) => e.id == model.tradeId,
-                              orElse: () => AllTradeModel(),
-                            );
+                      : provider.filtrationResponseList.isEmpty &&
+                              provider.isLoaded == true
+                          ? Center(
+                              child: appText(
+                                  context: context,
+                                  title: 'No Worker Found',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400),
+                            )
+                          : ListView.builder(
+                              physics: const BouncingScrollPhysics(),
+                              itemCount: provider.filtrationResponseList.length,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: context.getSize.width * 0.045,
+                              ),
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) {
+                                Datum model =
+                                    provider.filtrationResponseList[index];
+                                StatusAndFlagModel status =
+                                    provider.workerStatusList.firstWhere(
+                                  (e) => e.id == model.statusId,
+                                  orElse: () => StatusAndFlagModel(),
+                                );
+                                AllTradeModel trade =
+                                    provider.tradeOptionList.firstWhere(
+                                  (e) => e.id == model.tradeId,
+                                  orElse: () => AllTradeModel(),
+                                );
 
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 10),
-                              child: FutureBuilder<String>(
-                                  future: model.profileBytes == null
-                                      ? null
-                                      : provider.saveUint8ListToFile(
-                                          context,
-                                          provider.stringToUint8List(
-                                            model.profileBytes,
+                                return Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 10),
+                                  child: FutureBuilder<String>(
+                                      future: model.profileBytes == null
+                                          ? null
+                                          : provider.saveUint8ListToFile(
+                                              context,
+                                              provider.stringToUint8List(
+                                                model.profileBytes,
+                                              ),
+                                              true,
+                                              index,
+                                              model.profileType,
+                                              model.id.toString()),
+                                      builder: (context, snapshot) {
+                                        return GestureDetector(
+                                          onTap: () {
+                                            Navigator.pushNamed(context,
+                                                AppRoutes.workerProfileView,
+                                                arguments: int.parse(
+                                                    model.id.toString()));
+                                          },
+                                          child: WorkerWidget(
+                                            imageUrl: snapshot.data ?? '',
+                                            name:
+                                                "${model.firstName.toString().isNotNullableString()} ${model.lastName.toString().isNotNullableString()}",
+                                            dateOfBirth: model.dob == null
+                                                ? ''
+                                                : dateFormater(
+                                                    model.dob!.toString() ??
+                                                        ''),
+                                            price:
+                                                "\$${model.regularRate.toString().isNotNullableString()}/hr",
+                                            trade: trade.tradeOptionName ?? '',
+                                            status: status.name ?? '',
                                           ),
-                                          true,
-                                          index,
-                                          model.profileType,
-                                          model.id.toString()),
-                                  builder: (context, snapshot) {
-                                    return GestureDetector(
-                                      onTap: () {
-                                        Navigator.pushNamed(context,
-                                            AppRoutes.workerProfileView,
-                                            arguments:
-                                                int.parse(model.id.toString()));
-                                      },
-                                      child: WorkerWidget(
-                                        imageUrl: snapshot.data ?? '',
-                                        name:
-                                            "${model.firstName.toString().isNotNullableString()} ${model.lastName.toString().isNotNullableString()}",
-                                        dateOfBirth: model.dob == null
-                                            ? ''
-                                            : dateFormater(
-                                                model.dob!.toString() ?? ''),
-                                        price:
-                                            "\$${model.regularRate.toString().isNotNullableString()}/hr",
-                                        trade: trade.tradeOptionName ?? '',
-                                        status: status.name ?? '',
-                                      ),
-                                    );
-                                  }),
-                            );
-                          })),
+                                        );
+                                      }),
+                                );
+                              })),
               getHeight(context: context, height: 0.080)
             ],
           ),
