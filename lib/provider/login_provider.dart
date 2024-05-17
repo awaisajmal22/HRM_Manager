@@ -24,7 +24,7 @@ final result = await LoginServices().userLogin(context: context, email: email, p
 if(result != null){
 
   SharedPreferences pref = await SharedPreferences.getInstance();
-  pref.setString('token', result.token!);
+  pref.setString('token', result.token !);
   pref.setString('email',email);
   pref.setString('password', password);
   hideOpenDialog(context: context);

@@ -23,7 +23,7 @@ import 'package:provider/provider.dart';
 
 class WorkerProfileView extends StatefulWidget {
   final int id;
-  
+
   WorkerProfileView({super.key, required this.id});
 
   @override
@@ -48,53 +48,59 @@ class _WorkerProfileViewState extends State<WorkerProfileView> {
         .getWorkerData(context: context, id: widget.id)
         .whenComplete(() => _loadData());
     pv.getFileData(
-      id: widget.id,
-      title: 'profile',
+        id: widget.id,
+        title: 'profile',
         index: 0,
         isProfile: true,
         api: "${ApiUrl.getProfileImage}/${widget.id}",
         context: context);
-         
-    pv.getFileData(
-      title: 'WHIMS',
-        index: 1, api: "${ApiUrl.getWHIMSById}/${widget.id}", context: context).whenComplete(() {
-pv.getFileData(
-      title: 'Working From Height',
-        index: 2,
-        api: "${ApiUrl.getWorkingHeightsById}/${widget.id}",
-        context: context).whenComplete(() {
-pv.getFileData(
-      title: 'First Aid',
-        index: 4,
-        api: "${ApiUrl.getFirstAidById}/${widget.id}",
-        context: context).whenComplete(() {
- pv.getFileData(
-      title: 'Terms of Employment',
-        index: 6,
-        api: "${ApiUrl.getTermsEmployeementById}/${widget.id}",
-        context: context).whenComplete(() {
- pv.getFileData(
-      title: 'Employement Release',
-        index: 3,
-        api: "${ApiUrl.getEmployeementReleaseById}/${widget.id}",
-        context: context).whenComplete(() {
-pv.getFileData(
-      title: 'Others',
-        index: 5,
-        api: "${ApiUrl.getOthersById}/${widget.id}",
-        context: context);
+
+    pv
+        .getFileData(
+            title: 'WHIMS',
+            index: 1,
+            api: "${ApiUrl.getWHIMSById}/${widget.id}",
+            context: context)
+        .whenComplete(() {
+      pv
+          .getFileData(
+              title: 'Working From Height',
+              index: 2,
+              api: "${ApiUrl.getWorkingHeightsById}/${widget.id}",
+              context: context)
+          .whenComplete(() {
+        pv
+            .getFileData(
+                title: 'First Aid',
+                index: 4,
+                api: "${ApiUrl.getFirstAidById}/${widget.id}",
+                context: context)
+            .whenComplete(() {
+          pv
+              .getFileData(
+                  title: 'Terms of Employment',
+                  index: 6,
+                  api: "${ApiUrl.getTermsEmployeementById}/${widget.id}",
+                  context: context)
+              .whenComplete(() {
+            pv
+                .getFileData(
+                    title: 'Employement Release',
+                    index: 3,
+                    api: "${ApiUrl.getEmployeementReleaseById}/${widget.id}",
+                    context: context)
+                .whenComplete(() {
+              pv.getFileData(
+                  title: 'Others',
+                  index: 5,
+                  api: "${ApiUrl.getOthersById}/${widget.id}",
+                  context: context);
+            });
+          });
         });
-        });
-        });
-        });
-        });
-    
-    
-    
-   
-   
-       
-        
+      });
+    });
+
     print(pv.files.length);
     setState(() {
       _isLoaded = true;
@@ -211,13 +217,21 @@ pv.getFileData(
                   radius: 100,
                   context: context,
                   onTap: () {
-                    provider.generateCsvFile(context: context,
-                     flags: provider.selectedWorkerFlagList.join(', ').toString(),
-                      experience: provider.selectedWorkExpList.join(', ').toString(),
-                       afflication: provider.selectedUnionAfflicationList.join(', ').toString(), 
-                       certificate: provider.selectedcertificateList.join(', ').toString(), 
-                       status: provider.selectedStatus, 
-                       trade: provider.selectedTrade);
+                    provider.generateCsvFile(
+                        context: context,
+                        flags: provider.selectedWorkerFlagList
+                            .join(', ')
+                            .toString(),
+                        experience:
+                            provider.selectedWorkExpList.join(', ').toString(),
+                        afflication: provider.selectedUnionAfflicationList
+                            .join(', ')
+                            .toString(),
+                        certificate: provider.selectedcertificateList
+                            .join(', ')
+                            .toString(),
+                        status: provider.selectedStatus,
+                        trade: provider.selectedTrade);
                   },
                   title: 'Export CSV',
                 ),
@@ -293,24 +307,26 @@ pv.getFileData(
                 shrinkWrap: true,
                 children: [
                   WorkerWidget(
-                    imageUrl: provider.profileImage,
-                    name:
-                        "${provider.workerByIdModel.firstName.toString().isNotNullableString()} ${provider.workerByIdModel.lastName.toString().isNotNullableString()}",
-                    //  provider.workerProfileModel.name!,
-                    status: provider.selectedStatus
-                        .toString()
-                        .isNotNullableString(),
-                    // provider.workerProfileModel.status!,
-                    dateOfBirth: dateFormater(
-                        provider.workerByIdModel.dateofBirth.toString() ?? ''),
-                    // provider.workerProfileModel.dob!,
-                    price:
-                        "\$${provider.workerByIdModel.regularRate.toString().isNotNullableString()}/hr",
-                    // provider.workerProfileModel.price!,
-                    trade:
-                        provider.selectedTrade.toString().isNotNullableString(),
-                    // provider.workerProfileModel.trade!,
-                  ),
+                          imageUrl: provider.profileImage,
+                          name:
+                              "${provider.workerByIdModel.firstName.toString().isNotNullableString()} ${provider.workerByIdModel.lastName.toString().isNotNullableString()}",
+                          //  provider.workerProfileModel.name!,
+                          status: provider.selectedStatus
+                              .toString()
+                              .isNotNullableString(),
+                          // provider.workerProfileModel.status!,
+                          dateOfBirth: dateFormater(
+                              provider.workerByIdModel.dateofBirth.toString() ??
+                                  ''),
+                          // provider.workerProfileModel.dob!,
+                          price:
+                              "\$${provider.workerByIdModel.regularRate.toString().isNotNullableString()}/hr",
+                          // provider.workerProfileModel.price!,
+                          trade: provider.selectedTrade
+                              .toString()
+                              .isNotNullableString(),
+                          // provider.workerProfileModel.trade!,
+                        ),
                   getHeight(context: context, height: 0.01),
                   richText2(
                     context: context,
@@ -389,7 +405,6 @@ pv.getFileData(
                   getHeight(context: context, height: 0.010),
                   Wrap(
                     runSpacing: 10,
-                    
                     runAlignment: WrapAlignment.center,
                     alignment: WrapAlignment.center,
                     children: List.generate(
@@ -418,8 +433,9 @@ pv.getFileData(
                                         height: context.getSize.height * 0.048,
                                       ),
                                     if (provider.files[index].contentType!
-                                        .contains('officedocument') || provider.files[index].contentType!
-                                        .contains('text/plain') )
+                                            .contains('officedocument') ||
+                                        provider.files[index].contentType!
+                                            .contains('text/plain'))
                                       Icon(
                                         Ionicons.document,
                                         color: Colors.blue,
@@ -434,11 +450,11 @@ pv.getFileData(
                                         color: Colors.blue,
                                         size: context.getSize.height * 0.048,
                                       ),
-
                                     appText(
-                                      
                                       context: context,
-                                      title: provider.files[index].title.toString().isNotNullableString(),
+                                      title: provider.files[index].title
+                                          .toString()
+                                          .isNotNullableString(),
                                       fontSize: 12,
                                     ),
                                   ],

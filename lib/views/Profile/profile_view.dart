@@ -1,10 +1,15 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:hrm_manager/Model/profile_model.dart';
 import 'package:hrm_manager/constant/app_text.dart';
 import 'package:hrm_manager/constant/back.dart';
 import 'package:hrm_manager/constant/constant.dart';
 import 'package:hrm_manager/constant/divider.dart';
 import 'package:hrm_manager/constant/height_box.dart';
+import 'package:hrm_manager/constant/text_button.dart';
 import 'package:hrm_manager/constant/width_box.dart';
 import 'package:hrm_manager/extensions/nullable_string_extension.dart';
 import 'package:hrm_manager/extensions/size_extension.dart';
@@ -13,6 +18,7 @@ import 'package:hrm_manager/provider/nav_bar_provider.dart';
 import 'package:hrm_manager/provider/profile_provider.dart';
 import 'package:hrm_manager/views/Profile/component/change_password_dialog.dart';
 import 'package:hrm_manager/views/Profile/component/profile_text_field.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -36,6 +42,7 @@ class _ProfileViewState extends State<ProfileView> {
     final pv = Provider.of<ProfileProvider>(context, listen: false);
     if (isSuccess == false) {
       final data = await pv.getProfile(context: context);
+      pv.getManagerProfileImage(context: context);
       if (data != null) {
         setState(() {
           isSuccess = true;
@@ -113,22 +120,56 @@ class _ProfileViewState extends State<ProfileView> {
             shrinkWrap: true,
             children: [
               getHeight(context: context, height: 0.030),
-              Container(
-                height: context.getSize.height * 0.1,
-                width: context.getSize.width * 0.2,
-                decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      image: NetworkImage(Constant.dummyImage),
-                      fit: BoxFit.cover,
-                    )),
+              Center(
+                child: SizedBox(
+                  height: context.getSize.height * 0.1,
+                  width: context.getSize.width * 0.2,
+                  child: Stack(
+                    alignment: Alignment.bottomRight,
+                    children: [
+                      Container(
+                        height: context.getSize.height * 0.1,
+                        width: context.getSize.width * 0.2,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: provider.image != ''
+                                ? DecorationImage(
+                                    image: FileImage(File(provider.image)))
+                                : const DecorationImage(
+                                    image: AssetImage(Constant.dummyImage),
+                                    fit: BoxFit.cover,
+                                  )),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        child: GestureDetector(
+                          onTap: () {
+                            provider.pickImage();
+                          },
+                          child: Container(
+                            height: context.getSize.height * 0.04,
+                            width: context.getSize.width * 0.08,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: AppColor.lightPinkColor,
+                            ),
+                            child: Icon(
+                              Ionicons.create_outline,
+                              size: context.getSize.height * 0.020,
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
               ),
               getHeight(context: context, height: 0.010),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   profileTextField(
-                    textAlign: TextAlign.end,
+                    textAlign: TextAlign.center,
                     width: context.getSize.width * 0.4,
                     context: context,
                     hintText: '',
@@ -246,7 +287,32 @@ class _ProfileViewState extends State<ProfileView> {
               ),
               divider(color: AppColor.purpleColor.withOpacity(0.08)),
             ],
-          ))
+          )),
+          SizedBox(
+            height: context.getSize.height * 0.08,
+            width: context.getSize.width,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                provider.isProfileImageUpdate == false
+                    ? CircularProgressIndicator(
+                        color: AppColor.lightPurpleColor,
+                      )
+                    : textButton(
+                        radius: 100,
+                        width: context.getSize.width * 0.3,
+                        vPadding: 0.02,
+                        context: context,
+                        onTap: () {
+                          provider.changeManagerProfile(
+                              context: context, profileImage: provider.image);
+                        },
+                        title: 'Update',
+                      )
+              ],
+            ),
+          )
         ],
       );
     });

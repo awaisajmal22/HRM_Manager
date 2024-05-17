@@ -5,12 +5,14 @@ import 'package:hrm_manager/constant/app_text.dart';
 import 'package:hrm_manager/constant/app_color.dart';
 
 typedef OnChanged = Function(String);
+typedef OnSumbit = Function(String?);
 typedef Cancel = Function();
 locationSearchField({
   required BuildContext context,
   required String hintText,
   required TextEditingController controller,
   required double height,
+  required OnSumbit submit,
   required OnChanged onChanged,
   required Cancel cancel,
 }) {
@@ -20,6 +22,7 @@ locationSearchField({
   return SizedBox(
     height: height,
     child: TextFormField(
+      onFieldSubmitted: submit,
       onChanged: onChanged,
       style: textStyle(
         context: context,

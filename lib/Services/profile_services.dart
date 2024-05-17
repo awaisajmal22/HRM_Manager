@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:hrm_manager/Model/profile_model.dart';
 import 'package:hrm_manager/Network/api_services.dart';
 import 'package:hrm_manager/Network/api_url.dart';
@@ -44,4 +45,48 @@ class ProfileServices {
     }
     return isSuccess;
   }
+  Future<bool> changeProfileImage({
+    required BuildContext context,
+    required String profileImage,
+  })async {
+    bool isSuccess = false;
+    try{
+       FormData data = FormData.fromMap({
+       
+        "File": await MultipartFile.fromFile(
+          profileImage,
+        ),
+      });
+final response = await API().postRequestHeader(context, ApiUrl.updateProfileManagerImageUrl, data);
+if(response.statusCode == 200){
+isSuccess =true;
+}else{
+  isSuccess = false;
 }
+    }catch(e){
+isSuccess = false;
+    }
+    return isSuccess;
+  }
+  Future<String> getProfileImage({
+    required BuildContext context,
+  
+  })async {
+    String isSuccess = '';
+    try{
+      
+final response = await API().getRequestHeader(context, ApiUrl.getProfileManagerImageUrl,);
+if(response.statusCode == 200){
+// final decoded = jsonDecode(response.data);
+isSuccess = response.data['wasabiBytes'];
+}else{
+  
+  isSuccess = '';
+}
+    }catch(e){
+isSuccess = '';
+    }
+    return isSuccess;
+  }
+}
+  

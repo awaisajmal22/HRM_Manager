@@ -80,10 +80,8 @@ class AvaliableWorkerProvider extends ChangeNotifier {
     // notifyListeners();
   }
 
-  removeFilter(int index, BuildContext context) {
+  Future removeFilter(int index, BuildContext context) async{
     _filteredList.removeAt(index);
-
-    getFiltrationDataFunc(context: context);
     notifyListeners();
   }
 
@@ -356,7 +354,7 @@ class AvaliableWorkerProvider extends ChangeNotifier {
     if (result.isNotEmpty) {
       result.sort((a, b) => a.tradeOptionName!.compareTo(b.tradeOptionName!));
       result.add(
-          AllTradeModel(id: 0, description: '', tradeOptionName: 'Select'));
+          AllTradeModel(id: 0, description: '', tradeOptionName: 'All Trades'));
       _tradeOptionList = result;
 
       for (var data in result) {
@@ -368,7 +366,7 @@ class AvaliableWorkerProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  String _tradeOptionName = 'Select';
+  String _tradeOptionName = 'All Trades';
   String get tradeOptionName => _tradeOptionName;
 
   int _tradeOptionId = 0;
@@ -446,5 +444,46 @@ class AvaliableWorkerProvider extends ChangeNotifier {
       File(saveFile).writeAsBytes(data);
     }
     return saveFile;
+  }
+
+  bool containsMatchingName(List<String> list1, List<StatusAndFlagModel> list2,
+      String value ) {
+    bool foundMatch = false;
+
+    for (var model in list2) {
+      for (int i = 0; i < list1.length; i++) {
+        if (model.name == list1[i]) {
+          list1[i] = value;
+
+          foundMatch = true;
+          break;
+        }
+      }
+      if (foundMatch) {
+        break;
+      }
+    }
+
+    return foundMatch;
+  }
+
+  bool containsMatchingTradeName(
+      List<String> list1, List<AllTradeModel> list2, String value) {
+    bool foundMatch = false;
+
+    for (var model in list2) {
+      for (int i = 0; i < list1.length; i++) {
+        if (model.tradeOptionName == list1[i]) {
+          list1[i] = value;
+          foundMatch = true;
+          break;
+        }
+      }
+      if (foundMatch) {
+        break;
+      }
+    }
+
+    return foundMatch;
   }
 }

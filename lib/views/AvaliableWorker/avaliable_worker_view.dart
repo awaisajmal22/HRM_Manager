@@ -24,6 +24,7 @@ import 'package:hrm_manager/constant/app_color.dart';
 import 'package:hrm_manager/views/AvaliableWorker/component/avaliable_worker_field.dart';
 import 'package:hrm_manager/views/AvaliableWorker/component/filter_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 class AvaliableWorkerView extends StatefulWidget {
   final String name;
@@ -62,6 +63,7 @@ class _AvaliableWorkerViewState extends State<AvaliableWorkerView> {
       pv.getFiltrationDataFunc(
         context: context,
         tradeID: pv.tradeOptionId,
+        city: widget.location,
       );
     });
 
@@ -197,66 +199,94 @@ class _AvaliableWorkerViewState extends State<AvaliableWorkerView> {
                 ),
               ),
               Expanded(
-                  child: ListView.builder(
-                      physics: const BouncingScrollPhysics(),
-                      itemCount: provider.filtrationResponseList.length,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: context.getSize.width * 0.045,
-                      ),
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        Datum model = provider.filtrationResponseList[index];
-                        StatusAndFlagModel status =
-                            provider.workerStatusList.firstWhere(
-                          (e) => e.id == model.statusId,
-                          orElse: () => StatusAndFlagModel(),
-                        );
-                        AllTradeModel trade =
-                            provider.tradeOptionList.firstWhere(
-                          (e) => e.id == model.tradeId,
-                          orElse: () => AllTradeModel(),
-                        );
+                  child: provider.filtrationResponseList.isEmpty
+                      ? _avaliableWorkerShimmer(context: context)
+                      : ListView.builder(
+                          physics: const BouncingScrollPhysics(),
+                          itemCount: provider.filtrationResponseList.length,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: context.getSize.width * 0.045,
+                          ),
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            Datum model =
+                                provider.filtrationResponseList[index];
+                            StatusAndFlagModel status =
+                                provider.workerStatusList.firstWhere(
+                              (e) => e.id == model.statusId,
+                              orElse: () => StatusAndFlagModel(),
+                            );
+                            AllTradeModel trade =
+                                provider.tradeOptionList.firstWhere(
+                              (e) => e.id == model.tradeId,
+                              orElse: () => AllTradeModel(),
+                            );
 
-                        return FutureBuilder<String>(
-                            future: model.profileBytes == null
-                                ? null
-                                : provider.saveUint8ListToFile(
-                                    context,
-                                    provider.stringToUint8List(
-                                      model.profileBytes,
-                                    ),
-                                    true,
-                                    index,
-                                    model.profileType,
-                                    model.id.toString()),
-                            builder: (context, snapshot) {
-                              return GestureDetector(
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                      context, AppRoutes.workerProfileView,
-                                      arguments:
-                                          int.parse(model.id.toString()));
-                                },
-                                child: WorkerWidget(
-                                  imageUrl: snapshot.data ?? '',
-                                  name:
-                                      "${model.firstName.toString().isNotNullableString()} ${model.lastName.toString().isNotNullableString()}",
-                                  dateOfBirth: model.dob == null
-                                      ? ''
-                                      : dateFormater(
-                                          model.dob!.toString() ?? ''),
-                                  price: "\$${model.regularRate.toString()}/hr",
-                                  trade: trade.tradeOptionName ?? '',
-                                  status: status.name ?? '',
-                                ),
-                              );
-                            });
-                      })),
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: FutureBuilder<String>(
+                                  future: model.profileBytes == null
+                                      ? null
+                                      : provider.saveUint8ListToFile(
+                                          context,
+                                          provider.stringToUint8List(
+                                            model.profileBytes,
+                                          ),
+                                          true,
+                                          index,
+                                          model.profileType,
+                                          model.id.toString()),
+                                  builder: (context, snapshot) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        Navigator.pushNamed(context,
+                                            AppRoutes.workerProfileView,
+                                            arguments:
+                                                int.parse(model.id.toString()));
+                                      },
+                                      child: WorkerWidget(
+                                        imageUrl: snapshot.data ?? '',
+                                        name:
+                                            "${model.firstName.toString().isNotNullableString()} ${model.lastName.toString().isNotNullableString()}",
+                                        dateOfBirth: model.dob == null
+                                            ? ''
+                                            : dateFormater(
+                                                model.dob!.toString() ?? ''),
+                                        price:
+                                            "\$${model.regularRate.toString().isNotNullableString()}/hr",
+                                        trade: trade.tradeOptionName ?? '',
+                                        status: status.name ?? '',
+                                      ),
+                                    );
+                                  }),
+                            );
+                          })),
               getHeight(context: context, height: 0.080)
             ],
           ),
         );
       }),
     );
+  }
+
+  _avaliableWorkerShimmer({required BuildContext context, int count = 9}) {
+    return ListView.builder(
+        padding: EdgeInsets.symmetric(
+          horizontal: context.getSize.width * 0.045,
+        ),
+        itemCount: count,
+        itemBuilder: (context, index) {
+          return const Padding(
+            padding: EdgeInsets.symmetric(vertical: 10),
+            child: WorkerWidget(
+              isShimmer: true,
+              name: '',
+              price: '',
+              status: '',
+              trade: '',
+              dateOfBirth: '',
+            ),
+          );
+        });
   }
 }

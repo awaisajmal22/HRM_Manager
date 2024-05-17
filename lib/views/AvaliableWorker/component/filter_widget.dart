@@ -11,6 +11,7 @@ import 'package:hrm_manager/constant/width_box.dart';
 import 'package:hrm_manager/extensions/size_extension.dart';
 import 'package:hrm_manager/provider/avaliable_worker_provider.dart';
 import 'package:hrm_manager/constant/app_color.dart';
+import 'package:hrm_manager/provider/location_provider.dart';
 import 'package:hrm_manager/views/AvaliableWorker/component/min_max_text_field.dart';
 import 'package:provider/provider.dart';
 
@@ -18,15 +19,17 @@ class FilterWidget extends StatelessWidget {
   final String name;
   final int id;
   final String location;
-  const FilterWidget(
-      {super.key,
-      required this.name,
-      required this.id,
-      required this.location});
+  const FilterWidget({
+    super.key,
+    required this.name,
+    required this.id,
+    required this.location,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Consumer<AvaliableWorkerProvider>(builder: (context, provider, __) {
+      provider.locationController.text = location;
       return provider.isFilterOpen == false
           ? Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,7 +45,42 @@ class FilterWidget extends StatelessWidget {
                     provider.filteredList.length,
                     (index) => Chip(
                       onDeleted: () {
-                        provider.removeFilter(index, context);
+                        provider.removeFilter(index, context).whenComplete(() {
+                          for (var data in provider.filteredList) {
+                            print(
+                                "Data of Location ${provider.locationController.text}");
+                          }
+                          bool isFlag = provider.containsMatchingName(
+                            provider.filteredList,
+                            provider.workerFlagList,
+                            provider.selectedFlag,
+                          );
+                          bool isStatus = provider.containsMatchingName(
+                              provider.filteredList,
+                              provider.workerStatusList,
+                              provider.selectedStatus);
+
+                          bool isTrade = provider.containsMatchingTradeName(
+                              provider.filteredList,
+                              provider.tradeOptionList,
+                              provider.tradeOptionName);
+                          if (!provider.filteredList
+                              .contains(provider.locationController.text)) {
+                            provider.locationController.clear();
+                          }
+                          provider.getFiltrationDataFunc(
+                            city: provider.locationController.text,
+                            context: context,
+                            tradeID: provider.tradeOptionId,
+                            statusID: isStatus == true
+                                ? provider.selectedStatusID
+                                : null,
+                            flagID:
+                                isFlag == true ? provider.selectedFalgID : null,
+                            startPrice: provider.minController.text,
+                            endPrice: provider.maxController.text,
+                          );
+                        });
                       },
                       deleteIconColor: AppColor.whiteColor,
                       shape: RoundedRectangleBorder(
@@ -83,31 +121,46 @@ class FilterWidget extends StatelessWidget {
                 getHeight(context: context, height: 0.010),
                 locationSearchField(
                     context: context,
-                    hintText: 'Toronto',
-                    controller: provider.locationController..text = location,
+                    hintText: 'City, postal code',
+                    controller: provider.locationController,
                     height: context.getSize.height * 0.048,
-                    onChanged: (val) {},
+                    submit: (val) {
+                      final lcPv =
+                          Provider.of<LocationProvider>(context, listen: false);
+                      if (lcPv.searchedList.isNotEmpty) {
+                        provider.locationController.text =
+                            lcPv.searchedList[0].city!;
+                      }
+                    },
+                    onChanged: (val) {
+                      final lcPv =
+                          Provider.of<LocationProvider>(context, listen: false);
+                      lcPv.searchQuery(val);
+                    },
                     cancel: () {
                       provider.locationController.clear();
+                      final lcPv =
+                          Provider.of<LocationProvider>(context, listen: false);
+                      lcPv.clearSearchData();
                     }),
                 getHeight(context: context, height: 0.010),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Icon(
-                      Icons.my_location,
-                      color: AppColor.iconColor,
-                    ),
-                    getWidth(context: context, width: 0.010),
-                    appText(
-                      fontWeight: FontWeight.w500,
-                      context: context,
-                      title: 'Current Location',
-                      fontSize: 16,
-                      textColor: AppColor.iconColor,
-                    )
-                  ],
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.start,
+                //   children: [
+                //     Icon(
+                //       Icons.my_location,
+                //       color: AppColor.iconColor,
+                //     ),
+                //     getWidth(context: context, width: 0.010),
+                //     appText(
+                //       fontWeight: FontWeight.w500,
+                //       context: context,
+                //       title: 'Current Location',
+                //       fontSize: 16,
+                //       textColor: AppColor.iconColor,
+                //     )
+                //   ],
+                // ),
                 getHeight(context: context, height: 0.010),
                 appText(
                   fontWeight: FontWeight.w500,
@@ -204,45 +257,72 @@ class FilterWidget extends StatelessWidget {
                           toast(
                               msg: 'min price must be lower than max price',
                               context: context);
-                        } 
-                          if (provider.tradeOptionName != 'Select' ||
-                              provider.tradeOptionName != '') {
+                        }
+                        if (provider.tradeOptionName != 'Select' ||
+                            provider.tradeOptionName != '') {
+                          bool isCheck = provider.containsMatchingTradeName(
+                              provider.filteredList,
+                              provider.tradeOptionList,
+                              provider.tradeOptionName);
+                          if (isCheck == true) {
+                          } else {
                             provider.addFilter(provider.tradeOptionName);
                           }
-                          if (provider.selectedStatus != 'Select' ||
-                              provider.selectedStatus != '') {
+                        }
+                        if (provider.selectedStatus != 'Select' ||
+                            provider.selectedStatus != '') {
+                          final isFound = provider.containsMatchingName(
+                            provider.filteredList,
+                            provider.workerStatusList,
+                            provider.selectedStatus,
+                          );
+                          print(
+                              "Selected Status ID Is ${provider.selectedStatusID}");
+                          if (isFound == true) {
+                          } else {
                             provider.addFilter(
                               provider.selectedStatus,
                             );
                           }
-                          provider.addFilter(
+                        }
+                        if (provider.selectedFlag != 'Select' ||
+                            provider.selectedFlag != '') {
+                          bool isFlagFound = provider.containsMatchingName(
+                            provider.filteredList,
+                            provider.workerFlagList,
                             provider.selectedFlag,
                           );
-                          if (provider.minController.text.isNotEmpty) {
+                          if (isFlagFound == true) {
+                          } else {
                             provider.addFilter(
-                              "min ${provider.minController.text}",
+                              provider.selectedFlag,
                             );
                           }
-                          print("Location is $location");
-                          if (location != '') {
-                            provider.addFilter(location);
-                          }
-                          if (provider.maxController.text.isNotEmpty) {
-                            provider.addFilter(
-                                "max ${provider.maxController.text}");
-                          }
-                          provider.getFiltrationDataFunc(
-                            city: location,
-                            context: context,
-                            tradeID: provider.tradeOptionId,
-                            statusID: provider.selectedStatusID,
-                            flagID: provider.selectedFalgID,
-                            startPrice: provider.minController.text,
-                            endPrice: provider.maxController.text,
+                        }
+                        if (provider.minController.text.isNotEmpty) {
+                          provider.addFilter(
+                            "min ${provider.minController.text}",
                           );
-                          provider.openFilter(false);
-                          provider.clearTextField();
-                        
+                        }
+                        if (provider.locationController.text.isNotEmpty ||
+                            provider.locationController.text != '') {
+                          provider.addFilter(provider.locationController.text);
+                        }
+                        if (provider.maxController.text.isNotEmpty) {
+                          provider
+                              .addFilter("max ${provider.maxController.text}");
+                        }
+                        provider.getFiltrationDataFunc(
+                          city: provider.locationController.text,
+                          context: context,
+                          tradeID: provider.tradeOptionId,
+                          statusID: provider.selectedStatusID,
+                          flagID: provider.selectedFalgID,
+                          startPrice: provider.minController.text,
+                          endPrice: provider.maxController.text,
+                        );
+                        provider.openFilter(false);
+                        provider.clearTextField();
                       },
                       title: "Apply",
                       width: context.getSize.width * 0.2),

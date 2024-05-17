@@ -122,15 +122,21 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       SizedBox(
-                        height: context.getSize.height * 0.084,
-                        width: context.getSize.width * 0.168,
+                        height: context.getSize.height * 0.1,
+                        width: context.getSize.width * 0.2,
                         child: Stack(
                           alignment: Alignment.bottomRight,
                           children: [
                             Container(
-                              height: context.getSize.height * 0.084,
-                              width: context.getSize.width * 0.168,
+                              height: context.getSize.height * 0.1,
+                              width: context.getSize.width * 0.2,
                               decoration: BoxDecoration(
+                                  border: provider.pickedImage != ''
+                                      ? null
+                                      : Border.all(
+                                          color: AppColor.lightPurpleColor
+                                              .withOpacity(0.67),
+                                        ),
                                   shape: BoxShape.circle,
                                   image: provider.pickedImage != ''
                                       ? DecorationImage(
@@ -139,7 +145,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                                           fit: BoxFit.cover)
                                       : const DecorationImage(
                                           image:
-                                              NetworkImage(Constant.dummyImage),
+                                              AssetImage(Constant.dummyImage),
                                           fit: BoxFit.cover)),
                             ),
                             GestureDetector(
@@ -148,14 +154,15 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                               },
                               child: Container(
                                 alignment: Alignment.center,
-                                height: context.getSize.height * 0.018,
-                                width: context.getSize.width * 0.036,
+                                height: context.getSize.height * 0.04,
+                                width: context.getSize.width * 0.08,
                                 decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: AppColor.whiteColor),
+                                  shape: BoxShape.circle,
+                                  color: AppColor.lightPinkColor,
+                                ),
                                 child: Icon(
                                   Ionicons.create_outline,
-                                  size: context.getSize.height * 0.014,
+                                  size: context.getSize.height * 0.020,
                                 ),
                               ),
                             )
