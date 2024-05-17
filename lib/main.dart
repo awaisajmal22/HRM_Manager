@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hrm_manager/Network/Server/permission_handler.dart';
 import 'package:hrm_manager/WidgetandBindings/app_pages.dart';
 import 'package:hrm_manager/WidgetandBindings/app_routes.dart';
 import 'package:hrm_manager/provider/add_worker_provider.dart';
@@ -14,9 +15,10 @@ import 'package:hrm_manager/provider/wroker_profile_provider.dart';
 import 'package:hrm_manager/constant/app_color.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
     WidgetsFlutterBinding.ensureInitialized();
-   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp,DeviceOrientation.portraitDown])
+   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp,DeviceOrientation.portraitDown]);
+   await requestPermission()
    .then((value) =>  runApp(const MyApp()));
  
 }
