@@ -6,6 +6,7 @@ import 'package:hrm_manager/WidgetandBindings/app_routes.dart';
 import 'package:hrm_manager/constant/app_text.dart';
 import 'package:hrm_manager/constant/back.dart';
 import 'package:hrm_manager/constant/constant.dart';
+import 'package:hrm_manager/constant/divider.dart';
 import 'package:hrm_manager/constant/height_box.dart';
 import 'package:hrm_manager/constant/rich_text.dart';
 import 'package:hrm_manager/constant/text_button.dart';
@@ -334,24 +335,28 @@ class _WorkerProfileViewState extends State<WorkerProfileView> {
                     subtitle: provider.selectedWorkExpList,
                     // provider.workerProfileModel.experience!,
                   ),
+                  divider(color: AppColor.lightPurpleColor.withOpacity(0.2)),
                   getHeight(context: context, height: 0.01),
                   richText(
                     context: context,
                     title: 'Previous Employment: ',
                     subtitle: provider.workerProfileModel.previousEmployment!,
                   ),
+                  divider(color: AppColor.lightPurpleColor.withOpacity(0.2)),
                   getHeight(context: context, height: 0.01),
                   richText2(
                     context: context,
                     title: 'Union Affiliation: ',
                     subtitle: provider.selectedUnionAfflicationList,
                   ),
+                  divider(color: AppColor.lightPurpleColor.withOpacity(0.2)),
                   getHeight(context: context, height: 0.01),
                   richText2(
                     context: context,
                     title: 'Flag: ',
                     subtitle: provider.selectedWorkerFlagList,
                   ),
+                  divider(color: AppColor.lightPurpleColor.withOpacity(0.2)),
                   getHeight(context: context, height: 0.01),
                   richText(
                       context: context,
@@ -361,6 +366,7 @@ class _WorkerProfileViewState extends State<WorkerProfileView> {
                           "false"
                       // provider.workerProfileModel.transportation!,
                       ),
+                      divider(color: AppColor.lightPurpleColor.withOpacity(0.2)),
                   getHeight(context: context, height: 0.01),
                   richText(
                       context: context,
@@ -370,6 +376,7 @@ class _WorkerProfileViewState extends State<WorkerProfileView> {
                           .isNotNullableString()
                       //  provider.workerProfileModel.home!,
                       ),
+                      divider(color: AppColor.lightPurpleColor.withOpacity(0.2)),
                   getHeight(context: context, height: 0.01),
                   richText2(
                     context: context,
@@ -377,12 +384,14 @@ class _WorkerProfileViewState extends State<WorkerProfileView> {
                     subtitle: provider.selectedcertificateList,
                     // provider.workerProfileModel.certificate!,
                   ),
+                  divider(color: AppColor.lightPurpleColor.withOpacity(0.2)),
                   getHeight(context: context, height: 0.01),
                   richText(
                     context: context,
                     title: 'Special Tickets: ',
                     subtitle: provider.workerProfileModel.specialTickets!,
                   ),
+                  divider(color: AppColor.lightPurpleColor.withOpacity(0.2)),
                   getHeight(context: context, height: 0.01),
                   richText(
                     context: context,
@@ -392,6 +401,7 @@ class _WorkerProfileViewState extends State<WorkerProfileView> {
                         .isNotNullableString(),
                     // provider.workerProfileModel.note!,
                   ),
+                  divider(color: AppColor.lightPurpleColor.withOpacity(0.2)),
                   getHeight(context: context, height: 0.020),
                   Align(
                     alignment: Alignment.centerLeft,

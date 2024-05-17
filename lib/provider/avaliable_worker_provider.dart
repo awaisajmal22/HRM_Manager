@@ -88,7 +88,8 @@ class AvaliableWorkerProvider extends ChangeNotifier {
   void clearData() {
     _filteredList.clear();
     filteredList.clear();
-
+  _filtrationResponseList.clear();
+  filtrationResponseList.clear();
     _isFilterOpen = false;
 
     print("dispoe true");

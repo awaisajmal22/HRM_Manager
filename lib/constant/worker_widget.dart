@@ -103,7 +103,7 @@ class WorkerWidget extends StatelessWidget {
                           )
                         ],
                       ),
-                divider(color: AppColor.lightPurpleColor.withOpacity(0.2)),
+      isShimmer == true ?const  SizedBox.shrink() :          divider(color: AppColor.lightPurpleColor.withOpacity(0.2)),
                 isShimmer == true
                     ? _rowShimmer(context: context)
                     : Row(
@@ -132,7 +132,7 @@ class WorkerWidget extends StatelessWidget {
                           )
                         ],
                       ),
-                divider(color: AppColor.lightPurpleColor.withOpacity(0.2)),
+       isShimmer == true ? const  SizedBox.shrink() :             divider(color: AppColor.lightPurpleColor.withOpacity(0.2)),
                 isShimmer == true
                     ? _rowShimmer(context: context)
                     : Row(
@@ -161,7 +161,7 @@ class WorkerWidget extends StatelessWidget {
                           )
                         ],
                       ),
-                divider(color: AppColor.lightPurpleColor.withOpacity(0.2)),
+      isShimmer == true ? const  SizedBox.shrink() :              divider(color: AppColor.lightPurpleColor.withOpacity(0.2)),
                 isShimmer == true
                     ? _rowShimmer(context: context)
                     : Row(

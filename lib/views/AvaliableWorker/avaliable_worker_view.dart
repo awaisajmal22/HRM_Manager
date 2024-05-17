@@ -81,7 +81,6 @@ class _AvaliableWorkerViewState extends State<AvaliableWorkerView> {
   @override
   void dispose() {
     pv.clearData();
-
     super.dispose();
   }
 
