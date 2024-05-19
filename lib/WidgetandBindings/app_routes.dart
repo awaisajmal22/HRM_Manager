@@ -7,4 +7,5 @@ class AppRoutes{
   static const workerProfileView ='/workerProfile';
   static const editWorkerDetailView ='/editWorkerDetail';
   static const pdfView ='/pdf';
+  static const forgetPasswordView ='/forgetPassword';
 }

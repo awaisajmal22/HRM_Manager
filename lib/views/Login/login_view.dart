@@ -32,7 +32,6 @@ class _LoginViewState extends State<LoginView> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     // final provider = Provider.of<LoginProvider>(
@@ -117,6 +116,10 @@ class _LoginViewState extends State<LoginView> {
                   ),
                   getHeight(context: context, height: 0.04),
                   GestureDetector(
+                    onTap: () {
+                      Navigator.of(context)
+                          .pushNamed(AppRoutes.forgetPasswordView);
+                    },
                     child: appText(
                       context: context,
                       title: 'Forget Password?',

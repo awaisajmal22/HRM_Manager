@@ -42,4 +42,6 @@ class ApiUrl {
       '$mainUrl/Authentication/SaveManagerProfileImage';
   static const getProfileManagerImageUrl =
       '$mainUrl/Authentication/GetWorkerManagerProfileImage';
+  static const forgetPasswordUrl =
+      '$mainUrl/Authentication/ManagerForgetPassword';
 }

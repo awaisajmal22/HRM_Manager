@@ -9,7 +9,7 @@
 
 
     <application
-        android:label="hrm_manager"
+        android:label="HRM Manager"
         android:name="${applicationName}"
         android:usesCleartextTraffic="true"
         android:requestLegacyExternalStorage="true"

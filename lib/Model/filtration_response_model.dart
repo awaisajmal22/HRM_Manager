@@ -31,12 +31,12 @@ class FiltrationResponseModel {
       };
 }
 class Datum {
-    dynamic? id;
-    dynamic? firstName;
-    dynamic? lastName;
-    dynamic? regularRate;
-    dynamic? tradeId;
-    dynamic? statusId;
+    dynamic id;
+    dynamic firstName;
+    dynamic lastName;
+    dynamic regularRate;
+    dynamic tradeId;
+    dynamic statusId;
     dynamic dob;
     dynamic profileType;
     dynamic profileBytes;

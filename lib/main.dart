@@ -6,6 +6,7 @@ import 'package:hrm_manager/WidgetandBindings/app_routes.dart';
 import 'package:hrm_manager/provider/add_worker_provider.dart';
 import 'package:hrm_manager/provider/avaliable_worker_provider.dart';
 import 'package:hrm_manager/provider/edit_worker_detail_provider.dart';
+import 'package:hrm_manager/provider/forget_password_provider.dart';
 import 'package:hrm_manager/provider/home_provider.dart';
 import 'package:hrm_manager/provider/location_provider.dart';
 import 'package:hrm_manager/provider/login_provider.dart';
@@ -50,6 +51,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_)=>WorkerProfileProvider()),
         ChangeNotifierProvider(create: (_)=>EditWorkerDetailProvider()),
         ChangeNotifierProvider(create: (_)=>ProfileProvider()),
+        ChangeNotifierProvider(create: (_)=>ForgetPasswordProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

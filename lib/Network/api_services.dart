@@ -280,6 +280,76 @@ class API {
     //  toast( context: context, msg:"No internet connection, try later");
     // }
   }
+  Future postRequestWithParam(BuildContext context,String apiurl, var data,) async {
+    // if (await connectivityServices.onConnectivity()) {
+    try {
+      var dio = DIO.Dio();
+      print(apiurl);
+      var response = await dio.post(
+        apiurl,
+        queryParameters: data,
+        options: DIO.Options(headers: {
+          'Accept': '*/*',
+          'Content-type': 'application/json',
+        }),
+        onSendProgress: (int sent, int total) {
+          debugPrint("total ${total.toString()} " "   sent ${sent.toString()}");
+        },
+      ).whenComplete(() {
+        debugPrint("POST Complete:");
+      
+      }).catchError((onError) {
+        
+        if (ServerError.withError(error: onError).getErrorCode() == 500) {
+          toast(
+            context: context,
+            msg:"SomeThing Went Wrong");
+
+        }
+        debugPrint("POST Error: $onError");
+        if (onError is SocketException) {
+          toast(
+            context: context,
+            msg:"No internet connection!");
+        } else {
+          if (onError is DIO.DioError) {
+            if (ServerError.withError(error: onError).getErrorCode() == 401) {
+              //
+           
+              
+            } else {
+              toast(
+                context: context,
+                msg:
+                  ServerError.withError(error: onError)
+                      .getErrorMessage()
+                      .toString());
+            }
+          }
+        }
+      });
+
+      return response;
+    } catch (error) {
+      // if (error is SocketException) {
+      //  toast( context: context, msg:"No internet connection!");
+      // } else {
+      //   if (error is DIO.DioError) {
+      //     if (ServerError.withError(error: error).getErrorCode() == 401) {
+      //      
+      //     } else {
+      //       print("error$error");
+      //      toast( context: context, msg:ServerError.withError(error: error)
+      //           .getErrorMessage()
+      //           .toString());
+      //     }
+      //   }
+      // }
+    }
+    // } else {
+    //  toast( context: context, msg:"No internet connection, try later");
+    // }
+  }
 
   Future postRequestHeader(BuildContext context,String apiurl, var data) async {
     // if (await connectivityServices.onConnectivity()) {

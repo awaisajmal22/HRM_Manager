@@ -12,7 +12,7 @@ class WorkerServices {
     WorkerByIdModel model = WorkerByIdModel();
     try {
       final response =
-          await API().getRequest(context, "${ApiUrl.getWorkerByIdUrl}/$id");
+          await API().getRequestHeader(context, "${ApiUrl.getWorkerByIdUrl}/$id");
       if (response.statusCode == 200) {
         print(response.data);
         model = WorkerByIdModel.fromJson(response.data);
@@ -30,7 +30,7 @@ class WorkerServices {
     WorkerDocModel data = WorkerDocModel();
     try {
       print(api);
-      final response = await API().getRequest(context, api);
+      final response = await API().getRequestHeader(context, api);
       print("Status is There ${response.statusCode}");
       if (response.statusCode == 200) {
         data = WorkerDocModel.fromJson(response.data);

@@ -8,7 +8,7 @@ class AllTradesServices{
   Future<List<AllTradeModel>> getAllTrade({required BuildContext context})async{
     List<AllTradeModel> allTradeModel = <AllTradeModel>[];
 try{
-final response = await API().getRequest(context, ApiUrl.allTradeUrl);
+final response = await API().getRequestHeader(context, ApiUrl.allTradeUrl);
 if(response.statusCode == 200){
   response.data.forEach((data)=> allTradeModel.add(AllTradeModel.fromJson(data)));
 }

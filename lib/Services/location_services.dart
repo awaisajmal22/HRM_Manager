@@ -7,7 +7,7 @@ class LocationServices{
  Future<List<LocationModel>> getLocation({required BuildContext context}) async{
   List<LocationModel> locations = <LocationModel>[];
     try{
-final response = await API().getRequest(context, ApiUrl.getLocationUrl);
+final response = await API().getRequestHeader(context, ApiUrl.getLocationUrl);
 if(response.statusCode == 200){
 response.data.forEach((e)=> locations.add(LocationModel.fromJson(e)));
 }

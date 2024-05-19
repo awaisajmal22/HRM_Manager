@@ -41,7 +41,7 @@ dependencies:
   file_picker: ^8.0.3
   image_picker: ^1.1.0
  
-  pdfx: ^2.6.0
+  
   permission_handler: ^11.3.1
   csv: ^6.0.0
   external_path: ^1.0.3
@@ -55,6 +55,15 @@ dependencies:
   http: ^1.2.1
   open_file_plus: ^3.4.1+1
   shimmer: ^3.0.0
+  flutter_launcher_icons: ^0.13.1
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/ic_launcher.png"
+  adaptive_icon_background: "#ffffff"
+  adaptive_icon_foreground: "assets/forground_logo.png"
+
 
 
  

@@ -18,7 +18,7 @@ class AddWorkerServices {
     List<AddWorkerDropDownModel> dropDownList = <AddWorkerDropDownModel>[];
     try {
       final response =
-          await API().getRequest(context, ApiUrl.getWorkerExperinceUrl);
+          await API().getRequestHeader(context, ApiUrl.getWorkerExperinceUrl);
       if (response.statusCode == 200) {
         final Map data = response.data as Map<dynamic, dynamic>;
         print(data);
@@ -38,7 +38,7 @@ class AddWorkerServices {
   Future getTimeSheet({required BuildContext context}) async {
     List<AddWorkerDropDownModel> dropDownList = <AddWorkerDropDownModel>[];
     try {
-      final response = await API().getRequest(context, ApiUrl.getTimeSheetUrl);
+      final response = await API().getRequestHeader(context, ApiUrl.getTimeSheetUrl);
       if (response.statusCode == 200) {
         final Map data = response.data as Map<dynamic, dynamic>;
         print(data);
@@ -59,7 +59,7 @@ class AddWorkerServices {
     List<AddWorkerDropDownModel> dropDownList = <AddWorkerDropDownModel>[];
     try {
       final response =
-          await API().getRequest(context, ApiUrl.getUnionAffiliationUrl);
+          await API().getRequestHeader(context, ApiUrl.getUnionAffiliationUrl);
       if (response.statusCode == 200) {
         final Map data = response.data as Map<dynamic, dynamic>;
         print(data);
@@ -79,7 +79,7 @@ class AddWorkerServices {
   Future getJobSite({required BuildContext context}) async {
     List<AddWorkerDropDownModel> dropDownList = <AddWorkerDropDownModel>[];
     try {
-      final response = await API().getRequest(context, ApiUrl.getJobSitesUrl);
+      final response = await API().getRequestHeader(context, ApiUrl.getJobSitesUrl);
       if (response.statusCode == 200) {
         response.data.forEach(
             (e) => dropDownList.add(AddWorkerDropDownModel.fromJson(e)));
@@ -95,7 +95,7 @@ class AddWorkerServices {
   Future getRecruiter({required BuildContext context}) async {
     List<AddWorkerDropDownModel> dropDownList = <AddWorkerDropDownModel>[];
     try {
-      final response = await API().getRequest(context, ApiUrl.getRecruiterUrl);
+      final response = await API().getRequestHeader(context, ApiUrl.getRecruiterUrl);
       if (response.statusCode == 200) {
         response.data.forEach(
             (e) => dropDownList.add(AddWorkerDropDownModel.fromJson(e)));
@@ -112,7 +112,7 @@ class AddWorkerServices {
     List<AddWorkerDropDownModel> dropDownList = <AddWorkerDropDownModel>[];
     try {
       final response =
-          await API().getRequest(context, ApiUrl.getCertificationsUrl);
+          await API().getRequestHeader(context, ApiUrl.getCertificationsUrl);
       if (response.statusCode == 200) {
         response.data.forEach(
             (e) => dropDownList.add(AddWorkerDropDownModel.fromJson(e)));
@@ -128,7 +128,7 @@ class AddWorkerServices {
   Future getLanguage({required BuildContext context}) async {
     List<AddWorkerDropDownModel> dropDownList = <AddWorkerDropDownModel>[];
     try {
-      final response = await API().getRequest(context, ApiUrl.getLanguagesUrl);
+      final response = await API().getRequestHeader(context, ApiUrl.getLanguagesUrl);
       if (response.statusCode == 200) {
         response.data.forEach(
             (e) => dropDownList.add(AddWorkerDropDownModel.fromJson(e)));
@@ -145,7 +145,7 @@ class AddWorkerServices {
     List<AddWorkerDropDownModel> dropDownList = <AddWorkerDropDownModel>[];
     try {
       final response =
-          await API().getRequest(context, ApiUrl.getWorkerPickUpLocationUrl);
+          await API().getRequestHeader(context, ApiUrl.getWorkerPickUpLocationUrl);
       if (response.statusCode == 200) {
         response.data.forEach(
             (e) => dropDownList.add(AddWorkerDropDownModel.fromJson(e)));
@@ -162,7 +162,7 @@ class AddWorkerServices {
       {required BuildContext context}) async {
     List<AddWorkerDropDownModel> statusModelList = <AddWorkerDropDownModel>[];
     try {
-      final response = await API().getRequest(context, ApiUrl.workerStatusUrl);
+      final response = await API().getRequestHeader(context, ApiUrl.workerStatusUrl);
       if (response.statusCode == 200) {
         response.data.forEach(
             (dt) => statusModelList.add(AddWorkerDropDownModel.fromJson(dt)));
@@ -176,7 +176,7 @@ class AddWorkerServices {
       {required BuildContext context}) async {
     List<AddWorkerDropDownModel> statusModelList = <AddWorkerDropDownModel>[];
     try {
-      final response = await API().getRequest(context, ApiUrl.workerFlagUrl);
+      final response = await API().getRequestHeader(context, ApiUrl.workerFlagUrl);
       if (response.statusCode == 200) {
         response.data.forEach(
             (dt) => statusModelList.add(AddWorkerDropDownModel.fromJson(dt)));

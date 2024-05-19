@@ -43,8 +43,6 @@ PODS:
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
-  - pdfx (1.0.0):
-    - Flutter
   - permission_handler_apple (9.3.0):
     - Flutter
   - SDWebImage (5.18.5):
@@ -64,7 +62,6 @@ DEPENDENCIES:
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - open_file_plus (from `.symlinks/plugins/open_file_plus/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
-  - pdfx (from `.symlinks/plugins/pdfx/ios`)
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
   - share_plus (from `.symlinks/plugins/share_plus/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
@@ -89,8 +86,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/open_file_plus/ios"
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
-  pdfx:
-    :path: ".symlinks/plugins/pdfx/ios"
   permission_handler_apple:
     :path: ".symlinks/plugins/permission_handler_apple/ios"
   share_plus:
@@ -107,7 +102,6 @@ SPEC CHECKSUMS:
   image_picker_ios: b545a5f16c0fa88e3ecbbce3ed4de45567a8ec18
   open_file_plus: 05737718530c14cf02868e3b7754d7fe4df76d8b
   path_provider_foundation: 3784922295ac71e43754bd15e0653ccfd36a147c
-  pdfx: 7b876b09de8b7a0bf444a4f82b439ffcff4ee1ec
   permission_handler_apple: 9878588469a2b0d0fc1e048d9f43605f92e6cec2
   SDWebImage: 7ac2b7ddc5e8484c79aa90fc4e30b149d6a2c88f
   share_plus: 8875f4f2500512ea181eef553c3e27dba5135aad

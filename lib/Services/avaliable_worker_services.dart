@@ -8,12 +8,13 @@ import 'package:hrm_manager/Model/worker_status_and_flag_model.dart';
 import 'package:hrm_manager/Network/api_services.dart';
 import 'package:hrm_manager/Network/api_url.dart';
 import 'package:http/http.dart' as http;
+
 class AvaliableWorkerServices {
   Future<List<StatusAndFlagModel>> getWorkerStatus(
       {required BuildContext context}) async {
     List<StatusAndFlagModel> statusModelList = <StatusAndFlagModel>[];
     try {
-      final response = await API().getRequest(context, ApiUrl.workerStatusUrl);
+      final response = await API().getRequestHeader(context, ApiUrl.workerStatusUrl);
       if (response.statusCode == 200) {
         response.data.forEach(
             (dt) => statusModelList.add(StatusAndFlagModel.fromJson(dt)));
@@ -27,7 +28,7 @@ class AvaliableWorkerServices {
       {required BuildContext context}) async {
     List<StatusAndFlagModel> statusModelList = <StatusAndFlagModel>[];
     try {
-      final response = await API().getRequest(context, ApiUrl.workerFlagUrl);
+      final response = await API().getRequestHeader(context, ApiUrl.workerFlagUrl);
       if (response.statusCode == 200) {
         response.data.forEach(
             (dt) => statusModelList.add(StatusAndFlagModel.fromJson(dt)));
@@ -65,12 +66,12 @@ class AvaliableWorkerServices {
 
     try {
       final response =
-          await API().postRequest(context, ApiUrl.filterationUrl, data);
+          await API().postRequestHeader(context, ApiUrl.filterationUrl, data);
       if (response.statusCode == 200) {
         print("Fil Data is ${response.statusCode}");
         print("Fil Data is ${response.data}");
-
-        response.data['data'].forEach((element) {
+final decodedData = jsonDecode(response.data);
+       decodedData["data"].forEach((element) {
           filtrationResponseModel.add(Datum.fromJson(element));
         });
       }

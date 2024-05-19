@@ -5,6 +5,7 @@ import 'package:hrm_manager/WidgetandBindings/app_routes.dart';
 import 'package:hrm_manager/views/AddWorker/add_worker_view.dart';
 import 'package:hrm_manager/views/AvaliableWorker/avaliable_worker_view.dart';
 import 'package:hrm_manager/views/EditWorkerDetial/edit_worker_detail_view.dart';
+import 'package:hrm_manager/views/ForgetPassword/forgert_password_view.dart';
 import 'package:hrm_manager/views/Location/location_view.dart';
 import 'package:hrm_manager/views/Login/login_view.dart';
 import 'package:hrm_manager/views/NavBar/nav_bar_view.dart';
@@ -38,6 +39,9 @@ class AppPages{
       case (AppRoutes.addWorkerView): return MaterialPageRoute(builder: (context){
         return const AddWorkerView();
       });
+      case (AppRoutes.forgetPasswordView): return MaterialPageRoute(builder: (context){
+        return const ForgetPasswordView();
+      });
       case (AppRoutes.avaliableWorkerView): return MaterialPageRoute(builder: (context){
         List<dynamic> arguments = settings.arguments as List<dynamic>;
        
@@ -56,14 +60,14 @@ String profileImage = dataList[1];
           workerModel: model,
         );
       });
-      case (AppRoutes.pdfView): return MaterialPageRoute(builder: (context){
-        List<dynamic> args = settings.arguments as List<dynamic>;
-        String title = args[0];
-        WorkerDocModel path = args[1];
-        return  PDFView(
-          title: title,
-          pdfPath: path,);
-      });
+      // case (AppRoutes.pdfView): return MaterialPageRoute(builder: (context){
+      //   List<dynamic> args = settings.arguments as List<dynamic>;
+      //   String title = args[0];
+      //   WorkerDocModel path = args[1];
+      //   return  PDFView(
+      //     title: title,
+      //     pdfPath: path,);
+      // });
       default:
        return _errorRoute();
     }
