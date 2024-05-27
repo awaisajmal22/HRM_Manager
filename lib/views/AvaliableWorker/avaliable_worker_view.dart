@@ -282,7 +282,7 @@ class _AvaliableWorkerViewState extends State<AvaliableWorkerView> {
                                                     model.dob!.toString() ??
                                                         ''),
                                             price:
-                                                "\$${model.regularRate.toString().isNotNullableString()}/hr",
+                                                "\$${double.parse(model.regularRate.toString()).toStringAsFixed(2).isNotNullableString()}/hr",
                                             trade: trade.tradeOptionName ?? '',
                                             status: status.name ?? '',
                                           ),

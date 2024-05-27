@@ -320,7 +320,7 @@ class _WorkerProfileViewState extends State<WorkerProfileView> {
                         provider.workerByIdModel.dateofBirth.toString() ?? ''),
                     // provider.workerProfileModel.dob!,
                     price:
-                        "\$${provider.workerByIdModel.regularRate.toString().isNotNullableString()}/hr",
+                        "\$${double.parse(provider.workerByIdModel.regularRate.toString()).toStringAsFixed(2).isNotNullableString()}/hr",
                     // provider.workerProfileModel.price!,
                     trade:
                         provider.selectedTrade.toString().isNotNullableString(),

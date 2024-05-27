@@ -756,7 +756,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                           ),
                           getHeight(context: context, height: 0.005),
                           addWorkerTextField(
-                            isDecimal: true,
+                            isDecimal: false,
                             textInputType: TextInputType.number,
                             context: context,
                             hintText: 'Enter Regular Rate',

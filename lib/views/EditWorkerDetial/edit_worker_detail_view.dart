@@ -349,7 +349,7 @@ class _EditWorkerDetailViewState extends State<EditWorkerDetailView> {
             .toString()
             .isNotNullableString();
         provider.regularRateController.text =
-            widget.workerModel.regularRate.toString().isNotNullableString();
+           double.parse( widget.workerModel.regularRate.toString()).toStringAsFixed(2).isNotNullableString();
         provider.overTimeRateController.text =
             widget.workerModel.overTimeRate.toString().isNotNullableString();
         provider.clientRateController.text =
@@ -1050,7 +1050,7 @@ class _EditWorkerDetailViewState extends State<EditWorkerDetailView> {
                           ),
                           getHeight(context: context, height: 0.005),
                           editAddWorkerTextField(
-                            isDecimal: true,
+                            isDecimal: false,
                             textInputType: TextInputType.number,
                             context: context,
                             hintText: 'Enter Regular Rate',

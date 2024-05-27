@@ -35,6 +35,7 @@ addWorkerTextField({
         )),
     height: height,
     child: TextFormField(
+      
        inputFormatters: isDecimal == true
           ? [
               LengthLimitingTextInputFormatter(2),
