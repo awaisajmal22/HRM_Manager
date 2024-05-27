@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hrm_manager/constant/app_text.dart';
 import 'package:hrm_manager/constant/app_color.dart';
@@ -16,6 +17,7 @@ addWorkerTextField({
   OnTap? onTap,
   TextInputType textInputType = TextInputType.text,
   bool readOnly = false,
+  bool isDecimal = false,
   int? maxLines,
   OnChanged? onChanged,
 }) {
@@ -33,6 +35,11 @@ addWorkerTextField({
         )),
     height: height,
     child: TextFormField(
+       inputFormatters: isDecimal == true
+          ? [
+              LengthLimitingTextInputFormatter(2),
+            ]
+          : [],
       maxLines: maxLines ?? 1,
       textInputAction: textInputAction,
       readOnly: readOnly,

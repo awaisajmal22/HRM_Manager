@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hrm_manager/constant/app_text.dart';
 import 'package:hrm_manager/constant/app_color.dart';
@@ -17,6 +18,7 @@ editAddWorkerTextField({
   TextInputType textInputType = TextInputType.text,
   bool readOnly = false,
   int? maxLines,
+  bool isDecimal = false,
   OnChanged? onChanged,
 }) {
   final border = OutlineInputBorder(
@@ -33,6 +35,11 @@ editAddWorkerTextField({
         )),
     height: height,
     child: TextFormField(
+      inputFormatters: isDecimal == true
+          ? [
+              LengthLimitingTextInputFormatter(2),
+            ]
+          : [],
       maxLines: maxLines ?? 1,
       textInputAction: textInputAction,
       readOnly: readOnly,

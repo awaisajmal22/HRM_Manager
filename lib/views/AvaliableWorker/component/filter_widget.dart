@@ -29,7 +29,8 @@ class FilterWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<AvaliableWorkerProvider>(builder: (context, provider, __) {
-      provider.locationController.text = location;
+      
+      // provider.locationController.text = location;
       return provider.isFilterOpen == false
           ? Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -125,23 +126,24 @@ class FilterWidget extends StatelessWidget {
                     controller: provider.locationController,
                     height: context.getSize.height * 0.048,
                     submit: (val) {
-                      final lcPv =
-                          Provider.of<LocationProvider>(context, listen: false);
-                      if (lcPv.searchedList.isNotEmpty) {
-                        provider.locationController.text =
-                            lcPv.searchedList[0].city!;
-                      }
+                      // final lcPv =
+                      //     Provider.of<LocationProvider>(context, listen: false);
+                      // if (lcPv.searchedList.isNotEmpty) {
+                      //   // provider.locationController.text =
+                      //   //     lcPv.searchedList[0].city!;
+                      // }
                     },
                     onChanged: (val) {
-                      final lcPv =
-                          Provider.of<LocationProvider>(context, listen: false);
-                      lcPv.searchQuery(val);
+                      // final lcPv =
+                      //     Provider.of<LocationProvider>(context, listen: false);
+                      // lcPv.searchQuery(val);
                     },
                     cancel: () {
                       provider.locationController.clear();
                       final lcPv =
                           Provider.of<LocationProvider>(context, listen: false);
                       lcPv.clearSearchData();
+
                     }),
                 getHeight(context: context, height: 0.010),
                 // Row(

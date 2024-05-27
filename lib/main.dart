@@ -18,8 +18,10 @@ import 'package:provider/provider.dart';
 
 void main() async {
     WidgetsFlutterBinding.ensureInitialized();
-   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp,DeviceOrientation.portraitDown]);
-   await requestPermission()
+    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top]);
+    //  SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
+   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp,DeviceOrientation.portraitDown])
+  
    .then((value) =>  runApp(const MyApp()));
  
 }

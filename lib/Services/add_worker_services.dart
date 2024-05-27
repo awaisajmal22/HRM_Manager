@@ -11,6 +11,8 @@ import 'package:hrm_manager/Network/api_services.dart';
 import 'package:hrm_manager/Network/api_url.dart';
 import 'package:hrm_manager/constant/spinkit_view.dart';
 import 'package:hrm_manager/constant/toast.dart';
+import 'package:http_parser/http_parser.dart';
+import 'package:mime/mime.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AddWorkerServices {
@@ -38,7 +40,8 @@ class AddWorkerServices {
   Future getTimeSheet({required BuildContext context}) async {
     List<AddWorkerDropDownModel> dropDownList = <AddWorkerDropDownModel>[];
     try {
-      final response = await API().getRequestHeader(context, ApiUrl.getTimeSheetUrl);
+      final response =
+          await API().getRequestHeader(context, ApiUrl.getTimeSheetUrl);
       if (response.statusCode == 200) {
         final Map data = response.data as Map<dynamic, dynamic>;
         print(data);
@@ -79,7 +82,8 @@ class AddWorkerServices {
   Future getJobSite({required BuildContext context}) async {
     List<AddWorkerDropDownModel> dropDownList = <AddWorkerDropDownModel>[];
     try {
-      final response = await API().getRequestHeader(context, ApiUrl.getJobSitesUrl);
+      final response =
+          await API().getRequestHeader(context, ApiUrl.getJobSitesUrl);
       if (response.statusCode == 200) {
         response.data.forEach(
             (e) => dropDownList.add(AddWorkerDropDownModel.fromJson(e)));
@@ -95,7 +99,8 @@ class AddWorkerServices {
   Future getRecruiter({required BuildContext context}) async {
     List<AddWorkerDropDownModel> dropDownList = <AddWorkerDropDownModel>[];
     try {
-      final response = await API().getRequestHeader(context, ApiUrl.getRecruiterUrl);
+      final response =
+          await API().getRequestHeader(context, ApiUrl.getRecruiterUrl);
       if (response.statusCode == 200) {
         response.data.forEach(
             (e) => dropDownList.add(AddWorkerDropDownModel.fromJson(e)));
@@ -128,7 +133,8 @@ class AddWorkerServices {
   Future getLanguage({required BuildContext context}) async {
     List<AddWorkerDropDownModel> dropDownList = <AddWorkerDropDownModel>[];
     try {
-      final response = await API().getRequestHeader(context, ApiUrl.getLanguagesUrl);
+      final response =
+          await API().getRequestHeader(context, ApiUrl.getLanguagesUrl);
       if (response.statusCode == 200) {
         response.data.forEach(
             (e) => dropDownList.add(AddWorkerDropDownModel.fromJson(e)));
@@ -144,8 +150,8 @@ class AddWorkerServices {
   Future getWorkerPickupLocation({required BuildContext context}) async {
     List<AddWorkerDropDownModel> dropDownList = <AddWorkerDropDownModel>[];
     try {
-      final response =
-          await API().getRequestHeader(context, ApiUrl.getWorkerPickUpLocationUrl);
+      final response = await API()
+          .getRequestHeader(context, ApiUrl.getWorkerPickUpLocationUrl);
       if (response.statusCode == 200) {
         response.data.forEach(
             (e) => dropDownList.add(AddWorkerDropDownModel.fromJson(e)));
@@ -162,7 +168,8 @@ class AddWorkerServices {
       {required BuildContext context}) async {
     List<AddWorkerDropDownModel> statusModelList = <AddWorkerDropDownModel>[];
     try {
-      final response = await API().getRequestHeader(context, ApiUrl.workerStatusUrl);
+      final response =
+          await API().getRequestHeader(context, ApiUrl.workerStatusUrl);
       if (response.statusCode == 200) {
         response.data.forEach(
             (dt) => statusModelList.add(AddWorkerDropDownModel.fromJson(dt)));
@@ -176,7 +183,8 @@ class AddWorkerServices {
       {required BuildContext context}) async {
     List<AddWorkerDropDownModel> statusModelList = <AddWorkerDropDownModel>[];
     try {
-      final response = await API().getRequestHeader(context, ApiUrl.workerFlagUrl);
+      final response =
+          await API().getRequestHeader(context, ApiUrl.workerFlagUrl);
       if (response.statusCode == 200) {
         response.data.forEach(
             (dt) => statusModelList.add(AddWorkerDropDownModel.fromJson(dt)));
@@ -279,8 +287,16 @@ class AddWorkerServices {
     String? firstAidFilePath,
     String? employementReleaseFilePath,
     String? otherFilePath,
+    String? whimsFileName,
+    String? profileImageName,
+    String? workingFormHeightFileName,
+    String? termsOfEmployeFileName,
+    String? firstAidFileName,
+    String? employementReleaseFileName,
+    String? otherFileName,
   }) async {
     try {
+      print("Worker FlagID $workerFlagId");
       FormData data = FormData.fromMap({
         "Id": workerID,
         "InternalWorkerID": internalWorkerID,
@@ -375,54 +391,68 @@ class AddWorkerServices {
         final decodedData = jsonDecode(response.data);
         SuccessModel model = SuccessModel.fromJson(decodedData);
         toast(msg: "Worker Add Successfully", context: context);
-        if (profileImage != '' || profileImage != null) {
+        if (profileImage == '' || profileImage == null) {
+        } else {
           uploadFile(
               context: context,
               workerID: model.id!,
               filePath: profileImage!,
+              fileName: profileImageName!,
               apiUrl: ApiUrl.uploadPorfileImage);
         }
-        if (whimsFilePath != '' || whimsFilePath != null) {
+        if (whimsFilePath == '' || whimsFilePath == null) {
+        } else {
           uploadFile(
               context: context,
               workerID: model.id!,
               filePath: whimsFilePath!,
+              fileName: whimsFileName!,
               apiUrl: ApiUrl.uploadWHIMS);
         }
-        if (employementReleaseFilePath != '' ||
-            employementReleaseFilePath != null) {
+        if (employementReleaseFilePath == '' ||
+            employementReleaseFilePath == null) {
+        } else {
           uploadFile(
               context: context,
               workerID: model.id!,
+              fileName: employementReleaseFileName!,
               filePath: employementReleaseFilePath!,
               apiUrl: ApiUrl.uploadEmployementRelease);
         }
-        if (workingFormHeightFilePath != '' ||
-            workingFormHeightFilePath != null) {
+        if (workingFormHeightFilePath == '' ||
+            workingFormHeightFilePath == null) {
+        } else {
           uploadFile(
               context: context,
               workerID: model.id!,
               filePath: workingFormHeightFilePath!,
+              fileName: workingFormHeightFileName!,
               apiUrl: ApiUrl.uploadWorkingFormHeights);
         }
-        if (otherFilePath != '' || otherFilePath != null) {
+        if (otherFilePath == '' || otherFilePath == null) {
+        } else {
           uploadFile(
               context: context,
               workerID: model.id!,
               filePath: otherFilePath!,
+              fileName: otherFileName!,
               apiUrl: ApiUrl.uploadOtherFile);
         }
-        if (termsOfEmployeFilePath != '' || termsOfEmployeFilePath != null) {
+        if (termsOfEmployeFilePath == '' || termsOfEmployeFilePath == null) {
+        } else {
           uploadFile(
               context: context,
               workerID: model.id!,
+              fileName: termsOfEmployeFileName!,
               filePath: termsOfEmployeFilePath!,
               apiUrl: ApiUrl.uploadEmployeTerms);
         }
-        if (firstAidFilePath != '' || firstAidFilePath != null) {
+        if (firstAidFilePath == '' || firstAidFilePath == null) {
+        } else {
           uploadFile(
               context: context,
               workerID: model.id!,
+              fileName: firstAidFileName!,
               filePath: firstAidFilePath!,
               apiUrl: ApiUrl.uploadFirstAid);
         }
@@ -441,11 +471,17 @@ class AddWorkerServices {
       {required BuildContext context,
       required int workerID,
       required String filePath,
+      required String fileName,
       required String apiUrl}) async {
     try {
+      String? mimeType = lookupMimeType(fileName);
+      if (mimeType == '') {
+        mimeType = 'application/octet-stream';
+      }
       FormData data = FormData.fromMap({
         "WorkerId": workerID,
         "File": await MultipartFile.fromFile(
+          contentType: MediaType.parse(mimeType!),
           filePath,
         ),
       });
@@ -456,5 +492,16 @@ class AddWorkerServices {
     } catch (e) {}
   }
 
-  
+  Future<String> getInternalWorkerId({required BuildContext context}) async {
+    String id = '';
+    try {
+      final response =
+          await API().getRequestHeader(context, ApiUrl.getInternalWorkerIdUrl);
+      if (response.statusCode == 200) {
+        print("Worker ID IS THis ${response.data}");
+        id = response.data;
+      }
+    } catch (e) {}
+    return id;
+  }
 }

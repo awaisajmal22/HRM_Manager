@@ -3,5 +3,5 @@ class Constant{
   static const pdfIcon  ='assets/images/pdf.png';
   static const pdfFile = 'assets/images/awais.pdf';
    static   RegExp regExp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-
+static const appLogo = 'assets/images/applogo.png';
 }

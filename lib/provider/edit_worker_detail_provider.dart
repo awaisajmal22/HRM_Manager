@@ -90,27 +90,29 @@ class EditWorkerDetailProvider extends ChangeNotifier {
   List<int> get selectedcertificateIdList => _selectedcertificateIdList;
   selectCertificate(String certificate, int id) {
     if (!_selectedcertificateList.contains(certificate)) {
-     _selectedcertificateList.add(certificate);
+      _selectedcertificateList.add(certificate);
       _selectedcertificateIdList.add(id);
-    
-    } 
-     notifyListeners();
+    }
+    notifyListeners();
   }
-  List<String> _selectedUnionAfflicationList  = <String>[];
-List<String> get selectedUnionAfflicationList => _selectedUnionAfflicationList;
-  List<int> _selectedUnionAfflicationIdList  = <int>[];
-List<int> get selectedUnionAfflicationIdList => _selectedUnionAfflicationIdList;
 
-  selectUnionAffiliation(String affiliation,int id) {
+  List<String> _selectedUnionAfflicationList = <String>[];
+  List<String> get selectedUnionAfflicationList =>
+      _selectedUnionAfflicationList;
+  List<int> _selectedUnionAfflicationIdList = <int>[];
+  List<int> get selectedUnionAfflicationIdList =>
+      _selectedUnionAfflicationIdList;
+
+  selectUnionAffiliation(String affiliation, int id) {
     if (!_selectedUnionAfflicationList.contains(affiliation)) {
       _selectedUnionAfflicationList.add(affiliation);
       _selectedUnionAfflicationIdList.add(id);
       // unionAffiliationController.text = affiliation;
-
     }
     notifyListeners();
   }
-  removeUnionAfflication(int index){
+
+  removeUnionAfflication(int index) {
     _selectedUnionAfflicationIdList.removeAt(index);
     _selectedUnionAfflicationList.removeAt(index);
     notifyListeners();
@@ -226,11 +228,13 @@ List<int> get selectedUnionAfflicationIdList => _selectedUnionAfflicationIdList;
     _selectedWorkerFlagIdList.removeAt(index);
     notifyListeners();
   }
+
   removeWorkExperience(int index) {
     _selectedWorkExperienceList.removeAt(index);
     _selectedWorkExperienceIdList.removeAt(index);
     notifyListeners();
   }
+
   removeCertificate(int index) {
     _selectedcertificateList.removeAt(index);
     _selectedcertificateIdList.removeAt(index);
@@ -242,7 +246,7 @@ List<int> get selectedUnionAfflicationIdList => _selectedUnionAfflicationIdList;
         context: context, firstDate: DateTime(1947), lastDate: DateTime.now());
     if (date != null) {
       dobController.text =
-          "${DateFormat.M().format(date)}/${DateFormat.d().format(date)}/${DateFormat.y().format(date)}";
+          "${DateFormat.LLLL().format(date)} ${DateFormat.d().format(date)}, ${DateFormat.y().format(date)}";
       ageController.text = calculateAge(date).toString();
     }
   }
@@ -267,49 +271,49 @@ List<int> get selectedUnionAfflicationIdList => _selectedUnionAfflicationIdList;
   }
 
 // Yes No Options
-  int _isEnglishFluence = 0;
+  int _isEnglishFluence = 1;
   int get isEnglishFluence => _isEnglishFluence;
   changeEnglishFLunecy(int index) {
     _isEnglishFluence = index;
     notifyListeners();
   }
 
-  int _pastWSIBClaim = 0;
+  int _pastWSIBClaim = 1;
   int get pastWSIBClaim => _pastWSIBClaim;
   changePastWSIBClaim(int index) {
     _pastWSIBClaim = index;
     notifyListeners();
   }
 
-  int _islegalToWork = 0;
+  int _islegalToWork = 1;
   int get islegalToWork => _islegalToWork;
   changeLegalToWork(int index) {
     _islegalToWork = index;
     notifyListeners();
   }
 
-  int _isOwnTransport = 0;
+  int _isOwnTransport = 1;
   int get isOwnTransport => _isOwnTransport;
   changeOwnTransport(int index) {
     _isOwnTransport = index;
     notifyListeners();
   }
 
-  int _recruiterPaymentDelivery = 0;
+  int _recruiterPaymentDelivery = 1;
   int get recruiterPaymentDelivery => _recruiterPaymentDelivery;
   changeRecruiterPaymentDelivery(int index) {
     _recruiterPaymentDelivery = index;
     notifyListeners();
   }
 
-  int _submitOwnHours = 0;
+  int _submitOwnHours = 1;
   int get submitOwnHours => _submitOwnHours;
   changeSubmitOwnHours(int index) {
     _submitOwnHours = index;
     notifyListeners();
   }
 
-  int _clientPaysWSIB = 0;
+  int _clientPaysWSIB = 1;
   int get clientPaysWSIB => _clientPaysWSIB;
   changeClientPaysWSIB(int index) {
     _clientPaysWSIB = index;
@@ -327,6 +331,7 @@ List<int> get selectedUnionAfflicationIdList => _selectedUnionAfflicationIdList;
     if (file != null) {
       _wHIMSFilePath = file.files.single.path!;
       _wHIMSFileName = file.files.single.name;
+      print("FIle Name $_wHIMSFileName");
     }
     notifyListeners();
   }
@@ -400,18 +405,23 @@ List<int> get selectedUnionAfflicationIdList => _selectedUnionAfflicationIdList;
     }
     notifyListeners();
   }
-changeProfileImage(String img){
-  _pickedImage = img;
-  notifyListeners();
-}
+
+  changeProfileImage(String img) {
+    _pickedImage = img;
+    notifyListeners();
+  }
+
   //Image Picker
   String _pickedImage = '';
   String get pickedImage => _pickedImage;
+  String _pickedImageName = '';
+  String get pickedImageName => _pickedImageName;
   pickImage() async {
     XFile? image = await ImagePicker.platform
         .getImageFromSource(source: ImageSource.gallery);
     if (image != null) {
       _pickedImage = image.path;
+      _pickedImageName = image.name;
       notifyListeners();
     }
   }
@@ -482,7 +492,12 @@ changeProfileImage(String img){
     _selectedJobSitesList.clear();
     selectedJobSitesList.clear();
     selectedLanguageList.clear();
+
     _selectedLanguageList.clear();
+    _selectedWorkerFlagIdList.clear();
+    _selectedWorkerFlagList.clear();
+    selectedWorkerFlagList.clear();
+    selectedWorkerFlagIdList.clear();
   }
 
   List<AddWorkerDropDownModel> _workerExperienceList =
@@ -606,15 +621,19 @@ changeProfileImage(String img){
     }
     notifyListeners();
   }
-  
-Future<List<JobSiteModel>> getJobsiteByIdData({required int id,required BuildContext context}) async{
-  List<JobSiteModel> jobsiteList = <JobSiteModel>[];
-final result = await EditWorkerServices().getJobSiteById(id: id, context: context);
-if(result.isEmpty){}else{
-jobsiteList = result;
-}
-return jobsiteList;
-}
+
+  Future<List<JobSiteModel>> getJobsiteByIdData(
+      {required int id, required BuildContext context}) async {
+    List<JobSiteModel> jobsiteList = <JobSiteModel>[];
+    final result =
+        await EditWorkerServices().getJobSiteById(id: id, context: context);
+    if (result.isEmpty) {
+    } else {
+      jobsiteList = result;
+    }
+    return jobsiteList;
+  }
+
   List<AddWorkerDropDownModel> _timeSheetTypeList = <AddWorkerDropDownModel>[];
   List<AddWorkerDropDownModel> get timeSheetTypeList => _timeSheetTypeList;
   Future getTimeSheetTypeData({required BuildContext context}) async {
@@ -678,11 +697,14 @@ return jobsiteList;
 
     notifyListeners();
   }
-  Future<int> getAssignRecruiterById({required int id,required BuildContext context}) async{
-    int recID =0;
-    final result = await EditWorkerServices().getAssignRecruiterId(id: id, context: context);
-    if(result != 0){
-recID = result;
+
+  Future<int> getAssignRecruiterById(
+      {required int id, required BuildContext context}) async {
+    int recID = 0;
+    final result = await EditWorkerServices()
+        .getAssignRecruiterId(id: id, context: context);
+    if (result != 0) {
+      recID = result;
     }
     return recID;
   }
@@ -780,6 +802,13 @@ recID = result;
     required String firstAidFilePath,
     required String otherFilePath,
     required String employementReleaseFilePath,
+    required String whimsFileName,
+    required String profileImageName,
+    required String workingFormHeightFileName,
+    required String termsOfEmployeFileName,
+    required String firstAidFileName,
+    required String employementReleaseFileName,
+    required String otherFileName,
   }) async {
     final result = await EditWorkerServices().addWorker(
       context: context,
@@ -874,6 +903,13 @@ recID = result;
       emergencyTele2: emergencyTele2,
       timeSheetType: timeSheetType,
       jobSites: jobSites,
+      firstAidFileName: firstAidFileName,
+      whimsFileName: whimsFileName,
+      profileImageName: profileImageName,
+      workingFormHeightFileName: workingFormHeightFileName,
+      termsOfEmployeFileName: termsOfEmployeFileName,
+      employementReleaseFileName: employementReleaseFileName,
+      otherFileName: otherFileName,
     );
   }
 }

@@ -476,6 +476,7 @@ changeLoadedData(){
       if (foundMatch) {
         break;
       }
+      
     }
 
     return foundMatch;
@@ -500,4 +501,5 @@ changeLoadedData(){
 
     return foundMatch;
   }
+
 }

@@ -29,8 +29,8 @@ class ForgetPasswordView extends StatelessWidget {
             padding: EdgeInsets.symmetric(
                 horizontal: context.getSize.width * 0.030,
                 vertical: context.getSize.height * 0.016),
-            decoration:
-                BoxDecoration(color: AppColor.purpleColor.withOpacity(0.08)),
+            // decoration:
+            //     BoxDecoration(color: AppColor.purpleColor.withOpacity(0.08)),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -48,7 +48,7 @@ class ForgetPasswordView extends StatelessWidget {
                 getWidth(context: context, width: 0.010),
                 appText(
                   context: context,
-                  title: 'Forget Password',
+                  title: '',
                   fontSize: 18,
                 ),
               ],
@@ -63,7 +63,31 @@ class ForgetPasswordView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                Image.asset(
+                  Constant.appLogo,
+                  width: 81,
+                  height: 81,
+                ),
+                getHeight(context: context, height: 0.02),
+                appText(
+                  context: context,
+                  title: "Forget Password",
+                  fontSize: 32,
+                  fontWeight: FontWeight.w600,
+                ),
+                getHeight(context: context, height: 0.02),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: appText(
+                    context: context,
+                    title: 'Email',
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                getHeight(context: context, height: 0.005),
                 customTextField(
+                    isBorder: false,
                     controller: provider.emailController,
                     context: context,
                     hintText: 'Email'),
@@ -97,6 +121,7 @@ class ForgetPasswordView extends StatelessWidget {
               ],
             ),
           ),
+          getHeight(context: context, height: 0.15),
           const Spacer(),
         ],
       )));

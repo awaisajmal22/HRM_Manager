@@ -53,7 +53,7 @@ class _HomeViewState extends State<HomeView> {
               onChanged: (val) {
                 provider.searchTrading(val);
               },
-              height: context.getSize.height * 0.048,
+              height: context.getSize.height * 0.055,
               context: context,
               hintText: 'Search the services you need',
               controller: provider.searchController,
@@ -82,7 +82,6 @@ class _HomeViewState extends State<HomeView> {
                                 : provider.searchedList[index];
                         return GestureDetector(
                           onTap: () {
-                           
                             Navigator.pushNamed(
                                 context, AppRoutes.avaliableWorkerView,
                                 arguments: [
@@ -96,7 +95,7 @@ class _HomeViewState extends State<HomeView> {
                                 vertical: context.getSize.height * 0.010),
                             padding: EdgeInsets.symmetric(
                               horizontal: context.getSize.width * 0.020,
-                              vertical: context.getSize.height * 0.010,
+                              vertical: context.getSize.height * 0.015,
                             ),
                             alignment: Alignment.centerLeft,
                             decoration: BoxDecoration(
@@ -135,18 +134,16 @@ _homeShimmer({required BuildContext context}) {
           highlightColor: AppColor.lightPinkColor,
           child: Container(
             width: context.getSize.width,
-            margin: EdgeInsets.symmetric(
-                            vertical: context.getSize.height * 0.010),
-                        padding: EdgeInsets.symmetric(
-                          horizontal: context.getSize.width * 0.020,
-                          vertical: context.getSize.height * 0.010,
-                        ),
-            decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(5),
-                                            color: AppColor.whiteColor
+            margin:
+                EdgeInsets.symmetric(vertical: context.getSize.height * 0.010),
+            padding: EdgeInsets.symmetric(
+              horizontal: context.getSize.width * 0.020,
+              vertical: context.getSize.height * 0.010,
             ),
-          child: appText(context: context, title: '',fontSize: 16),
-            
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                color: AppColor.whiteColor),
+            child: appText(context: context, title: '', fontSize: 16),
           ),
         );
       });

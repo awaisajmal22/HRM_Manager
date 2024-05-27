@@ -60,7 +60,7 @@ class _ProfileViewState extends State<ProfileView> {
             padding: EdgeInsets.symmetric(
                 horizontal: context.getSize.width * 0.040,
                 vertical: context.getSize.height * 0.020),
-            color: const Color(0xffE7E0EC),
+            // color: const Color(0xffE7E0EC),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -134,7 +134,8 @@ class _ProfileViewState extends State<ProfileView> {
                             shape: BoxShape.circle,
                             image: provider.image != ''
                                 ? DecorationImage(
-                                    image: FileImage(File(provider.image)),fit:BoxFit.cover)
+                                    image: FileImage(File(provider.image)),
+                                    fit: BoxFit.cover)
                                 : const DecorationImage(
                                     image: AssetImage(Constant.dummyImage),
                                     fit: BoxFit.cover,

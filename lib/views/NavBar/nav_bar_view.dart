@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hrm_manager/Network/Server/permission_handler.dart';
 import 'package:hrm_manager/WidgetandBindings/app_routes.dart';
 import 'package:hrm_manager/constant/app_text.dart';
 import 'package:hrm_manager/extensions/size_extension.dart';
@@ -9,9 +10,23 @@ import 'package:hrm_manager/views/Profile/profile_view.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:provider/provider.dart';
 
-class NavBarView extends StatelessWidget {
+class NavBarView extends StatefulWidget {
   const NavBarView({super.key});
 
+  @override
+  State<NavBarView> createState() => _NavBarViewState();
+}
+
+class _NavBarViewState extends State<NavBarView> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    permission();
+    super.initState();
+  }
+  permission() async{
+     await requestPermission();
+  }
   @override
   Widget build(BuildContext context) {
     return Consumer<NavBarProvider>(builder: (context, provider, __) {

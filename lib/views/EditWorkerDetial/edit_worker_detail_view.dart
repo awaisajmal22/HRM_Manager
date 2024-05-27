@@ -127,6 +127,7 @@ class _EditWorkerDetailViewState extends State<EditWorkerDetailView> {
           .split(',')
           .map(int.parse)
           .toList();
+      print("Union List ${widget.workerModel.unionAffillationsId}");
       for (int i = 0; i < unionAfList.length; i++) {
         for (var data in pv.unionAfflicationList) {
           if (data.id == unionAfList[i]) {
@@ -144,11 +145,12 @@ class _EditWorkerDetailViewState extends State<EditWorkerDetailView> {
           .split(',')
           .map(int.parse)
           .toList();
+      print("Language ID List ${widget.workerModel.lanaguageId}");
       for (int i = 0; i < languageIDList.length; i++) {
         for (var data in pv.languagesList) {
           if (data.id == languageIDList[i]) {
             if (!pv.selectedLanguageIDList.contains(languageIDList[i])) {
-              pv.selectLanguage(data.name!, languageIDList[i]);
+              pv.selectLanguage(data.name!, data.id!);
             }
           }
         }
@@ -162,6 +164,7 @@ class _EditWorkerDetailViewState extends State<EditWorkerDetailView> {
           .split(',')
           .map(int.parse)
           .toList();
+      print("Language ID List ${widget.workerModel.certificationId}");
       for (int i = 0; i < certificatIDList.length; i++) {
         for (var data in pv.certificationList) {
           if (data.id == certificatIDList[i]) {
@@ -200,6 +203,7 @@ class _EditWorkerDetailViewState extends State<EditWorkerDetailView> {
           .split(',')
           .map(int.parse)
           .toList();
+      print("Language ID List ${widget.workerModel.workerFlagId}");
       for (int i = 0; i < flagIDList.length; i++) {
         for (var data in pv.workerFlagList) {
           if (data.id == flagIDList[i]) {
@@ -302,19 +306,19 @@ class _EditWorkerDetailViewState extends State<EditWorkerDetailView> {
             widget.workerModel.workPermitNo.toString().isNotNullableString();
         provider.hireDateController.text = pickableDate == ''
             ? ''
-            : "${DateFormat.M().format(DateTime.parse(pickableDate))}/${DateFormat.d().format(DateTime.parse(pickableDate))}/${DateFormat.y().format(DateTime.parse(pickableDate))}";
+            : "${DateFormat.LLLL().format(DateTime.parse(pickableDate))} ${DateFormat.d().format(DateTime.parse(pickableDate))}, ${DateFormat.y().format(DateTime.parse(pickableDate))}";
         final dob =
             widget.workerModel.dateofBirth.toString().isNotNullableString();
         provider.dobController.text = dob == ''
             ? ''
-            : "${DateFormat.M().format(DateTime.parse(dob))}/${DateFormat.d().format(DateTime.parse(dob))}/${DateFormat.y().format(DateTime.parse(dob))}";
+            : "${DateFormat.LLLL().format(DateTime.parse(dob))} ${DateFormat.d().format(DateTime.parse(dob))}, ${DateFormat.y().format(DateTime.parse(dob))}";
         final terminateDate = widget.workerModel.workerTerminationDate
             .toString()
             .isNotNullableString();
         provider.terminationDateController.text = terminateDate == null ||
                 terminateDate == ""
             ? ''
-            : "${DateFormat.M().format(DateTime.parse(terminateDate))}/${DateFormat.d().format(DateTime.parse(terminateDate))}/${DateFormat.y().format(DateTime.parse(terminateDate))}";
+            : "${DateFormat.LLLL().format(DateTime.parse(terminateDate))} ${DateFormat.d().format(DateTime.parse(terminateDate))}, ${DateFormat.y().format(DateTime.parse(terminateDate))}";
         provider.flagNotesController.text =
             widget.workerModel.notes.toString().isNotNullableString();
         provider.businessWSIBNoController.text =
@@ -383,7 +387,7 @@ class _EditWorkerDetailViewState extends State<EditWorkerDetailView> {
             Container(
               padding: EdgeInsets.symmetric(
                   vertical: context.getSize.height * 0.020),
-              color: const Color(0xffE7E0EC),
+              // color: const Color(0xffE7E0EC),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -1046,6 +1050,7 @@ class _EditWorkerDetailViewState extends State<EditWorkerDetailView> {
                           ),
                           getHeight(context: context, height: 0.005),
                           editAddWorkerTextField(
+                            isDecimal: true,
                             textInputType: TextInputType.number,
                             context: context,
                             hintText: 'Enter Regular Rate',
@@ -1485,113 +1490,119 @@ class _EditWorkerDetailViewState extends State<EditWorkerDetailView> {
                         msg: "Please select TimeSheet Type", context: context);
                   } else {
                     provider.addWorkerData(
-                        context: context,
-                        workerID: int.parse(widget.workerModel.id.toString()),
-                        internalWorkerID: provider.workerIdController.text,
-                        clientWorkerID: provider.clientIdController.text,
-                        age: provider.ageController.text.isEmpty
-                            ? null
-                            : int.parse(provider.ageController.text),
-                        firstName: provider.firstNameController.text,
-                        lastName: provider.lastNameController.text,
-                        jobSites: provider.selectedJobSitesIDList,
-                        recruiterAssingId: provider.recruiterId,
-                        dateOfBirth: provider.dobController.text,
-                        englishFluency:
-                            provider.isEnglishFluence == 0 ? true : false,
-                        languageId: provider.selectedLanguageIDList
-                            .join(', ')
-                            .toString(),
-                        legalToWork: provider.islegalToWork == 0 ? true : false,
-                        ownTransport:
-                            provider.isOwnTransport == 0 ? true : false,
-                        socialInsuranceNo:
-                            provider.socialInsuranceController.text,
-                        workPermitNo: provider.workPermitController.text,
-                        workerHireDate: provider.hireDateController.text,
-                        workerTerminateDate:
-                            provider.terminationDateController.text,
-                        workerStatusId: provider.selectedStatusID,
-                        workerFlagId: provider.selectedWorkerFlagIdList
-                            .join(', ')
-                            .toString(),
-                        businessWIBSno: provider.businessWSIBNoController.text,
-                        pastWIBSClaim:
-                            provider.pastWSIBClaim == 0 ? true : false,
-                        wibsClaimNotes: provider.wSIBClaimNoteController.text,
-                        businessName: provider.businessNameController.text,
-                        businessTele: provider.businessTelephoneController.text,
-                        address1: provider.address1Controller.text,
-                        address2: provider.address2Controller.text,
-                        city: provider.cityController.text,
-                        province: provider.provinceController.text,
-                        postalCode: provider.postalCodeController.text,
-                        country: provider.countryController.text,
-                        mobile: provider.mobileTelephoneController.text,
-                        homeTele: provider.homeTelephoneController.text,
-                        email: provider.emailController.text,
-                        emergencyContact1:
-                            provider.emergencyContact1Controller.text,
-                        emergencyContact2:
-                            provider.emergencyContact2Controller.text,
-                        emergencyTele1:
-                            provider.emergencyTelephone1Controller.text,
-                        emergencyTele2:
-                            provider.emergencyTelephone2Controller.text,
-                        tradeOptionId: provider.tradeOptionId,
-                        regularRate: provider.regularRateController.text.isEmpty
-                            ? null
-                            : double.parse(provider.regularRateController.text),
-                        overTimeRate: provider.overTimeRateController.text.isEmpty
-                            ? null
-                            : double.parse(
-                                provider.overTimeRateController.text),
-                        // clientPayWSIB: provider.clientRateController.text.isEmpty ? null : double.parse(provider.clientRateController.text),
-                        workExperience: provider.selectedWorkExperienceIdList
-                            .join(', ')
-                            .toString(),
-                        workExperienceNotes:
-                            provider.workExperienceNoteController.text,
-                        tradeLicenseNo: provider.tradeLicenseNoController.text,
-                        unionAffilation: provider.selectedUnionAfflicationIdList
-                            .join(', ')
-                            .toString(),
-                        unionAffilationNotes:
-                            provider.unionAffiliationNotesController.text,
-                        employeHistoryNotes:
-                            provider.employmentHistoryNoteController.text,
-                        certificationId: provider.selectedcertificateIdList
-                            .join(', ')
-                            .toString(),
-                        certificationNotes:
-                            provider.certificationNotesController.text,
-                        isRecruiterComission:
-                            provider.recruiterPaymentDelivery == 0
-                                ? true
-                                : false,
-                        workerPickupLocation: provider.workerPickUpId,
-                        recruiterComission: provider
-                                .recruiterCommissionController.text.isEmpty
-                            ? null
-                            : double.parse(
-                                provider.recruiterCommissionController.text),
-                        billRate: provider.clientRateController.text.isEmpty
-                            ? null
-                            : double.parse(provider.clientRateController.text),
-                        submitOwnHours:
-                            provider.submitOwnHours == 0 ? true : false,
-                        timeSheetType: provider.timeSheetTypeId,
-                        paymentNotes: provider.paymentNotesController.text,
-                        clientPayWSIB:
-                            provider.clientPaysWSIB == 0 ? true : false,
-                        whimsFilePath: provider.wHIMSFilePath,
-                        otherFilePath: provider.otherFilePath,
-                        termsOfEmployeFilePath: provider.termsOfEmpPath,
-                        employementReleaseFilePath: provider.empReleasePath,
-                        profileImage: provider.pickedImage,
-                        workingFormHeightFilePath: provider.workingFormHeightPath,
-                        firstAidFilePath: provider.firstAidPath,
-                        notes: provider.flagNotesController.text);
+                      context: context,
+                      workerID: int.parse(widget.workerModel.id.toString()),
+                      internalWorkerID: provider.workerIdController.text,
+                      clientWorkerID: provider.clientIdController.text,
+                      age: provider.ageController.text.isEmpty
+                          ? null
+                          : int.parse(provider.ageController.text),
+                      firstName: provider.firstNameController.text,
+                      lastName: provider.lastNameController.text,
+                      jobSites: provider.selectedJobSitesIDList,
+                      recruiterAssingId: provider.recruiterId,
+                      dateOfBirth: provider.dobController.text,
+                      englishFluency:
+                          provider.isEnglishFluence == 0 ? true : false,
+                      languageId:
+                          provider.selectedLanguageIDList.join(',').toString(),
+                      legalToWork: provider.islegalToWork == 0 ? true : false,
+                      ownTransport: provider.isOwnTransport == 0 ? true : false,
+                      socialInsuranceNo:
+                          provider.socialInsuranceController.text,
+                      workPermitNo: provider.workPermitController.text,
+                      workerHireDate: provider.hireDateController.text,
+                      workerTerminateDate:
+                          provider.terminationDateController.text,
+                      workerStatusId: provider.selectedStatusID,
+                      workerFlagId: provider.selectedWorkerFlagIdList
+                          .join(',')
+                          .toString(),
+                      businessWIBSno: provider.businessWSIBNoController.text,
+                      pastWIBSClaim: provider.pastWSIBClaim == 0 ? true : false,
+                      wibsClaimNotes: provider.wSIBClaimNoteController.text,
+                      businessName: provider.businessNameController.text,
+                      businessTele: provider.businessTelephoneController.text,
+                      address1: provider.address1Controller.text,
+                      address2: provider.address2Controller.text,
+                      city: provider.cityController.text,
+                      province: provider.provinceController.text,
+                      postalCode: provider.postalCodeController.text,
+                      country: provider.countryController.text,
+                      mobile: provider.mobileTelephoneController.text,
+                      homeTele: provider.homeTelephoneController.text,
+                      email: provider.emailController.text,
+                      emergencyContact1:
+                          provider.emergencyContact1Controller.text,
+                      emergencyContact2:
+                          provider.emergencyContact2Controller.text,
+                      emergencyTele1:
+                          provider.emergencyTelephone1Controller.text,
+                      emergencyTele2:
+                          provider.emergencyTelephone2Controller.text,
+                      tradeOptionId: provider.tradeOptionId,
+                      regularRate: provider.regularRateController.text.isEmpty
+                          ? null
+                          : double.parse(provider.regularRateController.text),
+                      overTimeRate: provider.overTimeRateController.text.isEmpty
+                          ? null
+                          : double.parse(provider.overTimeRateController.text),
+                      // clientPayWSIB: provider.clientRateController.text.isEmpty ? null : double.parse(provider.clientRateController.text),
+                      workExperience: provider.selectedWorkExperienceIdList
+                          .join(',')
+                          .toString(),
+                      workExperienceNotes:
+                          provider.workExperienceNoteController.text,
+                      tradeLicenseNo: provider.tradeLicenseNoController.text,
+                      unionAffilation: provider.selectedUnionAfflicationIdList
+                          .join(',')
+                          .toString(),
+                      unionAffilationNotes:
+                          provider.unionAffiliationNotesController.text,
+                      employeHistoryNotes:
+                          provider.employmentHistoryNoteController.text,
+                      certificationId: provider.selectedcertificateIdList
+                          .join(',')
+                          .toString(),
+                      certificationNotes:
+                          provider.certificationNotesController.text,
+                      isRecruiterComission:
+                          provider.recruiterPaymentDelivery == 0 ? true : false,
+                      workerPickupLocation: provider.workerPickUpId,
+                      recruiterComission:
+                          provider.recruiterCommissionController.text.isEmpty
+                              ? null
+                              : double.parse(
+                                  provider.recruiterCommissionController.text),
+                      billRate: provider.clientRateController.text.isEmpty
+                          ? null
+                          : double.parse(provider.clientRateController.text),
+                      submitOwnHours:
+                          provider.submitOwnHours == 0 ? true : false,
+                      timeSheetType: provider.timeSheetTypeId,
+                      paymentNotes: provider.paymentNotesController.text,
+                      clientPayWSIB:
+                          provider.clientPaysWSIB == 0 ? true : false,
+                      whimsFilePath: provider.wHIMSFilePath,
+                      otherFilePath: provider.otherFilePath,
+                      unionAffliciationId: provider
+                          .selectedUnionAfflicationIdList
+                          .join(',')
+                          .toString(),
+                      termsOfEmployeFilePath: provider.termsOfEmpPath,
+                      employementReleaseFilePath: provider.empReleasePath,
+                      profileImage: provider.pickedImage,
+                      workingFormHeightFilePath: provider.workingFormHeightPath,
+                      firstAidFilePath: provider.firstAidPath,
+                      notes: provider.flagNotesController.text,
+                      whimsFileName: provider.wHIMSFileName,
+                      profileImageName: provider.pickedImageName,
+                      workingFormHeightFileName: provider.workingFormHeightName,
+                      otherFileName: provider.otherFileName,
+                      termsOfEmployeFileName: provider.termsOfEmpName,
+                      firstAidFileName: provider.firstAidName,
+                      employementReleaseFileName: provider.empReleaseName,
+                    );
                   }
                 },
                 title: "Update",

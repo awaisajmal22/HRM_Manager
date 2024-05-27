@@ -245,7 +245,7 @@ class _WorkerProfileViewState extends State<WorkerProfileView> {
               padding: EdgeInsets.symmetric(
                   horizontal: context.getSize.width * 0.040,
                   vertical: context.getSize.height * 0.020),
-              color: const Color(0xffE7E0EC),
+              // color: const Color(0xffE7E0EC),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -308,171 +308,218 @@ class _WorkerProfileViewState extends State<WorkerProfileView> {
                 shrinkWrap: true,
                 children: [
                   WorkerWidget(
-                          imageUrl: provider.profileImage,
-                          name:
-                              "${provider.workerByIdModel.firstName.toString().isNotNullableString()} ${provider.workerByIdModel.lastName.toString().isNotNullableString()}",
-                          //  provider.workerProfileModel.name!,
-                          status: provider.selectedStatus
-                              .toString()
-                              .isNotNullableString(),
-                          // provider.workerProfileModel.status!,
-                          dateOfBirth: dateFormater(
-                              provider.workerByIdModel.dateofBirth.toString() ??
-                                  ''),
-                          // provider.workerProfileModel.dob!,
-                          price:
-                              "\$${provider.workerByIdModel.regularRate.toString().isNotNullableString()}/hr",
-                          // provider.workerProfileModel.price!,
-                          trade: provider.selectedTrade
-                              .toString()
-                              .isNotNullableString(),
-                          // provider.workerProfileModel.trade!,
-                        ),
-                  getHeight(context: context, height: 0.01),
-                  richText2(
-                    context: context,
-                    title: 'Experience: ',
-                    subtitle: provider.selectedWorkExpList,
-                    // provider.workerProfileModel.experience!,
-                  ),
-                  divider(color: AppColor.lightPurpleColor.withOpacity(0.2)),
-                  getHeight(context: context, height: 0.01),
-                  richText(
-                    context: context,
-                    title: 'Previous Employment: ',
-                    subtitle: provider.workerProfileModel.previousEmployment!,
-                  ),
-                  divider(color: AppColor.lightPurpleColor.withOpacity(0.2)),
-                  getHeight(context: context, height: 0.01),
-                  richText2(
-                    context: context,
-                    title: 'Union Affiliation: ',
-                    subtitle: provider.selectedUnionAfflicationList,
-                  ),
-                  divider(color: AppColor.lightPurpleColor.withOpacity(0.2)),
-                  getHeight(context: context, height: 0.01),
-                  richText2(
-                    context: context,
-                    title: 'Flag: ',
-                    subtitle: provider.selectedWorkerFlagList,
-                  ),
-                  divider(color: AppColor.lightPurpleColor.withOpacity(0.2)),
-                  getHeight(context: context, height: 0.01),
-                  richText(
-                      context: context,
-                      title: 'Transportation: ',
-                      subtitle: provider.workerByIdModel.ownTransportation
-                              .toString() ??
-                          "false"
-                      // provider.workerProfileModel.transportation!,
-                      ),
-                      divider(color: AppColor.lightPurpleColor.withOpacity(0.2)),
-                  getHeight(context: context, height: 0.01),
-                  richText(
-                      context: context,
-                      title: 'Home: ',
-                      subtitle: provider.workerByIdModel.address1
-                          .toString()
-                          .isNotNullableString()
-                      //  provider.workerProfileModel.home!,
-                      ),
-                      divider(color: AppColor.lightPurpleColor.withOpacity(0.2)),
-                  getHeight(context: context, height: 0.01),
-                  richText2(
-                    context: context,
-                    title: 'Certificates: ',
-                    subtitle: provider.selectedcertificateList,
-                    // provider.workerProfileModel.certificate!,
-                  ),
-                  divider(color: AppColor.lightPurpleColor.withOpacity(0.2)),
-                  getHeight(context: context, height: 0.01),
-                  richText(
-                    context: context,
-                    title: 'Special Tickets: ',
-                    subtitle: provider.workerProfileModel.specialTickets!,
-                  ),
-                  divider(color: AppColor.lightPurpleColor.withOpacity(0.2)),
-                  getHeight(context: context, height: 0.01),
-                  richText(
-                    context: context,
-                    title: 'Note: ',
-                    subtitle: provider.workerByIdModel.notes
+                    imageUrl: provider.profileImage,
+                    name:
+                        "${provider.workerByIdModel.firstName.toString().isNotNullableString()} ${provider.workerByIdModel.lastName.toString().isNotNullableString()}",
+                    //  provider.workerProfileModel.name!,
+                    status: provider.selectedStatus
                         .toString()
                         .isNotNullableString(),
-                    // provider.workerProfileModel.note!,
+                    // provider.workerProfileModel.status!,
+                    dateOfBirth: dateFormater(
+                        provider.workerByIdModel.dateofBirth.toString() ?? ''),
+                    // provider.workerProfileModel.dob!,
+                    price:
+                        "\$${provider.workerByIdModel.regularRate.toString().isNotNullableString()}/hr",
+                    // provider.workerProfileModel.price!,
+                    trade:
+                        provider.selectedTrade.toString().isNotNullableString(),
+                    // provider.workerProfileModel.trade!,
                   ),
-                  divider(color: AppColor.lightPurpleColor.withOpacity(0.2)),
-                  getHeight(context: context, height: 0.020),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: appText(
-                      context: context,
-                      title: 'Your documents',
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  getHeight(context: context, height: 0.010),
-                  Wrap(
-                    runSpacing: 10,
-                    runAlignment: WrapAlignment.center,
-                    alignment: WrapAlignment.center,
-                    children: List.generate(
-                        provider.files.length,
-                        (index) => GestureDetector(
-                              onTap: () async {
-                                OpenFile.open(
-                                    provider.files[index].wasabiBytes);
-                                // Navigator.pushNamed(context, AppRoutes.pdfView,
-                                //     arguments: [
-                                //       '',
-                                //       // index.toString(),
-                                //       provider.files[index],
-                                //       // Constant.pdfFile,
-                                //     ]);
-                              },
-                              child: SizedBox(
-                                width: context.getSize.width * 0.22,
-                                child: Column(
-                                  children: [
-                                    if (provider.files[index].contentType!
-                                        .contains('pdf'))
-                                      Image.asset(
-                                        Constant.pdfIcon,
-                                        width: context.getSize.width * 0.086,
-                                        height: context.getSize.height * 0.048,
-                                      ),
-                                    if (provider.files[index].contentType!
-                                            .contains('officedocument') ||
-                                        provider.files[index].contentType!
-                                            .contains('text/plain'))
-                                      Icon(
-                                        Ionicons.document,
-                                        color: Colors.blue,
-                                        size: context.getSize.height * 0.048,
-                                      ),
-                                    if (provider.files[index].contentType!
-                                            .contains('png') ||
-                                        provider.files[index].contentType!
-                                            .contains('jpeg'))
-                                      Icon(
-                                        Ionicons.image,
-                                        color: Colors.blue,
-                                        size: context.getSize.height * 0.048,
-                                      ),
-                                    appText(
-                                      context: context,
-                                      title: provider.files[index].title
-                                          .toString()
-                                          .isNotNullableString(),
-                                      fontSize: 12,
-                                    ),
-                                  ],
-                                ),
+                  getHeight(context: context, height: 0.02),
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: const Color(0xffE7E0EC)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        getHeight(context: context, height: 0.01),
+                        richText2(
+                          context: context,
+                          title: 'Experience: ',
+                          subtitle: provider.selectedWorkExpList,
+                          // provider.workerProfileModel.experience!,
+                        ),
+                        divider(
+                            color: AppColor.lightPurpleColor.withOpacity(0.2)),
+                        getHeight(context: context, height: 0.01),
+                        richText(
+                          context: context,
+                          title: 'Previous Employment: ',
+                          subtitle: provider
+                              .workerByIdModel.employeeHistoryNotes
+                              .toString()
+                              .isNotNullableString(),
+                        ),
+                        divider(
+                            color: AppColor.lightPurpleColor.withOpacity(0.2)),
+                        getHeight(context: context, height: 0.01),
+                        richText2(
+                          context: context,
+                          title: 'Union Affiliation: ',
+                          subtitle: provider.selectedUnionAfflicationList,
+                        ),
+                        divider(
+                            color: AppColor.lightPurpleColor.withOpacity(0.2)),
+                        getHeight(context: context, height: 0.01),
+                        richText2(
+                          context: context,
+                          title: 'Flag: ',
+                          subtitle: provider.selectedWorkerFlagList,
+                        ),
+                        divider(
+                            color: AppColor.lightPurpleColor.withOpacity(0.2)),
+                        getHeight(context: context, height: 0.01),
+                        richText(
+                          context: context,
+                          title: 'Transportation: ',
+                          subtitle: provider.workerByIdModel.ownTransportation
+                                      .toString()
+                                      .isNotNullableString()
+                                      .toLowerCase() ==
+                                  "true"
+                              ? "Yes"
+                              : "No",
+                          // provider.workerProfileModel.transportation!,
+                        ),
+                        divider(
+                            color: AppColor.lightPurpleColor.withOpacity(0.2)),
+                        getHeight(context: context, height: 0.01),
+                        richText(
+                            context: context,
+                            title: 'Home: ',
+                            subtitle: provider.workerByIdModel.address1
+                                .toString()
+                                .isNotNullableString()
+                            //  provider.workerProfileModel.home!,
+                            ),
+                        divider(
+                            color: AppColor.lightPurpleColor.withOpacity(0.2)),
+                        getHeight(context: context, height: 0.01),
+                        richText2(
+                          context: context,
+                          title: 'Certificates: ',
+                          subtitle: provider.selectedcertificateList,
+                          // provider.workerProfileModel.certificate!,
+                        ),
+                        divider(
+                            color: AppColor.lightPurpleColor.withOpacity(0.2)),
+                        getHeight(context: context, height: 0.01),
+                        richText(
+                          context: context,
+                          title: 'Special Tickets: ',
+                          subtitle: provider.workerProfileModel.specialTickets!,
+                        ),
+                        divider(
+                            color: AppColor.lightPurpleColor.withOpacity(0.2)),
+                        getHeight(context: context, height: 0.01),
+                        richText(
+                          context: context,
+                          title: 'Note: ',
+                          subtitle: provider.workerByIdModel.notes
+                              .toString()
+                              .isNotNullableString(),
+                          // provider.workerProfileModel.note!,
+                        ),
+                        divider(
+                            color: AppColor.lightPurpleColor.withOpacity(0.2)),
+                        getHeight(context: context, height: 0.020),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: appText(
+                            context: context,
+                            title: 'Your documents',
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        getHeight(context: context, height: 0.010),
+                        provider.files.isEmpty
+                            ? Center(
+                                child: appText(
+                                    context: context,
+                                    title: 'No Documment Yet',
+                                    textColor: Colors.black))
+                            : Wrap(
+                                runSpacing: 10,
+                                runAlignment: WrapAlignment.center,
+                                alignment: WrapAlignment.center,
+                                children: List.generate(
+                                    provider.files.length,
+                                    (index) => GestureDetector(
+                                          onTap: () async {
+                                            OpenFile.open(provider
+                                                .files[index].wasabiBytes);
+                                            // Navigator.pushNamed(context, AppRoutes.pdfView,
+                                            //     arguments: [
+                                            //       '',
+                                            //       // index.toString(),
+                                            //       provider.files[index],
+                                            //       // Constant.pdfFile,
+                                            //     ]);
+                                          },
+                                          child: SizedBox(
+                                            width: context.getSize.width * 0.22,
+                                            child: Column(
+                                              children: [
+                                                if (provider
+                                                    .files[index].contentType!
+                                                    .contains('pdf'))
+                                                  Image.asset(
+                                                    Constant.pdfIcon,
+                                                    width:
+                                                        context.getSize.width *
+                                                            0.086,
+                                                    height:
+                                                        context.getSize.height *
+                                                            0.048,
+                                                  ),
+                                                if (provider.files[index]
+                                                        .contentType!
+                                                        .contains(
+                                                            'officedocument') ||
+                                                    provider.files[index]
+                                                        .contentType!
+                                                        .contains('text/plain'))
+                                                  Icon(
+                                                    Ionicons.document,
+                                                    color: Colors.blue,
+                                                    size:
+                                                        context.getSize.height *
+                                                            0.048,
+                                                  ),
+                                                if (provider.files[index]
+                                                        .contentType!
+                                                        .contains('png') ||
+                                                    provider.files[index]
+                                                        .contentType!
+                                                        .contains('jpeg'))
+                                                  Icon(
+                                                    Ionicons.image,
+                                                    color: Colors.blue,
+                                                    size:
+                                                        context.getSize.height *
+                                                            0.048,
+                                                  ),
+                                                appText(
+                                                  context: context,
+                                                  title: provider
+                                                      .files[index].title
+                                                      .toString()
+                                                      .isNotNullableString(),
+                                                  fontSize: 12,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        )),
                               ),
-                            )),
-                  ),
-                  getHeight(context: context, height: 0.030),
+                        getHeight(context: context, height: 0.030),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),

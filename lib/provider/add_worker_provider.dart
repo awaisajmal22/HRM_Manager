@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hrm_manager/Model/add_worker_drop_down_model.dart';
 import 'package:hrm_manager/Model/all_trades_model.dart';
+import 'package:hrm_manager/Network/api_services.dart';
+import 'package:hrm_manager/Network/api_url.dart';
 import 'package:hrm_manager/Services/add_worker_services.dart';
 import 'package:hrm_manager/Services/all_trades_Services.dart';
 import 'package:hrm_manager/extensions/calculate_date.dart';
@@ -99,42 +101,44 @@ class AddWorkerProvider extends ChangeNotifier {
   List<int> get selectedcertificateIdList => _selectedcertificateIdList;
   selectCertificate(String certificate, int id) {
     if (!_selectedcertificateList.contains(certificate)) {
-     _selectedcertificateList.add(certificate);
+      _selectedcertificateList.add(certificate);
       _selectedcertificateIdList.add(id);
-    
-    } 
-     notifyListeners();
+    }
+    notifyListeners();
   }
+
   removeCertificate(int index) {
     _selectedcertificateList.removeAt(index);
     _selectedcertificateIdList.removeAt(index);
     notifyListeners();
   }
 
-List<String> _selectedUnionAfflicationList  = <String>[];
-List<String> get selectedUnionAfflicationList => _selectedUnionAfflicationList;
-  List<int> _selectedUnionAfflicationIdList  = <int>[];
-List<int> get selectedUnionAfflicationIdList => _selectedUnionAfflicationIdList;
+  List<String> _selectedUnionAfflicationList = <String>[];
+  List<String> get selectedUnionAfflicationList =>
+      _selectedUnionAfflicationList;
+  List<int> _selectedUnionAfflicationIdList = <int>[];
+  List<int> get selectedUnionAfflicationIdList =>
+      _selectedUnionAfflicationIdList;
 
-  selectUnionAffiliation(String affiliation,int id) {
+  selectUnionAffiliation(String affiliation, int id) {
     if (!_selectedUnionAfflicationList.contains(affiliation)) {
       _selectedUnionAfflicationList.add(affiliation);
       _selectedUnionAfflicationIdList.add(id);
       // unionAffiliationController.text = affiliation;
-
     }
     notifyListeners();
   }
-  removeUnionAfflication(int index){
+
+  removeUnionAfflication(int index) {
     _selectedUnionAfflicationIdList.removeAt(index);
     _selectedUnionAfflicationList.removeAt(index);
     notifyListeners();
   }
 
-List<String> _selectedWorkExpList = <String>[];
-List<String> get selectedWorkExpList => _selectedWorkExpList;
-List<int> _selectedWorkExpIDList = <int>[];
-List<int> get selectedWorkExpIDList => _selectedWorkExpIDList;
+  List<String> _selectedWorkExpList = <String>[];
+  List<String> get selectedWorkExpList => _selectedWorkExpList;
+  List<int> _selectedWorkExpIDList = <int>[];
+  List<int> get selectedWorkExpIDList => _selectedWorkExpIDList;
   selectWorkExperience(String workExp, int id) {
     if (!_selectedWorkExpList.contains(workExp)) {
       _selectedWorkExpList.add(workExp);
@@ -144,11 +148,12 @@ List<int> get selectedWorkExpIDList => _selectedWorkExpIDList;
     }
   }
 
-removeWorkExperience(int index){
-  _selectedWorkExpIDList.removeAt(index);
-  _selectedWorkExpList.removeAt(index);
-  notifyListeners();
-}
+  removeWorkExperience(int index) {
+    _selectedWorkExpIDList.removeAt(index);
+    _selectedWorkExpList.removeAt(index);
+    notifyListeners();
+  }
+
   int? _tradeOptionId;
   int? get tradeOptionId => _tradeOptionId;
   selectTradeOption(String tradeOption, int id) {
@@ -226,7 +231,7 @@ removeWorkExperience(int index){
   selectLanguage(String language, int id) {
     if (!_selectedLanguageList.contains(language)) {
       _selectedLanguageList.add(language);
-      _selectedJobSitesIDList.add(id);
+      _selectedLanguageIdList.add(id);
     }
     // selectedLanguage.text = language;
     // _selectedLanguageId = id;
@@ -250,7 +255,7 @@ removeWorkExperience(int index){
         context: context, firstDate: DateTime(1947), lastDate: DateTime.now());
     if (date != null) {
       dobController.text =
-          "${DateFormat.M().format(date)}/${DateFormat.d().format(date)}/${DateFormat.y().format(date)}";
+          "${DateFormat.LLLL().format(date)} ${DateFormat.d().format(date)}, ${DateFormat.y().format(date)}";
       ageController.text = calculateAge(date).toString();
     }
   }
@@ -274,49 +279,49 @@ removeWorkExperience(int index){
   }
 
 // Yes No Options
-  int _isEnglishFluence = 0;
+  int _isEnglishFluence = 1;
   int get isEnglishFluence => _isEnglishFluence;
   changeEnglishFLunecy(int index) {
     _isEnglishFluence = index;
     notifyListeners();
   }
 
-  int _pastWSIBClaim = 0;
+  int _pastWSIBClaim = 1;
   int get pastWSIBClaim => _pastWSIBClaim;
   changePastWSIBClaim(int index) {
     _pastWSIBClaim = index;
     notifyListeners();
   }
 
-  int _islegalToWork = 0;
+  int _islegalToWork = 1;
   int get islegalToWork => _islegalToWork;
   changeLegalToWork(int index) {
     _islegalToWork = index;
     notifyListeners();
   }
 
-  int _isOwnTransport = 0;
+  int _isOwnTransport = 1;
   int get isOwnTransport => _isOwnTransport;
   changeOwnTransport(int index) {
     _isOwnTransport = index;
     notifyListeners();
   }
 
-  int _recruiterPaymentDelivery = 0;
+  int _recruiterPaymentDelivery = 1;
   int get recruiterPaymentDelivery => _recruiterPaymentDelivery;
   changeRecruiterPaymentDelivery(int index) {
     _recruiterPaymentDelivery = index;
     notifyListeners();
   }
 
-  int _submitOwnHours = 0;
+  int _submitOwnHours = 1;
   int get submitOwnHours => _submitOwnHours;
   changeSubmitOwnHours(int index) {
     _submitOwnHours = index;
     notifyListeners();
   }
 
-  int _clientPaysWSIB = 0;
+  int _clientPaysWSIB = 1;
   int get clientPaysWSIB => _clientPaysWSIB;
   changeClientPaysWSIB(int index) {
     _clientPaysWSIB = index;
@@ -411,11 +416,14 @@ removeWorkExperience(int index){
   //Image Picker
   String _pickedImage = '';
   String get pickedImage => _pickedImage;
+  String _pickedImageName = '';
+  String get pickedImageName => _pickedImageName;
   pickImage() async {
     XFile? image = await ImagePicker.platform
         .getImageFromSource(source: ImageSource.gallery);
     if (image != null) {
       _pickedImage = image.path;
+      _pickedImageName = image.name;
       notifyListeners();
     }
   }
@@ -473,14 +481,14 @@ removeWorkExperience(int index){
     workExperienceNoteController.clear();
     tradeLicenseNoController.clear();
     // unionAffiliationController.clear();
-     _selectedUnionAfflicationIdList.clear();
+    _selectedUnionAfflicationIdList.clear();
     selectedUnionAfflicationIdList.clear();
     _selectedUnionAfflicationList.clear();
     selectedUnionAfflicationList.clear();
     unionAffiliationNotesController.clear();
     employmentHistoryNoteController.clear();
     // certificationController.clear();
-     _selectedcertificateIdList.clear();
+    _selectedcertificateIdList.clear();
     _selectedcertificateList.clear();
     selectedcertificateList.clear();
     selectedcertificateIdList.clear();
@@ -508,7 +516,6 @@ removeWorkExperience(int index){
         await AddWorkerServices().getWorkerExperience(context: context);
     if (result.isNotEmpty) {
       _workerExperienceList = result;
-     
     }
     notifyListeners();
   }
@@ -773,11 +780,19 @@ removeWorkExperience(int index){
     required String firstAidFilePath,
     required String otherFilePath,
     required String employementReleaseFilePath,
+     required String whimsFileName,
+    required String profileImageName,
+    required String workingFormHeightFileName,
+    required String termsOfEmployeFileName,
+    required String firstAidFileName,
+    required String employementReleaseFileName,
+    required String otherFileName,
   }) async {
     final result = await AddWorkerServices().addWorker(
       context: context,
       whimsFilePath: whimsFilePath,
       profileImage: profileImage,
+      
       workingFormHeightFilePath: workingFormHeightFilePath,
       termsOfEmployeFilePath: termsOfEmployeFilePath,
       firstAidFilePath: firstAidFilePath,
@@ -867,6 +882,15 @@ removeWorkExperience(int index){
       emergencyTele2: emergencyTele2,
       timeSheetType: timeSheetType,
       jobSites: jobSites,
+       firstAidFileName: firstAidFileName,
+      whimsFileName: whimsFileName,
+      profileImageName: profileImageName,
+      workingFormHeightFileName: workingFormHeightFileName,
+      termsOfEmployeFileName: termsOfEmployeFileName,
+      employementReleaseFileName: employementReleaseFileName,
+      otherFileName: otherFileName,
+      
     );
   }
+ 
 }

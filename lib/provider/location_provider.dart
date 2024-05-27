@@ -20,6 +20,7 @@ class LocationProvider extends ChangeNotifier {
   clearSearchData() {
     _searchedList.clear();
     searchedList.clear();
+
     notifyListeners();
   }
 

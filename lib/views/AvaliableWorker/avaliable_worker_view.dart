@@ -43,7 +43,7 @@ class _AvaliableWorkerViewState extends State<AvaliableWorkerView> {
   @override
   void initState() {
     pv = Provider.of<AvaliableWorkerProvider>(context, listen: false);
-    
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       pv.changeLoadedData();
       if (_isFilterDataLoad == false) {
@@ -56,7 +56,7 @@ class _AvaliableWorkerViewState extends State<AvaliableWorkerView> {
   _loadData() {
     final pv = Provider.of<AvaliableWorkerProvider>(context, listen: false);
     pv.getStatusList(context: context);
-
+    pv.locationController.text = widget.location;
     pv.getTradeOption(context: context).whenComplete(() {
       if (widget.name != '') {
         pv.selectTradeOption(widget.name, widget.id);
@@ -177,13 +177,29 @@ class _AvaliableWorkerViewState extends State<AvaliableWorkerView> {
                       // controller: provider.workerTypeController,
                       height: context.getSize.height * 0.048,
                       onChanged: (val) {
-                        for (var data in provider.tradeOptionList) {
-                          if (data.tradeOptionName == val) {
-                            provider.selectTradeOption(
-                                data.tradeOptionName!, data.id!);
-                            provider.getFiltrationDataFunc(
-                                context: context,
-                                tradeID: provider.tradeOptionId);
+                        bool isMatch = provider.containsMatchingTradeName(
+                            provider.filteredList,
+                            provider.tradeOptionList,
+                            val);
+                        if (isMatch == true) {
+                          for (var data in provider.tradeOptionList) {
+                            if (data.tradeOptionName == val) {
+                              provider.selectTradeOption(
+                                  data.tradeOptionName!, data.id!);
+                              provider.getFiltrationDataFunc(
+                                  context: context,
+                                  tradeID: provider.tradeOptionId);
+                            }
+                          }
+                        } else {
+                          for (var data in provider.tradeOptionList) {
+                            if (data.tradeOptionName == val) {
+                              provider.selectTradeOption(
+                                  data.tradeOptionName!, data.id!);
+                              provider.getFiltrationDataFunc(
+                                  context: context,
+                                  tradeID: provider.tradeOptionId);
+                            }
                           }
                         }
                       },
