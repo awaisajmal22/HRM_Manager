@@ -281,8 +281,9 @@ class _AvaliableWorkerViewState extends State<AvaliableWorkerView> {
                                                 : dateFormater(
                                                     model.dob!.toString() ??
                                                         ''),
-                                            price:
-                                                "\$${double.parse(model.regularRate.toString()).toStringAsFixed(2).isNotNullableString()}/hr",
+                                            price: model.regularRate == null
+                                                ? '0.00'
+                                                : "\$${double.parse(model.regularRate.toString()).toStringAsFixed(2).isNotNullableString()}/hr",
                                             trade: trade.tradeOptionName ?? '',
                                             status: status.name ?? '',
                                           ),

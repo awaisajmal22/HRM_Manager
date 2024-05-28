@@ -203,7 +203,8 @@ class _EditWorkerDetailViewState extends State<EditWorkerDetailView> {
           .split(',')
           .map(int.parse)
           .toList();
-      print("Language ID List ${widget.workerModel.workerFlagId}");
+      print("Flag ID List ${widget.workerModel.workerFlagId}");
+      print("Flag ID List ${widget.workerModel.id}");
       for (int i = 0; i < flagIDList.length; i++) {
         for (var data in pv.workerFlagList) {
           if (data.id == flagIDList[i]) {
@@ -349,11 +350,22 @@ class _EditWorkerDetailViewState extends State<EditWorkerDetailView> {
             .toString()
             .isNotNullableString();
         provider.regularRateController.text =
-           double.parse( widget.workerModel.regularRate.toString()).toStringAsFixed(2).isNotNullableString();
+            widget.workerModel.regularRate == null
+                ? '0.00'
+                : double.parse(widget.workerModel.regularRate.toString())
+                    .toStringAsFixed(2)
+                    .isNotNullableString();
         provider.overTimeRateController.text =
-            widget.workerModel.overTimeRate.toString().isNotNullableString();
-        provider.clientRateController.text =
-            widget.workerModel.billRate.toString().isNotNullableString();
+            widget.workerModel.overTimeRate == null
+                ? '0.00'
+                : double.parse(widget.workerModel.overTimeRate.toString())
+                    .toStringAsFixed(2)
+                    .isNotNullableString();
+        provider.clientRateController.text = widget.workerModel.billRate == null
+            ? '0.00'
+            : double.parse(widget.workerModel.billRate.toString())
+                .toStringAsFixed(2)
+                .isNotNullableString();
         provider.tradeLicenseNoController.text =
             widget.workerModel.tradeLicenseNo.toString().isNotNullableString();
         provider.workExperienceNoteController.text = widget
@@ -365,9 +377,12 @@ class _EditWorkerDetailViewState extends State<EditWorkerDetailView> {
             .toString()
             .isNotNullableString();
         provider.recruiterCommissionController.text = widget
-            .workerModel.recruiterCommission
-            .toString()
-            .isNotNullableString();
+                    .workerModel.recruiterCommission ==
+                null
+            ? '0.00'
+            : double.parse(widget.workerModel.recruiterCommission.toString())
+                .toStringAsFixed(2)
+                .isNotNullableString();
         provider.paymentNotesController.text =
             widget.workerModel.paymentNotes.toString().isNotNullableString();
         provider.unionAffiliationNotesController.text = widget

@@ -498,6 +498,7 @@ class EditWorkerDetailProvider extends ChangeNotifier {
     _selectedWorkerFlagList.clear();
     selectedWorkerFlagList.clear();
     selectedWorkerFlagIdList.clear();
+  
   }
 
   List<AddWorkerDropDownModel> _workerExperienceList =
