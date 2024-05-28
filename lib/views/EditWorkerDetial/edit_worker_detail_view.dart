@@ -15,6 +15,7 @@ import 'package:hrm_manager/constant/text_button.dart';
 import 'package:hrm_manager/constant/toast.dart';
 import 'package:hrm_manager/constant/width_box.dart';
 import 'package:hrm_manager/extensions/nullable_string_extension.dart';
+import 'package:hrm_manager/extensions/phone_validation.dart';
 import 'package:hrm_manager/extensions/size_extension.dart';
 import 'package:hrm_manager/provider/add_worker_provider.dart';
 import 'package:hrm_manager/provider/edit_worker_detail_provider.dart';
@@ -257,144 +258,131 @@ class _EditWorkerDetailViewState extends State<EditWorkerDetailView> {
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body:
-          Consumer<EditWorkerDetailProvider>(builder: (context, provider, __) {
-        print(widget.workerModel.lastName.toString().isNotNullableString());
-        if (isLoading == false) {
-          provider.lastNameController.text =
-              widget.workerModel.lastName.toString().isNotNullableString();
-          provider.firstNameController.text =
-              widget.workerModel.firstName.toString().isNotNullableString();
-          AddWorkerDropDownModel recruiter = provider.recruiterList.firstWhere(
-            (e) => e.id == widget.workerModel.assignedRecuriterId,
-            orElse: () {
-              return AddWorkerDropDownModel();
-            },
-          );
-          if (recruiter.id != null) {
-            provider.selectRecruiter(recruiter.name!, recruiter.id!);
-          }
-          provider.emergencyContact1Controller.text = widget
-              .workerModel.emergencyContact1
-              .toString()
-              .isNotNullableString();
-          provider.emergencyContact2Controller.text = widget
-              .workerModel.emergencyContact2
-              .toString()
-              .isNotNullableString();
-          provider.address1Controller.text =
-              widget.workerModel.address1.toString().isNotNullableString();
-          provider.address2Controller.text =
-              widget.workerModel.address2.toString().isNotNullableString();
-          provider.ageController.text =
-              widget.workerModel.age.toString().isNotNullableString();
-          provider.businessNameController.text =
-              widget.workerModel.bussinessName.toString().isNotNullableString();
-          provider.workerIdController.text = widget.workerModel.internalWorkerId
-              .toString()
-              .isNotNullableString();
-          provider.clientIdController.text =
-              widget.workerModel.workerId.toString().isNotNullableString();
-        }
-        provider.socialInsuranceController.text = widget
-            .workerModel.socialInsuranceNumber
-            .toString()
-            .isNotNullableString();
-        final pickableDate =
-            widget.workerModel.workerHireDate.toString().isNotNullableString();
-        provider.workPermitController.text =
-            widget.workerModel.workPermitNo.toString().isNotNullableString();
-        provider.hireDateController.text = pickableDate == ''
-            ? ''
-            : "${DateFormat.LLLL().format(DateTime.parse(pickableDate))} ${DateFormat.d().format(DateTime.parse(pickableDate))}, ${DateFormat.y().format(DateTime.parse(pickableDate))}";
-        final dob =
-            widget.workerModel.dateofBirth.toString().isNotNullableString();
-        provider.dobController.text = dob == ''
-            ? ''
-            : "${DateFormat.LLLL().format(DateTime.parse(dob))} ${DateFormat.d().format(DateTime.parse(dob))}, ${DateFormat.y().format(DateTime.parse(dob))}";
-        final terminateDate = widget.workerModel.workerTerminationDate
-            .toString()
-            .isNotNullableString();
-        provider.terminationDateController.text = terminateDate == null ||
-                terminateDate == ""
-            ? ''
-            : "${DateFormat.LLLL().format(DateTime.parse(terminateDate))} ${DateFormat.d().format(DateTime.parse(terminateDate))}, ${DateFormat.y().format(DateTime.parse(terminateDate))}";
-        provider.flagNotesController.text =
-            widget.workerModel.notes.toString().isNotNullableString();
-        provider.businessWSIBNoController.text =
-            widget.workerModel.bussinessWsibNo.toString().isNotNullableString();
-        provider.wSIBClaimNoteController.text =
-            widget.workerModel.wsibClaimNotes.toString().isNotNullableString();
-        provider.businessTelephoneController.text =
-            widget.workerModel.businessTele.toString().isNotNullableString();
-        provider.cityController.text =
-            widget.workerModel.city.toString().isNotNullableString();
-        provider.provinceController.text =
-            widget.workerModel.province.toString().isNotNullableString();
-        provider.postalCodeController.text =
-            widget.workerModel.postalCode.toString().isNotNullableString();
-        provider.countryController.text =
-            widget.workerModel.country.toString().isNotNullableString();
-        provider.mobileTelephoneController.text =
-            widget.workerModel.mobile.toString().isNotNullableString();
-        provider.homeTelephoneController.text =
-            widget.workerModel.homeTele.toString().isNotNullableString();
+    final provider =
+        Provider.of<EditWorkerDetailProvider>(context, listen: false);
+    if (isLoading == false) {
+      provider.lastNameController.text =
+          widget.workerModel.lastName.toString().isNotNullableString();
+      provider.firstNameController.text =
+          widget.workerModel.firstName.toString().isNotNullableString();
+      AddWorkerDropDownModel recruiter = provider.recruiterList.firstWhere(
+        (e) => e.id == widget.workerModel.assignedRecuriterId,
+        orElse: () {
+          return AddWorkerDropDownModel();
+        },
+      );
+      if (recruiter.id != null) {
+        provider.selectRecruiter(recruiter.name!, recruiter.id!);
+      }
+      provider.emergencyContact1Controller.text =
+          widget.workerModel.emergencyContact1.toString().isNotNullableString();
+      provider.emergencyContact2Controller.text =
+          widget.workerModel.emergencyContact2.toString().isNotNullableString();
+      provider.address1Controller.text =
+          widget.workerModel.address1.toString().isNotNullableString();
+      provider.address2Controller.text =
+          widget.workerModel.address2.toString().isNotNullableString();
+      provider.ageController.text =
+          widget.workerModel.age.toString().isNotNullableString();
+      provider.businessNameController.text =
+          widget.workerModel.bussinessName.toString().isNotNullableString();
+      provider.workerIdController.text =
+          widget.workerModel.internalWorkerId.toString().isNotNullableString();
+      provider.clientIdController.text =
+          widget.workerModel.workerId.toString().isNotNullableString();
+    }
+    provider.socialInsuranceController.text = widget
+        .workerModel.socialInsuranceNumber
+        .toString()
+        .isNotNullableString();
+    final pickableDate =
+        widget.workerModel.workerHireDate.toString().isNotNullableString();
+    provider.workPermitController.text =
+        widget.workerModel.workPermitNo.toString().isNotNullableString();
+    provider.hireDateController.text = pickableDate == ''
+        ? ''
+        : "${DateFormat.LLLL().format(DateTime.parse(pickableDate))} ${DateFormat.d().format(DateTime.parse(pickableDate))}, ${DateFormat.y().format(DateTime.parse(pickableDate))}";
+    final dob = widget.workerModel.dateofBirth.toString().isNotNullableString();
+    provider.dobController.text = dob == ''
+        ? ''
+        : "${DateFormat.LLLL().format(DateTime.parse(dob))} ${DateFormat.d().format(DateTime.parse(dob))}, ${DateFormat.y().format(DateTime.parse(dob))}";
+    final terminateDate = widget.workerModel.workerTerminationDate
+        .toString()
+        .isNotNullableString();
+    provider.terminationDateController.text = terminateDate == null ||
+            terminateDate == ""
+        ? ''
+        : "${DateFormat.LLLL().format(DateTime.parse(terminateDate))} ${DateFormat.d().format(DateTime.parse(terminateDate))}, ${DateFormat.y().format(DateTime.parse(terminateDate))}";
+    provider.flagNotesController.text =
+        widget.workerModel.notes.toString().isNotNullableString();
+    provider.businessWSIBNoController.text =
+        widget.workerModel.bussinessWsibNo.toString().isNotNullableString();
+    provider.wSIBClaimNoteController.text =
+        widget.workerModel.wsibClaimNotes.toString().isNotNullableString();
+    provider.businessTelephoneController.text =
+        widget.workerModel.businessTele.toString().isNotNullableString();
+    provider.cityController.text =
+        widget.workerModel.city.toString().isNotNullableString();
+    provider.provinceController.text =
+        widget.workerModel.province.toString().isNotNullableString();
+    provider.postalCodeController.text =
+        widget.workerModel.postalCode.toString().isNotNullableString();
+    provider.countryController.text =
+        widget.workerModel.country.toString().isNotNullableString();
+    provider.mobileTelephoneController.text =
+        widget.workerModel.mobile.toString().isNotNullableString();
+    provider.homeTelephoneController.text =
+        widget.workerModel.homeTele.toString().isNotNullableString();
 
-        provider.emergencyTelephone1Controller.text = widget
-            .workerModel.emergencyTelephone1
-            .toString()
+    provider.emergencyTelephone1Controller.text =
+        widget.workerModel.emergencyTelephone1.toString().isNotNullableString();
+    provider.emergencyTelephone2Controller.text =
+        widget.workerModel.emergencyTelephone2.toString().isNotNullableString();
+    provider.regularRateController.text = widget.workerModel.regularRate == null
+        ? '0.00'
+        : double.parse(widget.workerModel.regularRate.toString())
+            .toStringAsFixed(2)
             .isNotNullableString();
-        provider.emergencyTelephone2Controller.text = widget
-            .workerModel.emergencyTelephone2
-            .toString()
-            .isNotNullableString();
-        provider.regularRateController.text =
-            widget.workerModel.regularRate == null
-                ? '0.00'
-                : double.parse(widget.workerModel.regularRate.toString())
-                    .toStringAsFixed(2)
-                    .isNotNullableString();
-        provider.overTimeRateController.text =
-            widget.workerModel.overTimeRate == null
-                ? '0.00'
-                : double.parse(widget.workerModel.overTimeRate.toString())
-                    .toStringAsFixed(2)
-                    .isNotNullableString();
-        provider.clientRateController.text = widget.workerModel.billRate == null
+    provider.overTimeRateController.text =
+        widget.workerModel.overTimeRate == null
             ? '0.00'
-            : double.parse(widget.workerModel.billRate.toString())
+            : double.parse(widget.workerModel.overTimeRate.toString())
                 .toStringAsFixed(2)
                 .isNotNullableString();
-        provider.tradeLicenseNoController.text =
-            widget.workerModel.tradeLicenseNo.toString().isNotNullableString();
-        provider.workExperienceNoteController.text = widget
-            .workerModel.workExperienceNotes
-            .toString()
+    provider.clientRateController.text = widget.workerModel.billRate == null
+        ? '0.00'
+        : double.parse(widget.workerModel.billRate.toString())
+            .toStringAsFixed(2)
             .isNotNullableString();
-        provider.certificationNotesController.text = widget
-            .workerModel.certificationsNotes
-            .toString()
-            .isNotNullableString();
-        provider.recruiterCommissionController.text = widget
-                    .workerModel.recruiterCommission ==
-                null
+    provider.tradeLicenseNoController.text =
+        widget.workerModel.tradeLicenseNo.toString().isNotNullableString();
+    provider.workExperienceNoteController.text =
+        widget.workerModel.workExperienceNotes.toString().isNotNullableString();
+    provider.certificationNotesController.text =
+        widget.workerModel.certificationsNotes.toString().isNotNullableString();
+    provider.recruiterCommissionController.text =
+        widget.workerModel.recruiterCommission == null
             ? '0.00'
             : double.parse(widget.workerModel.recruiterCommission.toString())
                 .toStringAsFixed(2)
                 .isNotNullableString();
-        provider.paymentNotesController.text =
-            widget.workerModel.paymentNotes.toString().isNotNullableString();
-        provider.unionAffiliationNotesController.text = widget
-            .workerModel.unionAffiliationNotes
-            .toString()
-            .isNotNullableString();
-        provider.emailController.text =
-            widget.workerModel.email.toString().isNotNullableString();
-        provider.employmentHistoryNoteController.text = widget
-            .workerModel.employeeHistoryNotes
-            .toString()
-            .isNotNullableString();
+    provider.paymentNotesController.text =
+        widget.workerModel.paymentNotes.toString().isNotNullableString();
+    provider.unionAffiliationNotesController.text = widget
+        .workerModel.unionAffiliationNotes
+        .toString()
+        .isNotNullableString();
+    provider.emailController.text =
+        widget.workerModel.email.toString().isNotNullableString();
+    provider.employmentHistoryNoteController.text = widget
+        .workerModel.employeeHistoryNotes
+        .toString()
+        .isNotNullableString();
+
+    return Scaffold(
+      body:
+          Consumer<EditWorkerDetailProvider>(builder: (context, provider, __) {
+        print(widget.workerModel.lastName.toString().isNotNullableString());
 
         return SafeArea(
             child: Column(
@@ -1494,8 +1482,7 @@ class _EditWorkerDetailViewState extends State<EditWorkerDetailView> {
                     toast(
                         msg: 'Please select worker pickup location',
                         context: context);
-                  } else if (provider
-                          .recruiterCommissionController.text.isEmpty ||
+                  } else if (provider.recruiterCommissionController.text.isEmpty ||
                       provider.recruiterCommissionController.text == '') {
                     toast(
                         msg: 'Please enter recruiter commission',
@@ -1503,7 +1490,61 @@ class _EditWorkerDetailViewState extends State<EditWorkerDetailView> {
                   } else if (provider.timeSheetTypeId == null) {
                     toast(
                         msg: "Please select TimeSheet Type", context: context);
-                  } else {
+                  } else if (provider.businessTelephoneController.text.isNotEmpty &&
+                      validateCanadianPhoneNumber(
+                              provider.businessTelephoneController.text) ==
+                          false) {
+                    toast(
+                        msg: "Please select valid bussiness Telephone",
+                        context: context);
+                  } else if (provider.mobileTelephoneController.text.isNotEmpty &&
+                      validateCanadianPhoneNumber(provider.mobileTelephoneController.text) ==
+                          false) {
+                    toast(
+                        msg: "Please select valid Mobile Number",
+                        context: context);
+                  } else if (provider.homeTelephoneController.text.isNotEmpty &&
+                      validateCanadianPhoneNumber(provider.homeTelephoneController.text) ==
+                          false) {
+                    toast(
+                        msg: "Please select valid Home Telephone",
+                        context: context);
+                  } else if (provider.emergencyContact1Controller.text.isNotEmpty &&
+                      validateCanadianPhoneNumber(
+                              provider.emergencyContact1Controller.text) ==
+                          false) {
+                    toast(
+                        msg: "Please select valid Emergency Contact",
+                        context: context);
+                  } 
+                  else if (provider
+                          .emergencyContact2Controller.text.isNotEmpty &&
+                      validateCanadianPhoneNumber(
+                              provider.emergencyContact2Controller.text) ==
+                          false) {
+                    toast(
+                        msg: "Please select valid Emergency Contact",
+                        context: context);
+                  } 
+                  else if (provider
+                          .emergencyTelephone1Controller.text.isNotEmpty &&
+                      validateCanadianPhoneNumber(
+                              provider.emergencyTelephone1Controller.text) ==
+                          false) {
+                    toast(
+                        msg: "Please select valid Emergency Telephone",
+                        context: context);
+                  } 
+                  else if (provider
+                          .emergencyTelephone2Controller.text.isNotEmpty &&
+                      validateCanadianPhoneNumber(
+                              provider.emergencyTelephone2Controller.text) ==
+                          false) {
+                    toast(
+                        msg: "Please select valid Emergency Telephone",
+                        context: context);
+                  } 
+                  else {
                     provider.addWorkerData(
                       context: context,
                       workerID: int.parse(widget.workerModel.id.toString()),
@@ -1542,7 +1583,8 @@ class _EditWorkerDetailViewState extends State<EditWorkerDetailView> {
                       address2: provider.address2Controller.text,
                       city: provider.cityController.text,
                       province: provider.provinceController.text,
-                      postalCode: provider.postalCodeController.text,
+                      postalCode:
+                          provider.postalCodeController.text.toUpperCase(),
                       country: provider.countryController.text,
                       mobile: provider.mobileTelephoneController.text,
                       homeTele: provider.homeTelephoneController.text,

@@ -13,6 +13,8 @@ import 'package:hrm_manager/constant/rich_text.dart';
 import 'package:hrm_manager/constant/text_button.dart';
 import 'package:hrm_manager/constant/toast.dart';
 import 'package:hrm_manager/constant/width_box.dart';
+import 'package:hrm_manager/extensions/phone_validation.dart';
+import 'package:hrm_manager/extensions/postal_code.dart';
 import 'package:hrm_manager/extensions/size_extension.dart';
 import 'package:hrm_manager/provider/add_worker_provider.dart';
 import 'package:hrm_manager/constant/app_color.dart';
@@ -1158,6 +1160,12 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                       "Slected UNION ${provider.selectedUnionAfflicationIdList.join(',').toString()}");
                   if (provider.recruiterId == null) {
                     toast(msg: 'Kindly assign recruiter', context: context);
+                  } else if (provider.postalCodeController.text.isNotEmpty &&
+                      validateCanadianPostalCode(provider.postalCodeController.text) ==
+                          true) {
+                    toast(
+                        msg: "Please select valid Postal Code",
+                        context: context);
                   } else if (provider.clientIdController.text.isEmpty ||
                       provider.clientIdController.text == '') {
                     toast(msg: 'Client id cannot be empty', context: context);
@@ -1186,8 +1194,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                     toast(
                         msg: 'Please select worker pickup location',
                         context: context);
-                  } else if (provider
-                          .recruiterCommissionController.text.isEmpty ||
+                  } else if (provider.recruiterCommissionController.text.isEmpty ||
                       provider.recruiterCommissionController.text == '') {
                     toast(
                         msg: 'Please enter recruiter commission',
@@ -1195,6 +1202,51 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                   } else if (provider.timeSheetTypeId == null) {
                     toast(
                         msg: "Please select TimeSheet Type", context: context);
+                  } else if (provider.timeSheetTypeId == null) {
+                    toast(
+                        msg: "Please select TimeSheet Type", context: context);
+                  } else if (provider.businessTelephoneController.text.isNotEmpty &&
+                      validateCanadianPhoneNumber(provider.businessTelephoneController.text) ==
+                          false) {
+                    toast(
+                        msg: "Please select valid bussiness Telephone",
+                        context: context);
+                  } else if (provider.mobileTelephoneController.text.isNotEmpty &&
+                      validateCanadianPhoneNumber(provider.mobileTelephoneController.text) ==
+                          false) {
+                    toast(
+                        msg: "Please select valid Mobile Number",
+                        context: context);
+                  } else if (provider.homeTelephoneController.text.isNotEmpty &&
+                      validateCanadianPhoneNumber(provider.homeTelephoneController.text) ==
+                          false) {
+                    toast(
+                        msg: "Please select valid Home Telephone",
+                        context: context);
+                  } else if (provider.emergencyContact1Controller.text.isNotEmpty &&
+                      validateCanadianPhoneNumber(provider.emergencyContact1Controller.text) ==
+                          false) {
+                    toast(
+                        msg: "Please select valid Emergency Contact",
+                        context: context);
+                  } else if (provider.emergencyContact2Controller.text.isNotEmpty &&
+                      validateCanadianPhoneNumber(provider.emergencyContact2Controller.text) ==
+                          false) {
+                    toast(
+                        msg: "Please select valid Emergency Contact",
+                        context: context);
+                  } else if (provider.emergencyTelephone1Controller.text.isNotEmpty &&
+                      validateCanadianPhoneNumber(
+                              provider.emergencyTelephone1Controller.text) ==
+                          false) {
+                    toast(
+                        msg: "Please select valid Emergency Telephone",
+                        context: context);
+                  } else if (provider.emergencyTelephone2Controller.text.isNotEmpty &&
+                      validateCanadianPhoneNumber(provider.emergencyTelephone2Controller.text) == false) {
+                    toast(
+                        msg: "Please select valid Emergency Telephone",
+                        context: context);
                   } else {
                     print(
                         "${provider.selectedWorkerFlagIdList.join(',').toString()}");
