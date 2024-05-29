@@ -684,9 +684,10 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                   ),
                   getHeight(context: context, height: 0.010),
                   CustomTwoTextFieldWidget(
-                    rightReadOnly: false,
+                    rightReadOnly: true,
                     controllerLeft: provider.postalCodeController,
-                    controllerRight: provider.countryController,
+                    controllerRight: provider.countryController
+                      ..text = 'Canada',
                     titleLeft: 'Postal Code',
                     titleRight: 'Country',
                     hintLeft: 'Enter Postal Code',

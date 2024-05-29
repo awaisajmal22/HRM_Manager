@@ -18,14 +18,18 @@ class WorkerFlagWidget extends StatelessWidget {
     return Consumer<AddWorkerProvider>(builder: (context, provider, __) {
       return GestureDetector(
         onTap: () async {
-          String flag = await customDropDown(
-            dataList: provider.workerFlagList,
-            context: context,
-          );
+          String flag = provider.workerFlagUnSelectedList.isEmpty
+              ? ''
+              : await customDropDown(
+                  dataList: provider.workerFlagUnSelectedList,
+                  context: context,
+                );
           if (flag != '') {
-            for (var data in provider.workerFlagList)
+            for (var data in provider.workerFlagUnSelectedList)
               if (data.name == flag) {
                 provider.selectWorkerFlag(flag, data.id!);
+                provider.removeWorkerFlagFromUnselected(data.id!);
+                break;
               }
           }
         },
@@ -59,7 +63,9 @@ class WorkerFlagWidget extends StatelessWidget {
                     provider.selectedWorkerFlagList.length,
                     (index) => Chip(
                       onDeleted: () {
-                        provider.removeWorkerFlag(index);
+                        provider.removeWorkerFlag(
+                            provider.selectedWorkerFlagIdList[index],
+                            provider.selectedWorkerFlagList[index]);
                       },
                       shape: const StadiumBorder(
                           side: BorderSide(color: Colors.transparent)),

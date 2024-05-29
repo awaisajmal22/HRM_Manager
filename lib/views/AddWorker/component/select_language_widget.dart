@@ -18,14 +18,16 @@ class SelectLanguageWidget extends StatelessWidget {
     return Consumer<AddWorkerProvider>(builder: (context, provider, __) {
       return GestureDetector(
         onTap: () async {
-          String value = await customDropDown(
-            dataList: provider.languagesList,
+          String value = provider.languagesUnSelectedList.isEmpty ? '' :await customDropDown(
+            dataList: provider.languagesUnSelectedList,
             context: context,
           );
           if (value != '') {
-            for (var data in provider.languagesList) {
+            for (var data in provider.languagesUnSelectedList) {
               if (data.name == value) {
                 provider.selectLanguage(value, data.id!);
+                provider.removeLanguageFromUnselected(data.id!);
+                break;
               }
             }
           }
@@ -60,7 +62,7 @@ class SelectLanguageWidget extends StatelessWidget {
                     provider.selectedLanguageList.length,
                     (index) => Chip(
                       onDeleted: () {
-                        provider.removeSelectedLanguage(index);
+                        provider.removeSelectedLanguageFromField(provider.selectedLanguageIdList[index],provider.selectedLanguageList[index]);
                       },
                       shape: const StadiumBorder(
                           side: BorderSide(color: Colors.transparent)),

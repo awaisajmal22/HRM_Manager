@@ -75,6 +75,14 @@ class AddWorkerProvider extends ChangeNotifier {
     }
   }
 
+  removeFromTimeSheetTypeList(int id) {
+    _timeSheetTypeList.removeWhere((element) => element.id == id);
+  }
+
+  addUnSelectedTimeSheetType(int id, String name) {
+    _timeSheetTypeList.add(AddWorkerDropDownModel(id: id, name: name));
+  }
+
   int? _workerPickUpId;
   int? get workerPickUpId => _workerPickUpId;
   selectWorkerPickupLocation(String location, int id) {
@@ -107,9 +115,17 @@ class AddWorkerProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  removeCertificate(int index) {
-    _selectedcertificateList.removeAt(index);
-    _selectedcertificateIdList.removeAt(index);
+  removeCertificateFromUnselected(int id) {
+    _certificationUnSelectedList.removeWhere((element) => element.id == id);
+    notifyListeners();
+  }
+
+  removeCertificateFromField(int id, String value) {
+    _certificationUnSelectedList
+        .add(AddWorkerDropDownModel(id: id, name: value));
+    _certificationUnSelectedList.sort((a, b) => a.name!.compareTo(b.name!));
+    _selectedcertificateList.removeWhere((element) => element == value);
+    _selectedcertificateIdList.removeWhere((element) => element == id);
     notifyListeners();
   }
 
@@ -129,9 +145,17 @@ class AddWorkerProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  removeUnionAfflication(int index) {
-    _selectedUnionAfflicationIdList.removeAt(index);
-    _selectedUnionAfflicationList.removeAt(index);
+  removeUninonAfflicationFromUnselected(int id) {
+    _unionAfflicationUnSelectedList.removeWhere((element) => element.id == id);
+    notifyListeners();
+  }
+
+  removeUnionAfflication(int id, String value) {
+    _unionAfflicationUnSelectedList
+        .add(AddWorkerDropDownModel(id: id, name: value));
+    _unionAfflicationUnSelectedList.sort((a, b) => a.name!.compareTo(b.name!));
+    _selectedUnionAfflicationIdList.removeWhere((element) => element == id);
+    _selectedUnionAfflicationList.removeWhere((element) => element == value);
     notifyListeners();
   }
 
@@ -148,9 +172,17 @@ class AddWorkerProvider extends ChangeNotifier {
     }
   }
 
-  removeWorkExperience(int index) {
-    _selectedWorkExpIDList.removeAt(index);
-    _selectedWorkExpList.removeAt(index);
+  removeWorkExperienceFromUnselected(int id) {
+    _workerExperienceUnSelectedList.removeWhere((element) => element.id == id);
+    notifyListeners();
+  }
+
+  removeWorkExperienceFromField(int id, String val) {
+    _workerExperienceUnSelectedList
+        .add(AddWorkerDropDownModel(id: id, name: val));
+    _workerExperienceUnSelectedList.sort((a, b) => a.name!.compareTo(b.name!));
+    _selectedWorkExpIDList.removeWhere((e) => e == id);
+    _selectedWorkExpList.removeWhere((e) => e == val);
     notifyListeners();
   }
 
@@ -177,6 +209,11 @@ class AddWorkerProvider extends ChangeNotifier {
       _selectedWorkerFlagIdList.add(id);
       notifyListeners();
     }
+  }
+
+  removeWorkerFlagFromUnselected(int id) {
+    _workerFlagUnSelectedList.removeWhere((element) => element.id == id);
+    notifyListeners();
   }
 
   int? _selectedStatusID;
@@ -212,9 +249,16 @@ class AddWorkerProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  removeJobSite(int index) {
-    _selectedJobSitesList.removeAt(index);
-    _selectedJobSitesIDList.removeAt(index);
+  removeWorkJobSiteFromUnselected(int id) {
+    _jobSitesUnSelectedList.removeWhere((element) => element.id == id);
+    notifyListeners();
+  }
+
+  removeJobSiteFromField(int id, String value) {
+    _jobSitesUnSelectedList.add(AddWorkerDropDownModel(id: id, name: value));
+    _jobSitesUnSelectedList.sort((a, b) => a.id!.compareTo(b.id!));
+    _selectedJobSitesList.removeWhere((element) => element == value);
+    _selectedJobSitesIDList.removeWhere((element) => element == id);
     notifyListeners();
   }
 
@@ -238,15 +282,24 @@ class AddWorkerProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  removeSelectedLanguage(int index) {
-    _selectedLanguageList.removeAt(index);
-    _selectedJobSitesIDList.removeAt(index);
+  removeLanguageFromUnselected(int id) {
+    _languagesUnSelectedList.removeWhere((element) => element.id == id);
     notifyListeners();
   }
 
-  removeWorkerFlag(int index) {
-    _selectedWorkerFlagList.removeAt(index);
-    _selectedWorkerFlagIdList.removeAt(index);
+  removeSelectedLanguageFromField(int id, String value) {
+    _languagesUnSelectedList.add(AddWorkerDropDownModel(id: id, name: value));
+    _languagesUnSelectedList.sort((a, b) => a.name!.compareTo(b.name!));
+    _selectedLanguageList.removeWhere((element) => element == value);
+    _selectedJobSitesIDList.removeWhere((element) => element == id);
+    notifyListeners();
+  }
+
+  removeWorkerFlag(int id, String value) {
+    _workerFlagUnSelectedList.add(AddWorkerDropDownModel(id: id, name: value));
+    _workerFlagUnSelectedList.sort((a, b) => a.name!.compareTo(b.name!));
+    _selectedWorkerFlagList.removeWhere((element) => element == value);
+    _selectedWorkerFlagIdList.removeWhere((element) => element == id);
     notifyListeners();
   }
 
@@ -429,6 +482,20 @@ class AddWorkerProvider extends ChangeNotifier {
   }
 
   void clearData() {
+    _workerFlagUnSelectedList.clear();
+    workerFlagUnSelectedList.clear();
+    _languagesUnSelectedList.clear();
+    languagesUnSelectedList.clear();
+    _jobSitesUnSelectedList.clear();
+    jobSitesUnSelectedList.clear();
+    _certificationUnSelectedList.clear();
+    certificationUnSelectedList.clear();
+    _unionAfflicationUnSelectedList.clear();
+    unionAfflicationUnSelectedList.clear();
+    _workerExperienceUnSelectedList.clear();
+    workerExperienceUnSelectedList.clear();
+    _certificationUnSelectedList.clear();
+    certificationUnSelectedList.clear();
     _selectedJobSitesIDList.clear();
     _selectedJobSitesList.clear();
     selectedJobSitesIDList.clear();
@@ -507,15 +574,25 @@ class AddWorkerProvider extends ChangeNotifier {
       <AddWorkerDropDownModel>[];
   List<AddWorkerDropDownModel> get workerExperienceList =>
       _workerExperienceList;
+  List<AddWorkerDropDownModel> _workerExperienceUnSelectedList =
+      <AddWorkerDropDownModel>[];
+  List<AddWorkerDropDownModel> get workerExperienceUnSelectedList =>
+      _workerExperienceUnSelectedList;
   getExperienceData({required BuildContext context}) async {
     if (_workerExperienceList.isNotEmpty) {
       _workerExperienceList.clear();
       workerExperienceList.clear();
+      _workerExperienceUnSelectedList.clear();
+      workerExperienceUnSelectedList.clear();
     }
     final result =
         await AddWorkerServices().getWorkerExperience(context: context);
     if (result.isNotEmpty) {
       _workerExperienceList = result;
+      _workerExperienceList.sort((a, b) => a.name!.compareTo(b.name!));
+      _workerExperienceUnSelectedList = result;
+      _workerExperienceUnSelectedList
+          .sort((a, b) => a.name!.compareTo(b.name!));
     }
     notifyListeners();
   }
@@ -524,15 +601,25 @@ class AddWorkerProvider extends ChangeNotifier {
       <AddWorkerDropDownModel>[];
   List<AddWorkerDropDownModel> get unionAfflicationList =>
       _unionAfflicationList;
+  List<AddWorkerDropDownModel> _unionAfflicationUnSelectedList =
+      <AddWorkerDropDownModel>[];
+  List<AddWorkerDropDownModel> get unionAfflicationUnSelectedList =>
+      _unionAfflicationUnSelectedList;
   getUnionAffliciationData({required BuildContext context}) async {
     if (_unionAfflicationList.isNotEmpty) {
       _unionAfflicationList.clear();
       unionAfflicationList.clear();
+      _unionAfflicationUnSelectedList.clear();
+      _unionAfflicationList.clear();
     }
     final result =
         await AddWorkerServices().getUnionAfflication(context: context);
     if (result.isNotEmpty) {
       _unionAfflicationList = result;
+      _unionAfflicationList.sort((a, b) => a.name!.compareTo(b.name!));
+      _unionAfflicationUnSelectedList = result;
+      _unionAfflicationUnSelectedList
+          .sort((a, b) => a.name!.compareTo(b.name!));
       print("Length ${_unionAfflicationList.length}");
       print(_unionAfflicationList[0].name);
     }
@@ -541,15 +628,24 @@ class AddWorkerProvider extends ChangeNotifier {
 
   List<AddWorkerDropDownModel> _jobSitesList = <AddWorkerDropDownModel>[];
   List<AddWorkerDropDownModel> get jobSitesList => _jobSitesList;
+  List<AddWorkerDropDownModel> _jobSitesUnSelectedList =
+      <AddWorkerDropDownModel>[];
+  List<AddWorkerDropDownModel> get jobSitesUnSelectedList =>
+      _jobSitesUnSelectedList;
 
   getJobSiteData({required BuildContext context}) async {
     if (_jobSitesList.isNotEmpty) {
       _jobSitesList.clear();
       jobSitesList.clear();
+      _jobSitesUnSelectedList.clear();
+      jobSitesUnSelectedList.clear();
     }
     final result = await AddWorkerServices().getJobSite(context: context);
     if (result.isNotEmpty) {
       _jobSitesList = result;
+      _jobSitesList.sort((a, b) => a.id!.compareTo(b.id!));
+      _jobSitesUnSelectedList = result;
+      _jobSitesUnSelectedList.sort((a, b) => a.id!.compareTo(b.id!));
       print("Length ${_jobSitesList.length}");
       print(_jobSitesList[0].name);
     }
@@ -574,14 +670,23 @@ class AddWorkerProvider extends ChangeNotifier {
 
   List<AddWorkerDropDownModel> _languagesList = <AddWorkerDropDownModel>[];
   List<AddWorkerDropDownModel> get languagesList => _languagesList;
+  List<AddWorkerDropDownModel> _languagesUnSelectedList =
+      <AddWorkerDropDownModel>[];
+  List<AddWorkerDropDownModel> get languagesUnSelectedList =>
+      _languagesUnSelectedList;
   getLanguagesData({required BuildContext context}) async {
     if (_languagesList.isNotEmpty) {
       _languagesList.clear();
       languagesList.clear();
+      _languagesUnSelectedList.clear();
+      languagesUnSelectedList.clear();
     }
     final result = await AddWorkerServices().getLanguage(context: context);
     if (result.isNotEmpty) {
       _languagesList = result;
+      _languagesList.sort((a, b) => a.name!.compareTo(b.name!));
+      _languagesUnSelectedList = result;
+      _languagesUnSelectedList.sort((a, b) => a.name!.compareTo(b.name!));
       print("Length ${_languagesList.length}");
       print(_languagesList[0].name);
     }
@@ -590,14 +695,23 @@ class AddWorkerProvider extends ChangeNotifier {
 
   List<AddWorkerDropDownModel> _certificationList = <AddWorkerDropDownModel>[];
   List<AddWorkerDropDownModel> get certificationList => _certificationList;
+  List<AddWorkerDropDownModel> _certificationUnSelectedList =
+      <AddWorkerDropDownModel>[];
+  List<AddWorkerDropDownModel> get certificationUnSelectedList =>
+      _certificationUnSelectedList;
   getCertificationList({required BuildContext context}) async {
     if (_certificationList.isNotEmpty) {
       _certificationList.clear();
       certificationList.clear();
+      _certificationUnSelectedList.clear();
+      certificationUnSelectedList.clear();
     }
     final result = await AddWorkerServices().getCertificate(context: context);
     if (result.isNotEmpty) {
       _certificationList = result;
+      _certificationList.sort((a, b) => a.name!.compareTo(b.name!));
+      _certificationUnSelectedList = result;
+      _certificationUnSelectedList.sort((a, b) => a.name!.compareTo(b.name!));
       print("Length ${_certificationList.length}");
       print(_certificationList[0].name);
     }
@@ -657,14 +771,23 @@ class AddWorkerProvider extends ChangeNotifier {
 
   List<AddWorkerDropDownModel> _workerFlagList = <AddWorkerDropDownModel>[];
   List<AddWorkerDropDownModel> get workerFlagList => _workerFlagList;
+  List<AddWorkerDropDownModel> _workerFlagUnSelectedList =
+      <AddWorkerDropDownModel>[];
+  List<AddWorkerDropDownModel> get workerFlagUnSelectedList =>
+      _workerFlagUnSelectedList;
   getFlagData({required BuildContext context}) async {
     if (_workerFlagList.isNotEmpty) {
       _workerFlagList.clear();
       workerFlagList.clear();
+      _workerFlagUnSelectedList.clear();
+      workerFlagUnSelectedList.clear();
     }
     final result = await AddWorkerServices().getWorkerFlag(context: context);
     if (result.isNotEmpty) {
       _workerFlagList = result;
+      _workerFlagList.sort((a, b) => a.name!.compareTo(b.name!));
+      _workerFlagUnSelectedList = result;
+      _workerFlagUnSelectedList.sort((a, b) => a.name!.compareTo(b.name!));
       print("Length ${_workerFlagList.length}");
       print(_workerFlagList[0].name);
     }
@@ -780,7 +903,7 @@ class AddWorkerProvider extends ChangeNotifier {
     required String firstAidFilePath,
     required String otherFilePath,
     required String employementReleaseFilePath,
-     required String whimsFileName,
+    required String whimsFileName,
     required String profileImageName,
     required String workingFormHeightFileName,
     required String termsOfEmployeFileName,
@@ -792,7 +915,6 @@ class AddWorkerProvider extends ChangeNotifier {
       context: context,
       whimsFilePath: whimsFilePath,
       profileImage: profileImage,
-      
       workingFormHeightFilePath: workingFormHeightFilePath,
       termsOfEmployeFilePath: termsOfEmployeFilePath,
       firstAidFilePath: firstAidFilePath,
@@ -882,15 +1004,13 @@ class AddWorkerProvider extends ChangeNotifier {
       emergencyTele2: emergencyTele2,
       timeSheetType: timeSheetType,
       jobSites: jobSites,
-       firstAidFileName: firstAidFileName,
+      firstAidFileName: firstAidFileName,
       whimsFileName: whimsFileName,
       profileImageName: profileImageName,
       workingFormHeightFileName: workingFormHeightFileName,
       termsOfEmployeFileName: termsOfEmployeFileName,
       employementReleaseFileName: employementReleaseFileName,
       otherFileName: otherFileName,
-      
     );
   }
- 
 }

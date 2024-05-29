@@ -46,6 +46,15 @@ class AvaliableWorkerProvider extends ChangeNotifier {
   String get selectedStatus => _selectedStatus;
   int _selectedStatusID = -1;
   int get selectedStatusID => _selectedStatusID;
+  changeSTatusID(int id) {
+    _selectedStatusID = id;
+    notifyListeners();
+  }
+
+  changeFlagID(int id) {
+    _selectedFlagID = id;
+    notifyListeners();
+  }
 
   selectNewStatus(String status) {
     _selectedStatus = status;
@@ -76,8 +85,10 @@ class AvaliableWorkerProvider extends ChangeNotifier {
   List<String> get filteredList => _filteredList;
 
   addFilter(String filterData) {
-    if (filterData != '' || filterData.isNotEmpty) {
-      if (!_filteredList.contains(filterData) && filterData != "Select") {
+    if (filterData != '' ||
+        filterData.isNotEmpty ||
+        filterData.toLowerCase() != "Select".toLowerCase()) {
+      if (!_filteredList.contains(filterData)) {
         _filteredList.add(filterData);
       }
     }
@@ -95,6 +106,14 @@ class AvaliableWorkerProvider extends ChangeNotifier {
     filteredList.clear();
     _filtrationResponseList.clear();
     filtrationResponseList.clear();
+    minMainController.clear();
+    minMainController.clear();
+    locationMainController.clear();
+    minController.clear();
+    maxController.clear();
+    locationController.clear();
+    locationMainController.clear();
+    locationvalController.clear();
     _isFilterOpen = false;
 
     print("dispoe true");
@@ -103,8 +122,21 @@ class AvaliableWorkerProvider extends ChangeNotifier {
   clearFilterList() {
     workerTypeController.clear();
     locationController.clear();
-    maxController.clear();
+    // maxMainController.clear();
+
+    // minMainController.clear();
+    // locationMainController.clear();
     minController.clear();
+    maxController.clear();
+    // locationController.clear();
+    // locationMainController.clear();
+    // locationvalController.clear();
+    _selectedStatus = "Select";
+    _selectedFlag = "Select";
+    // _tradeOptionId = -1;
+    // _selectedFlagID = -1;
+    // _selectedStatusID = -1;
+    notifyListeners();
     // selectTradeOption('Sel
   }
 
@@ -366,7 +398,8 @@ class AvaliableWorkerProvider extends ChangeNotifier {
     _isLoaded = false;
     _filtrationResponseList.clear();
     filtrationResponseList.clear();
-    print("Trade ID $tradeID");
+    print(
+        "FIlter Data $tradeID,City $city,MIN $startPrice,Max $endPrice,Status $statusID, Flag $flagID");
     final result = await AvaliableWorkerServices().getFiltrationData(
       context: context,
       tradeID: tradeID == -1 ? null : tradeID,
@@ -508,6 +541,27 @@ class AvaliableWorkerProvider extends ChangeNotifier {
   }
 
   bool containsMatchingName(
+      List<String> list1, List<StatusAndFlagModel> list2, String value) {
+    bool foundMatch = false;
+
+    for (var model in list2) {
+      for (int i = 0; i < list1.length; i++) {
+        if (model.name == list1[i]) {
+          list1[i] = value;
+
+          foundMatch = true;
+          break;
+        }
+      }
+      if (foundMatch) {
+        break;
+      }
+    }
+
+    return foundMatch;
+  }
+
+  bool containsMatchingName2(
       List<String> list1, List<StatusAndFlagModel> list2, String value) {
     bool foundMatch = false;
 

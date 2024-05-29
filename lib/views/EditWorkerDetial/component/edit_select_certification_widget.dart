@@ -17,7 +17,7 @@ class EditSelectCertification extends StatelessWidget {
     return Consumer<EditWorkerDetailProvider>(builder: (context, provider, __) {
       return GestureDetector(
         onTap: () async{
-         String value = await customDropDown(
+         String value = provider.certificationList.isEmpty ? '': await customDropDown(
               dataList: provider.certificationList,
               context: context,
               );
@@ -26,6 +26,8 @@ class EditSelectCertification extends StatelessWidget {
             
 if(data.name == value){
   provider.selectCertificate(value,data.id!);
+  provider.removeSelectedCertificate(data.id!);
+  break;
 }
             }
                }
@@ -55,7 +57,7 @@ if(data.name == value){
               provider.selectedcertificateList.length,
               (index) => Chip(
                 onDeleted: () {
-                  provider.removeCertificate(index);
+                  provider.removeCertificate(provider.selectedcertificateIdList[index],provider.selectedcertificateList[index]);
                 },
                 shape: const StadiumBorder(
                     side: BorderSide(color: Colors.transparent)),

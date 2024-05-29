@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hrm_manager/constant/app_text.dart';
 import 'package:hrm_manager/extensions/size_extension.dart';
@@ -21,6 +22,8 @@ minMaxTextField({
     height: context.getSize.height * 0.048,
     width: context.getSize.width * 0.180,
     child: TextFormField(
+      inputFormatters: [FilteringTextInputFormatter.digitsOnly,
+],
       readOnly: false,
       keyboardType: TextInputType.number,
       onChanged: onChanged,

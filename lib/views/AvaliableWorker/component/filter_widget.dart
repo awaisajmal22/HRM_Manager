@@ -22,6 +22,7 @@ Widget filterWidget(
     required int id,
     required String location,
     required AvaliableWorkerProvider provider}) {
+  print(provider.filteredList.length);
   // final provider = Provider.of<AvaliableWorkerProvider>(context, listen: false);
   return provider.isFilterOpen == false
       ? Column(
@@ -41,7 +42,7 @@ Widget filterWidget(
                     provider
                         .removeFilter(provider.filteredList[index], context)
                         .whenComplete(() {
-                      bool isFlag = provider.containsMatchingName(
+                      bool isFlag = provider.containsMatchingName2(
                         provider.filteredList,
                         provider.workerFlagList,
                         provider.selectedFlag,
@@ -160,6 +161,17 @@ Widget filterWidget(
                 },
                 cancel: () {
                   provider.locationController.clear();
+                  provider.locationMainController.clear();
+                  // provider.locationvalController.clear();
+                  if (provider.locationMainController.text.isEmpty ||
+                      provider.locationMainController.text == '') {
+                    List<String> loc = getValuesContainingLocation(
+                        provider.filteredList,
+                        provider.locationvalController.text);
+                    provider.filteredList
+                        .removeWhere((element) => element == loc[0]);
+                    provider.locationvalController.clear();
+                  }
                   final lcPv =
                       Provider.of<LocationProvider>(context, listen: false);
                   lcPv.clearSearchData();
@@ -200,8 +212,9 @@ Widget filterWidget(
                   )),
               value: provider.selectedStatus,
               onChanged: (value) {
-                Provider.of<AvaliableWorkerProvider>(context, listen: false)
-                    .selectNewStatus(value);
+                if (value != 'Select') {
+                  provider.selectNewStatus(value);
+                }
               },
               options: provider.workerStatusNameList,
             ),
@@ -223,8 +236,9 @@ Widget filterWidget(
                   )),
               value: provider.selectedFlag,
               onChanged: (value) {
-                Provider.of<AvaliableWorkerProvider>(context, listen: false)
-                    .selectNewFlag(value);
+                if (value != 'Select') {
+                  provider.selectNewFlag(value);
+                }
               },
               options: provider.workerFlagNameList,
             ),
@@ -304,19 +318,10 @@ Widget filterWidget(
                           msg: 'min price must be lower than max price',
                           context: context);
                     }
-                    // if (provider.tradeOptionName != 'Select' ||
-                    //     provider.tradeOptionName != '') {
-                    //   bool isCheck = provider.containsMatchingTradeName(
-                    //       provider.filteredList,
-                    //       provider.tradeOptionList,
-                    //       provider.tradeOptionName);
-                    //   if (isCheck == true) {
-                    //   } else {
-                    //     provider.addFilter(provider.tradeOptionName);
-                    //   }
-                    // }
+
                     if (provider.selectedStatus != 'Select' ||
                         provider.selectedStatus != '') {
+                      print("Selected Satatus ${provider.selectedStatus}");
                       final isFound = provider.containsMatchingName(
                         provider.filteredList,
                         provider.workerStatusList,
@@ -326,23 +331,35 @@ Widget filterWidget(
                           "Selected Status ID Is ${provider.selectedStatusID}");
                       if (isFound == true) {
                       } else {
-                        provider.addFilter(
-                          provider.selectedStatus,
-                        );
+                        if (provider.selectedStatus.toLowerCase() ==
+                            "Select".toLowerCase()) {
+                          provider.changeSTatusID(-1);
+                        } else {
+                          print("Selected Satatus ${provider.selectedStatus}");
+                          provider.addFilter(
+                            provider.selectedStatus,
+                          );
+                        }
                       }
                     }
                     if (provider.selectedFlag != 'Select' ||
                         provider.selectedFlag != '') {
-                      bool isFlagFound = provider.containsMatchingName(
+                      bool isFlagFound = provider.containsMatchingName2(
                         provider.filteredList,
                         provider.workerFlagList,
                         provider.selectedFlag,
                       );
+
                       if (isFlagFound == true) {
                       } else {
-                        provider.addFilter(
-                          provider.selectedFlag,
-                        );
+                        if (provider.selectedFlag.toLowerCase() ==
+                            "Select".toLowerCase()) {
+                          provider.changeFlagID(-1);
+                        } else {
+                          provider.addFilter(
+                            provider.selectedFlag,
+                          );
+                        }
                       }
                     }
                     if (provider.minMainController.text.isNotEmpty) {
@@ -363,6 +380,8 @@ Widget filterWidget(
                         }
                       }
                     }
+                    print(
+                        "IS FALG FOUND ,${provider.selectedFlag},${provider.selectedStatus}");
                     if (provider.locationMainController.text.isNotEmpty) {
                       bool containsLocation = provider.filteredList.any(
                           (element) => element.contains(
@@ -386,10 +405,7 @@ Widget filterWidget(
                         }
                       }
                     }
-                    // if (provider.locationController.text.isNotEmpty ||
-                    //     provider.locationController.text != '') {
-                    //   provider.addFilter(provider.locationController.text);
-                    // }
+
                     if (provider.maxMainController.text.isNotEmpty) {
                       bool containsMax = provider.filteredList.any((element) =>
                           element.contains(
@@ -423,6 +439,7 @@ Widget filterWidget(
                           ? null
                           : provider.maxMainController.text,
                     );
+                    print("Filter Length ${provider.filteredList.length}");
                     provider.openFilter(false);
                     // provider.clearTextField();
                   },
@@ -458,5 +475,5 @@ List<String> getValuesContainingMax(List<String> list) {
 }
 
 List<String> getValuesContainingLocation(List<String> list, String location) {
-  return list.where((element) => element.contains(location)).toList();
+  return list.where((element) => element == location).toList();
 }

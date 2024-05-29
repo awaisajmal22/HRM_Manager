@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -13,6 +15,7 @@ import 'package:hrm_manager/constant/app_color.dart';
 import 'package:hrm_manager/views/Home/component/home_search_field.dart';
 import 'package:hrm_manager/views/Home/component/select_location_widget.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:new_version_plus/new_version_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -27,6 +30,7 @@ class _HomeViewState extends State<HomeView> {
   bool _isDataFetch = false;
   @override
   void initState() {
+   
     if (_isDataFetch == false) {
       Provider.of<HomeProvider>(context, listen: false)
           .getAllTradeFunc(context: context);
@@ -37,6 +41,7 @@ class _HomeViewState extends State<HomeView> {
     super.initState();
   }
 
+ 
   @override
   Widget build(BuildContext context) {
     return Consumer<HomeProvider>(builder: (context, provider, __) {

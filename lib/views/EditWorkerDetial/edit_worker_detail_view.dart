@@ -94,7 +94,8 @@ class _EditWorkerDetailViewState extends State<EditWorkerDetailView> {
         for (var data in pv.workerExperienceList) {
           if (data.id == workExpIDList[i]) {
             if (!pv.selectedWorkExperienceIdList.contains(workExpIDList[i])) {
-              pv.selectWorkExperience(data.name!, data.id!);
+              pv.selectWorkExperience(data.name!, data.id!).whenComplete(
+                  () => pv.removeSelectedWorkExperience(data.id!));
             }
           }
         }
@@ -107,7 +108,9 @@ class _EditWorkerDetailViewState extends State<EditWorkerDetailView> {
         for (int i = 0; i < value.length; i++) {
           for (var job in pv.jobSitesList) {
             if (job.id == value[i].jobsiteId) {
-              pv.selectJobSite(job.name!, job.id!);
+              pv
+                  .selectJobSite(job.name!, job.id!)
+                  .whenComplete(() => pv.removeSelectedJobSite(job.id!));
             }
           }
         }
@@ -136,7 +139,8 @@ class _EditWorkerDetailViewState extends State<EditWorkerDetailView> {
         for (var data in pv.unionAfflicationList) {
           if (data.id == unionAfList[i]) {
             if (!pv.selectedUnionAfflicationIdList.contains(unionAfList[i])) {
-              pv.selectUnionAffiliation(data.name!, data.id!);
+              pv.selectUnionAffiliation(data.name!, data.id!).whenComplete(
+                  () => pv.removeSelectedUnionAfflication(data.id!));
             }
           }
         }
@@ -154,7 +158,8 @@ class _EditWorkerDetailViewState extends State<EditWorkerDetailView> {
         for (var data in pv.languagesList) {
           if (data.id == languageIDList[i]) {
             if (!pv.selectedLanguageIDList.contains(languageIDList[i])) {
-              pv.selectLanguage(data.name!, data.id!);
+              pv.selectLanguage(data.name!, data.id!).whenComplete(
+                  () => pv.removeSelectedLanguageFromList(data.id!));
             }
           }
         }
@@ -173,7 +178,7 @@ class _EditWorkerDetailViewState extends State<EditWorkerDetailView> {
         for (var data in pv.certificationList) {
           if (data.id == certificatIDList[i]) {
             if (!pv.selectedcertificateIdList.contains(certificatIDList[i])) {
-              pv.selectCertificate(data.name!, certificatIDList[i]);
+              pv.selectCertificate(data.name!, certificatIDList[i]).whenComplete(() => pv.removeSelectedCertificate(data.id!));
             }
           }
         }
@@ -213,7 +218,7 @@ class _EditWorkerDetailViewState extends State<EditWorkerDetailView> {
         for (var data in pv.workerFlagList) {
           if (data.id == flagIDList[i]) {
             if (!pv.selectedWorkerFlagIdList.contains(flagIDList[i])) {
-              pv.selectWorkerFlag(data.name!, flagIDList[i]);
+              pv.selectWorkerFlag(data.name!, flagIDList[i]).whenComplete(() => pv.removeSelectedFlag(data.id!));
             }
           }
         }
@@ -1538,43 +1543,50 @@ class _EditWorkerDetailViewState extends State<EditWorkerDetailView> {
                       validateCanadianPhoneNumber(provider.businessTelephoneController.text) ==
                           false) {
                     toast(
-                        msg: "Please enter valid bussiness Telephone like (123) 123-1234",
+                        msg:
+                            "Please enter valid bussiness Telephone like (123) 123-1234",
                         context: context);
                   } else if (provider.mobileTelephoneController.text.isNotEmpty &&
                       validateCanadianPhoneNumber(provider.mobileTelephoneController.text) ==
                           false) {
                     toast(
-                        msg: "Please enter valid Mobile Number like (123) 123-1234",
+                        msg:
+                            "Please enter valid Mobile Number like (123) 123-1234",
                         context: context);
                   } else if (provider.homeTelephoneController.text.isNotEmpty &&
                       validateCanadianPhoneNumber(provider.homeTelephoneController.text) ==
                           false) {
                     toast(
-                        msg: "Please enter valid Home Telephone like (123) 123-1234",
+                        msg:
+                            "Please enter valid Home Telephone like (123) 123-1234",
                         context: context);
                   } else if (provider.emergencyContact1Controller.text.isNotEmpty &&
                       validateCanadianPhoneNumber(provider.emergencyContact1Controller.text) ==
                           false) {
                     toast(
-                        msg: "Please enter valid Emergency Contact 1 like (123) 123-1234",
+                        msg:
+                            "Please enter valid Emergency Contact 1 like (123) 123-1234",
                         context: context);
                   } else if (provider.emergencyContact2Controller.text.isNotEmpty &&
                       validateCanadianPhoneNumber(provider.emergencyContact2Controller.text) ==
                           false) {
                     toast(
-                        msg: "Please enter valid Emergency Contact 2 like (123) 123-1234",
+                        msg:
+                            "Please enter valid Emergency Contact 2 like (123) 123-1234",
                         context: context);
                   } else if (provider.emergencyTelephone1Controller.text.isNotEmpty &&
                       validateCanadianPhoneNumber(
                               provider.emergencyTelephone1Controller.text) ==
                           false) {
                     toast(
-                        msg: "Please enter valid Emergency Telephone 1 like (123) 123-1234",
+                        msg:
+                            "Please enter valid Emergency Telephone 1 like (123) 123-1234",
                         context: context);
                   } else if (provider.emergencyTelephone2Controller.text.isNotEmpty &&
                       validateCanadianPhoneNumber(provider.emergencyTelephone2Controller.text) == false) {
                     toast(
-                        msg: "Please enter valid Emergency Telephone 2 like (123) 123-1234",
+                        msg:
+                            "Please enter valid Emergency Telephone 2 like (123) 123-1234",
                         context: context);
                   } else {
                     provider.addWorkerData(

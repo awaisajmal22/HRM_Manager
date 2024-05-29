@@ -17,19 +17,20 @@ class EditSelectUnionAffiliation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<EditWorkerDetailProvider>(builder: (context, provider, __) {
       return GestureDetector(
-        onTap: () async{
-         String value = await customDropDown(
-              dataList: provider.unionAfflicationList,
-              context: context,
-              );
-               if (value != '') {
-            for(var data in provider.unionAfflicationList){
-            
-if(data.name == value){
-  provider.selectUnionAffiliation(value,data.id!);
-}
+        onTap: () async {
+          String value =provider.unionAfflicationList.isEmpty ? '': await customDropDown(
+            dataList: provider.unionAfflicationList,
+            context: context,
+          );
+          if (value != '') {
+            for (var data in provider.unionAfflicationList) {
+              if (data.name == value) {
+                provider.selectUnionAffiliation(value, data.id!);
+                provider.removeSelectedUnionAfflication(data.id!);
+                break;
+              }
             }
-               }
+          }
         },
         child: Container(
           alignment: Alignment.centerLeft,
@@ -46,34 +47,41 @@ if(data.name == value){
                 color: Color(0xffF5F5F5),
                 width: 1,
               )),
-          child:provider.selectedUnionAfflicationList.isEmpty ? appText(context: context, title: 'Select',textColor: AppColor.lightPurpleColor.withOpacity(0.67,))
-         :
-           Wrap(
-            spacing: 10,
-            runSpacing: 0,
-            direction: Axis.horizontal,
-            runAlignment: WrapAlignment.start,
-            alignment: WrapAlignment.start,
-            children: List.generate(
-              provider.selectedUnionAfflicationList.length,
-              (index) => Chip(
-                onDeleted: () {
-                  provider.removeUnionAfflication(index);
-                },
-                shape: const StadiumBorder(
-                    side: BorderSide(color: Colors.transparent)),
-                backgroundColor: AppColor.lightPinkColor,
-                label: appText(
+          child: provider.selectedUnionAfflicationList.isEmpty
+              ? appText(
                   context: context,
-                  title: provider.selectedUnionAfflicationList[index],
+                  title: 'Select',
+                  textColor: AppColor.lightPurpleColor.withOpacity(
+                    0.67,
+                  ))
+              : Wrap(
+                  spacing: 10,
+                  runSpacing: 0,
+                  direction: Axis.horizontal,
+                  runAlignment: WrapAlignment.start,
+                  alignment: WrapAlignment.start,
+                  children: List.generate(
+                    provider.selectedUnionAfflicationList.length,
+                    (index) => Chip(
+                      onDeleted: () {
+                        provider.removeUnionAfflication(
+                            provider.selectedUnionAfflicationIdList[index],
+                            provider.selectedUnionAfflicationList[index]);
+                      },
+                      shape: const StadiumBorder(
+                          side: BorderSide(color: Colors.transparent)),
+                      backgroundColor: AppColor.lightPinkColor,
+                      label: appText(
+                        context: context,
+                        title: provider.selectedUnionAfflicationList[index],
+                      ),
+                    ),
+                    growable: true,
+                  ),
                 ),
-              ),
-              growable: true,
-            ),
-          ),
         ),
       );
-      
+
       //  editAddWorkerTextField(
       //   context: context,
       //   hintText: 'Select',

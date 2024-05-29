@@ -86,7 +86,7 @@ class _AvaliableWorkerViewState extends State<AvaliableWorkerView> {
   @override
   void dispose() {
     pv.clearData();
-    Provider.of<AvaliableWorkerProvider>(context, listen: false).clearMinMax();
+    pv.clearMinMax();
     super.dispose();
   }
 
@@ -236,8 +236,15 @@ class _AvaliableWorkerViewState extends State<AvaliableWorkerView> {
                       openFilter: () {
                         provider.openFilter(!provider.isFilterOpen);
                         if (provider.isFilterOpen == true) {
-                          // provider.clearFilterList();
-                          //   provider.getFiltrationDataFunc(context: context);
+                          provider.clearFilterList();
+
+                          // provider.getFiltrationDataFunc(context: context);
+                        } else {
+                          // provider.getFiltrationDataFunc(
+                          //     context: context,
+                          //     tradeID: provider.tradeOptionId == 0
+                          //         ? null
+                          //         : provider.tradeOptionId);
                         }
                       },
                     ),

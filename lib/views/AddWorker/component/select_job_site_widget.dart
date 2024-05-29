@@ -19,14 +19,16 @@ class SelectJobSite extends StatelessWidget {
     return Consumer<AddWorkerProvider>(builder: (context, provider, __) {
       return GestureDetector(
         onTap: () async {
-          final String selectedSite = await customDropDown(
-            dataList: provider.jobSitesList,
+          final String selectedSite = provider.jobSitesUnSelectedList.isEmpty ? '': await customDropDown(
+            dataList: provider.jobSitesUnSelectedList,
             context: context,
           );
           if (selectedSite != '') {
-            for (var job in provider.jobSitesList) {
+            for (var job in provider.jobSitesUnSelectedList) {
               if (job.name == selectedSite) {
                 provider.selectJobSite(selectedSite, job.id!);
+                provider.removeWorkJobSiteFromUnselected(job.id!);
+                break;
               }
             }
           }
@@ -61,7 +63,9 @@ class SelectJobSite extends StatelessWidget {
                     provider.selectedJobSitesList.length,
                     (index) => Chip(
                       onDeleted: () {
-                        provider.removeJobSite(index);
+                        provider.removeJobSiteFromField(
+                            provider.selectedJobSitesIDList[index],
+                            provider.selectedJobSitesList[index]);
                       },
                       shape: const StadiumBorder(
                           side: BorderSide(color: Colors.transparent)),

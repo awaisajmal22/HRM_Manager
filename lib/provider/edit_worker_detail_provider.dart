@@ -88,12 +88,16 @@ class EditWorkerDetailProvider extends ChangeNotifier {
   List<String> get selectedcertificateList => _selectedcertificateList;
   List<int> _selectedcertificateIdList = <int>[];
   List<int> get selectedcertificateIdList => _selectedcertificateIdList;
-  selectCertificate(String certificate, int id) {
+  Future selectCertificate(String certificate, int id) async {
     if (!_selectedcertificateList.contains(certificate)) {
       _selectedcertificateList.add(certificate);
       _selectedcertificateIdList.add(id);
     }
     notifyListeners();
+  }
+
+  removeSelectedCertificate(int id) {
+    _certificationList.removeWhere((element) => element.id == id);
   }
 
   List<String> _selectedUnionAfflicationList = <String>[];
@@ -103,7 +107,7 @@ class EditWorkerDetailProvider extends ChangeNotifier {
   List<int> get selectedUnionAfflicationIdList =>
       _selectedUnionAfflicationIdList;
 
-  selectUnionAffiliation(String affiliation, int id) {
+  Future selectUnionAffiliation(String affiliation, int id) async {
     if (!_selectedUnionAfflicationList.contains(affiliation)) {
       _selectedUnionAfflicationList.add(affiliation);
       _selectedUnionAfflicationIdList.add(id);
@@ -112,9 +116,15 @@ class EditWorkerDetailProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  removeUnionAfflication(int index) {
-    _selectedUnionAfflicationIdList.removeAt(index);
-    _selectedUnionAfflicationList.removeAt(index);
+  removeSelectedUnionAfflication(int id) {
+    _unionAfflicationList.removeWhere((element) => element.id == id);
+  }
+
+  removeUnionAfflication(int id, String name) {
+    _unionAfflicationList.add(AddWorkerDropDownModel(id: id, name: name));
+    _unionAfflicationList.sort((a, b) => a.name!.compareTo(b.name!));
+    _selectedUnionAfflicationIdList.removeWhere((element) => element == id);
+    _selectedUnionAfflicationList.removeWhere((element) => element == name);
     notifyListeners();
   }
 
@@ -122,12 +132,17 @@ class EditWorkerDetailProvider extends ChangeNotifier {
   List<String> get selectedWorkExperienceList => _selectedWorkExperienceList;
   List<int> _selectedWorkExperienceIdList = <int>[];
   List<int> get selectedWorkExperienceIdList => _selectedWorkExperienceIdList;
-  selectWorkExperience(String workExp, int id) {
+  Future selectWorkExperience(String workExp, int id) async {
     if (!_selectedWorkExperienceList.contains(workExp)) {
       _selectedWorkExperienceList.add(workExp);
       _selectedWorkExperienceIdList.add(id);
       // workExperienceController.text = workExp;
     }
+    notifyListeners();
+  }
+
+  removeSelectedWorkExperience(int id) {
+    _workerExperienceList.removeWhere((element) => element.id == id);
     notifyListeners();
   }
 
@@ -148,7 +163,7 @@ class EditWorkerDetailProvider extends ChangeNotifier {
 //   TextEditingController selectedWorkerFlag = TextEditingController();
 //  int? _selectedWorkerFlagID;
 //   int? get selectedWorkerFlagID => _selectedWorkerFlagID;
-  selectWorkerFlag(String flag, int id) {
+  Future selectWorkerFlag(String flag, int id) async {
     if (!_selectedWorkerFlagList.contains(flag)) {
       _selectedWorkerFlagList.add(flag);
       _selectedWorkerFlagIdList.add(id);
@@ -156,6 +171,10 @@ class EditWorkerDetailProvider extends ChangeNotifier {
 // _selectedWorkerFlagID = id;
       notifyListeners();
     }
+  }
+
+  removeSelectedFlag(int id) {
+    _workerFlagList.removeWhere((element) => element.id == id);
   }
 
   int? _selectedStatusID;
@@ -183,7 +202,7 @@ class EditWorkerDetailProvider extends ChangeNotifier {
   List<int> _selectedJobSitesIDList = <int>[];
   List<int> get selectedJobSitesIDList => _selectedJobSitesIDList;
 
-  selectJobSite(String jobSite, int id) {
+  Future selectJobSite(String jobSite, int id) async {
     if (!_selectedJobSitesList.contains(jobSite)) {
       _selectedJobSitesList.add(jobSite);
       _selectedJobSitesIDList.add(id);
@@ -191,9 +210,16 @@ class EditWorkerDetailProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  removeJobSite(int index) {
-    _selectedJobSitesList.removeAt(index);
-    _selectedJobSitesIDList.removeAt(index);
+  removeSelectedJobSite(int id) {
+    _jobSitesList.removeWhere((element) => element.id == id);
+    notifyListeners();
+  }
+
+  removeJobSite(int id, String value) {
+    _jobSitesList.add(AddWorkerDropDownModel(id: id, name: value));
+    _jobSitesList.sort((a, b) => a.id!.compareTo(b.id!));
+    _selectedJobSitesList.removeWhere((element) => element == value);
+    _selectedJobSitesIDList.removeWhere((element) => element == id);
     notifyListeners();
   }
 
@@ -207,7 +233,7 @@ class EditWorkerDetailProvider extends ChangeNotifier {
 //   int? _selectedLanguageId;
 // int? get selectedLanguageId => _selectedLanguageId;
 
-  selectLanguage(String language, int id) {
+  Future selectLanguage(String language, int id) async {
     if (!_selectedLanguageList.contains(language)) {
       _selectedLanguageList.add(language);
       _selectedLanguageIDList.add(id);
@@ -217,27 +243,40 @@ class EditWorkerDetailProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  removeSelectedLanguage(int index) {
-    _selectedLanguageList.removeAt(index);
-    _selectedLanguageIDList.removeAt(index);
+  removeSelectedLanguageFromList(int id) {
+    _languagesList.removeWhere((element) => element.id == id);
     notifyListeners();
   }
 
-  removeWorkerFlag(int index) {
-    _selectedWorkerFlagList.removeAt(index);
-    _selectedWorkerFlagIdList.removeAt(index);
+  removeSelectedLanguage(int id, String name) {
+    _languagesList.add(AddWorkerDropDownModel(id: id, name: name));
+    _languagesList.sort((a, b) => a.name!.compareTo(b.name!));
+    _selectedLanguageList.removeWhere((element) => element == name);
+    _selectedLanguageIDList.removeWhere((element) => element == id);
     notifyListeners();
   }
 
-  removeWorkExperience(int index) {
-    _selectedWorkExperienceList.removeAt(index);
-    _selectedWorkExperienceIdList.removeAt(index);
+  removeWorkerFlag(int id, String name) {
+    _workerFlagList.add(AddWorkerDropDownModel(id: id, name: name));
+    _workerFlagList.sort((a, b) => a.name!.compareTo(b.name!));
+    _selectedWorkerFlagList.removeWhere((element) => element == name);
+    _selectedWorkerFlagIdList.removeWhere((element) => element == id);
     notifyListeners();
   }
 
-  removeCertificate(int index) {
-    _selectedcertificateList.removeAt(index);
-    _selectedcertificateIdList.removeAt(index);
+  removeWorkExperience(int id, String name) {
+    _workerExperienceList.add(AddWorkerDropDownModel(id: id, name: name));
+    _workerExperienceList.sort((a, b) => a.name!.compareTo(b.name!));
+    _selectedWorkExperienceList.removeWhere((element) => element == name);
+    _selectedWorkExperienceIdList.removeWhere((element) => element == id);
+    notifyListeners();
+  }
+
+  removeCertificate(int id, String name) {
+    _certificationList.add(AddWorkerDropDownModel(id: id, name: name));
+    _certificationList.sort((a, b) => a.name!.compareTo(b.name!));
+    _selectedcertificateList.removeWhere((element) => element == name);
+    _selectedcertificateIdList.removeWhere((element) => element == id);
     notifyListeners();
   }
 
@@ -498,7 +537,6 @@ class EditWorkerDetailProvider extends ChangeNotifier {
     _selectedWorkerFlagList.clear();
     selectedWorkerFlagList.clear();
     selectedWorkerFlagIdList.clear();
-  
   }
 
   List<AddWorkerDropDownModel> _workerExperienceList =
@@ -514,6 +552,7 @@ class EditWorkerDetailProvider extends ChangeNotifier {
         await EditWorkerServices().getWorkerExperience(context: context);
     if (result.isNotEmpty) {
       _workerExperienceList = result;
+      _workerExperienceList.sort((a, b) => a.name!.compareTo(b.name!));
       print("Length ${_workerExperienceList.length}");
       print(_workerExperienceList[0].name);
     }
@@ -524,15 +563,23 @@ class EditWorkerDetailProvider extends ChangeNotifier {
       <AddWorkerDropDownModel>[];
   List<AddWorkerDropDownModel> get unionAfflicationList =>
       _unionAfflicationList;
-  Future getUnionAffliciationData({required BuildContext context}) async {
+  List<AddWorkerDropDownModel> _unionAfflicationUnSelectedList =
+      <AddWorkerDropDownModel>[];
+  List<AddWorkerDropDownModel> get unionAfflicationUnSelectedList =>
+      _unionAfflicationUnSelectedList;
+  getUnionAffliciationData({required BuildContext context}) async {
     if (_unionAfflicationList.isNotEmpty) {
       _unionAfflicationList.clear();
       unionAfflicationList.clear();
+      _unionAfflicationUnSelectedList.clear();
+      _unionAfflicationList.clear();
     }
     final result =
-        await EditWorkerServices().getUnionAfflication(context: context);
+        await AddWorkerServices().getUnionAfflication(context: context);
     if (result.isNotEmpty) {
       _unionAfflicationList = result;
+      _unionAfflicationList.sort((a, b) => a.name!.compareTo(b.name!));
+
       print("Length ${_unionAfflicationList.length}");
       print(_unionAfflicationList[0].name);
     }
@@ -550,6 +597,7 @@ class EditWorkerDetailProvider extends ChangeNotifier {
     final result = await EditWorkerServices().getJobSite(context: context);
     if (result.isNotEmpty) {
       _jobSitesList = result;
+      _jobSitesList.sort((a, b) => a.id!.compareTo(b.id!));
       print("Length ${_jobSitesList.length}");
       print(_jobSitesList[0].name);
     }
@@ -582,6 +630,7 @@ class EditWorkerDetailProvider extends ChangeNotifier {
     final result = await EditWorkerServices().getLanguage(context: context);
     if (result.isNotEmpty) {
       _languagesList = result;
+      _languagesList.sort((a, b) => a.name!.compareTo(b.name!));
       print("Length ${_languagesList.length}");
       print(_languagesList[0].name);
     }
@@ -598,6 +647,7 @@ class EditWorkerDetailProvider extends ChangeNotifier {
     final result = await EditWorkerServices().getCertificate(context: context);
     if (result.isNotEmpty) {
       _certificationList = result;
+      _certificationList.sort((a, b) => a.name!.compareTo(b.name!));
       print("Length ${_certificationList.length}");
       print(_certificationList[0].name);
     }
@@ -677,6 +727,7 @@ class EditWorkerDetailProvider extends ChangeNotifier {
     final result = await EditWorkerServices().getWorkerFlag(context: context);
     if (result.isNotEmpty) {
       _workerFlagList = result;
+      _workerFlagList.sort((a, b) => a.name!.compareTo(b.name!));
       print("Length ${_workerFlagList.length}");
       print(_workerFlagList[0].name);
     }

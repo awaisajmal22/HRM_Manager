@@ -16,14 +16,18 @@ class SelectUnionAffiliation extends StatelessWidget {
     return Consumer<AddWorkerProvider>(builder: (context, provider, __) {
       return GestureDetector(
         onTap: () async {
-          String value = await customDropDown(
-            dataList: provider.unionAfflicationList,
-            context: context,
-          );
+          String value = provider.unionAfflicationUnSelectedList.isEmpty
+              ? ''
+              : await customDropDown(
+                  dataList: provider.unionAfflicationUnSelectedList,
+                  context: context,
+                );
           if (value != '') {
-            for (var data in provider.unionAfflicationList) {
+            for (var data in provider.unionAfflicationUnSelectedList) {
               if (data.name == value) {
                 provider.selectUnionAffiliation(value, data.id!);
+                provider.removeUninonAfflicationFromUnselected(data.id!);
+                break;
               }
             }
           }
@@ -48,29 +52,31 @@ class SelectUnionAffiliation extends StatelessWidget {
                   context: context,
                   title: 'Select',
                   textColor: AppColor.lightPurpleColor.withOpacity(0.67))
-              :  Wrap(
-            spacing: 10,
-            runSpacing: 0,
-            direction: Axis.horizontal,
-            runAlignment: WrapAlignment.start,
-            alignment: WrapAlignment.start,
-            children: List.generate(
-              provider.selectedUnionAfflicationList.length,
-              (index) => Chip(
-                onDeleted: () {
-                  provider.removeUnionAfflication(index);
-                },
-                shape: const StadiumBorder(
-                    side: BorderSide(color: Colors.transparent)),
-                backgroundColor: AppColor.lightPinkColor,
-                label: appText(
-                  context: context,
-                  title: provider.selectedUnionAfflicationList[index],
+              : Wrap(
+                  spacing: 10,
+                  runSpacing: 0,
+                  direction: Axis.horizontal,
+                  runAlignment: WrapAlignment.start,
+                  alignment: WrapAlignment.start,
+                  children: List.generate(
+                    provider.selectedUnionAfflicationList.length,
+                    (index) => Chip(
+                      onDeleted: () {
+                        provider.removeUnionAfflication(
+                            provider.selectedUnionAfflicationIdList[index],
+                            provider.selectedUnionAfflicationList[index]);
+                      },
+                      shape: const StadiumBorder(
+                          side: BorderSide(color: Colors.transparent)),
+                      backgroundColor: AppColor.lightPinkColor,
+                      label: appText(
+                        context: context,
+                        title: provider.selectedUnionAfflicationList[index],
+                      ),
+                    ),
+                    growable: true,
+                  ),
                 ),
-              ),
-              growable: true,
-            ),
-          ),
         ),
       );
 

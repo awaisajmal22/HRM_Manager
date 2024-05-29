@@ -17,38 +17,40 @@ class EditSelectLanguageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<EditWorkerDetailProvider>(builder: (context, provider, __) {
-      return 
-      // addWorkerTextField(
-      //   context: context,
-      //   hintText: 'Language',
-      //   controller: provider.selectedLanguage,
-      //   height: context.getSize.height * 0.050,
-      //   readOnly: true,
-      //   onTap: () async {
-      //     final String language = await customDropDown(
-      //       dataList: provider.languagesList,
-      //       context: context,
-      //     );
-      //     if (language != '') {
-      //       for (var data in provider.languagesList) {
-      //         if (data.name == language) {
-      //           provider.selectLanguage(language, data.id!);
-      //         }
-      //       }
-      //     }
-      //   },
-      // );
-      
-      GestureDetector(
-        onTap: () async{
-         String value = await customDropDown(
-              dataList: provider.languagesList,
-              context: context,
-              );
-               if (value != '') {
+      return
+          // addWorkerTextField(
+          //   context: context,
+          //   hintText: 'Language',
+          //   controller: provider.selectedLanguage,
+          //   height: context.getSize.height * 0.050,
+          //   readOnly: true,
+          //   onTap: () async {
+          //     final String language = await customDropDown(
+          //       dataList: provider.languagesList,
+          //       context: context,
+          //     );
+          //     if (language != '') {
+          //       for (var data in provider.languagesList) {
+          //         if (data.name == language) {
+          //           provider.selectLanguage(language, data.id!);
+          //         }
+          //       }
+          //     }
+          //   },
+          // );
+
+          GestureDetector(
+        onTap: () async {
+          String value = provider.languagesList.isEmpty ? '': await customDropDown(
+            dataList: provider.languagesList,
+            context: context,
+          );
+          if (value != '') {
             for (var data in provider.languagesList) {
               if (data.name == value) {
                 provider.selectLanguage(value, data.id!);
+                provider.removeSelectedLanguageFromList(data.id!);
+                break;
               }
             }
           }
@@ -68,31 +70,38 @@ class EditSelectLanguageWidget extends StatelessWidget {
                 color: Color(0xffF5F5F5),
                 width: 1,
               )),
-          child:provider.selectedLanguageList.isEmpty ? appText(context: context, title: 'Select',textColor: AppColor.lightPurpleColor.withOpacity(0.67,))
-         :
-           Wrap(
-            spacing: 10,
-            runSpacing: 0,
-            direction: Axis.horizontal,
-            runAlignment: WrapAlignment.start,
-            alignment: WrapAlignment.start,
-            children: List.generate(
-              provider.selectedLanguageList.length,
-              (index) => Chip(
-                onDeleted: () {
-                  provider.removeSelectedLanguage(index);
-                },
-                shape: const StadiumBorder(
-                    side: BorderSide(color: Colors.transparent)),
-                backgroundColor: AppColor.lightPinkColor,
-                label: appText(
+          child: provider.selectedLanguageList.isEmpty
+              ? appText(
                   context: context,
-                  title: provider.selectedLanguageList[index],
+                  title: 'Select',
+                  textColor: AppColor.lightPurpleColor.withOpacity(
+                    0.67,
+                  ))
+              : Wrap(
+                  spacing: 10,
+                  runSpacing: 0,
+                  direction: Axis.horizontal,
+                  runAlignment: WrapAlignment.start,
+                  alignment: WrapAlignment.start,
+                  children: List.generate(
+                    provider.selectedLanguageList.length,
+                    (index) => Chip(
+                      onDeleted: () {
+                        provider.removeSelectedLanguage(
+                            provider.selectedLanguageIDList[index],
+                            provider.selectedLanguageList[index]);
+                      },
+                      shape: const StadiumBorder(
+                          side: BorderSide(color: Colors.transparent)),
+                      backgroundColor: AppColor.lightPinkColor,
+                      label: appText(
+                        context: context,
+                        title: provider.selectedLanguageList[index],
+                      ),
+                    ),
+                    growable: true,
+                  ),
                 ),
-              ),
-              growable: true,
-            ),
-          ),
         ),
       );
     });

@@ -39,21 +39,24 @@ class EditWorkerFlagWidget extends StatelessWidget {
 //           }
 //         },
 //       );
-    // });
-       GestureDetector(
-        onTap: () async{
-         String value = await customDropDown(
-              dataList: provider.workerFlagList,
-              context: context,
-              );
-               if (value != '') {
-            for(var data in provider.workerFlagList){
-            
-if(data.name == value){
-  provider.selectWorkerFlag(value,data.id!);
-}
+          // });
+          GestureDetector(
+        onTap: () async {
+          String value = provider.workerFlagList.isEmpty
+              ? ''
+              : await customDropDown(
+                  dataList: provider.workerFlagList,
+                  context: context,
+                );
+          if (value != '') {
+            for (var data in provider.workerFlagList) {
+              if (data.name == value) {
+                provider.selectWorkerFlag(value, data.id!);
+                provider.removeSelectedFlag(data.id!);
+                break;
+              }
             }
-               }
+          }
         },
         child: Container(
           alignment: Alignment.centerLeft,
@@ -70,31 +73,38 @@ if(data.name == value){
                 color: Color(0xffF5F5F5),
                 width: 1,
               )),
-          child:provider.selectedWorkerFlagList.isEmpty ? appText(context: context, title: 'Select',textColor: AppColor.lightPurpleColor.withOpacity(0.67,))
-         :
-           Wrap(
-            spacing: 10,
-            runSpacing: 0,
-            direction: Axis.horizontal,
-            runAlignment: WrapAlignment.start,
-            alignment: WrapAlignment.start,
-            children: List.generate(
-              provider.selectedWorkerFlagList.length,
-              (index) => Chip(
-                onDeleted: () {
-                  provider.removeWorkerFlag(index);
-                },
-                shape: const StadiumBorder(
-                    side: BorderSide(color: Colors.transparent)),
-                backgroundColor: AppColor.lightPinkColor,
-                label: appText(
+          child: provider.selectedWorkerFlagList.isEmpty
+              ? appText(
                   context: context,
-                  title: provider.selectedWorkerFlagList[index],
+                  title: 'Select',
+                  textColor: AppColor.lightPurpleColor.withOpacity(
+                    0.67,
+                  ))
+              : Wrap(
+                  spacing: 10,
+                  runSpacing: 0,
+                  direction: Axis.horizontal,
+                  runAlignment: WrapAlignment.start,
+                  alignment: WrapAlignment.start,
+                  children: List.generate(
+                    provider.selectedWorkerFlagList.length,
+                    (index) => Chip(
+                      onDeleted: () {
+                        provider.removeWorkerFlag(
+                            provider.selectedWorkerFlagIdList[index],
+                            provider.selectedWorkerFlagList[index]);
+                      },
+                      shape: const StadiumBorder(
+                          side: BorderSide(color: Colors.transparent)),
+                      backgroundColor: AppColor.lightPinkColor,
+                      label: appText(
+                        context: context,
+                        title: provider.selectedWorkerFlagList[index],
+                      ),
+                    ),
+                    growable: true,
+                  ),
                 ),
-              ),
-              growable: true,
-            ),
-          ),
         ),
       );
     });

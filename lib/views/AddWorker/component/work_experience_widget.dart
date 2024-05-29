@@ -16,14 +16,18 @@ class SelectWorkExperience extends StatelessWidget {
     return Consumer<AddWorkerProvider>(builder: (context, provider, __) {
       return GestureDetector(
         onTap: () async {
-          String value = await customDropDown(
-            dataList: provider.workerExperienceList,
-            context: context,
-          );
+          String value = provider.workerExperienceUnSelectedList.isEmpty
+              ? ''
+              : await customDropDown(
+                  dataList: provider.workerExperienceUnSelectedList,
+                  context: context,
+                );
           if (value != '') {
-            for (var data in provider.workerExperienceList) {
+            for (var data in provider.workerExperienceUnSelectedList) {
               if (data.name == value) {
                 provider.selectWorkExperience(value, data.id!);
+                provider.removeWorkExperienceFromUnselected(data.id!);
+                break;
               }
             }
           }
@@ -58,7 +62,9 @@ class SelectWorkExperience extends StatelessWidget {
                     provider.selectedWorkExpList.length,
                     (index) => Chip(
                       onDeleted: () {
-                        provider.removeWorkExperience(index);
+                        provider.removeWorkExperienceFromField(
+                            provider.selectedWorkExpIDList[index],
+                            provider.selectedWorkExpList[index]);
                       },
                       shape: const StadiumBorder(
                           side: BorderSide(color: Colors.transparent)),

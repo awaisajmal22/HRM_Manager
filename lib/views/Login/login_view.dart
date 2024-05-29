@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:hrm_manager/WidgetandBindings/app_routes.dart';
 import 'package:hrm_manager/constant/app_text.dart';
@@ -9,6 +11,7 @@ import 'package:hrm_manager/constant/toast.dart';
 import 'package:hrm_manager/extensions/size_extension.dart';
 import 'package:hrm_manager/provider/login_provider.dart';
 import 'package:hrm_manager/constant/app_color.dart';
+import 'package:new_version_plus/new_version_plus.dart';
 import 'package:provider/provider.dart';
 
 class LoginView extends StatefulWidget {
@@ -20,8 +23,10 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   bool _isOutLoginCheck = false;
+  
   @override
   void initState() {
+   
     if (_isOutLoginCheck == false) {
       Provider.of<LoginProvider>(
         context,

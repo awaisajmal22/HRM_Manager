@@ -20,14 +20,18 @@ class EditSelectJobSite extends StatelessWidget {
     return Consumer<EditWorkerDetailProvider>(builder: (context, provider, __) {
       return GestureDetector(
         onTap: () async {
-          final String selectedSite = await customDropDown(
-            dataList: provider.jobSitesList,
-            context: context,
-          );
+          final String selectedSite = provider.jobSitesList.isEmpty
+              ? ''
+              : await customDropDown(
+                  dataList: provider.jobSitesList,
+                  context: context,
+                );
           if (selectedSite != '') {
             for (var data in provider.jobSitesList) {
               if (data.name == selectedSite) {
                 provider.selectJobSite(selectedSite, data.id!);
+                provider.removeSelectedJobSite(data.id!);
+                break;
               }
             }
           }
@@ -47,30 +51,38 @@ class EditSelectJobSite extends StatelessWidget {
                 color: Colors.black.withOpacity(0.06),
                 width: 1,
               )),
-          child: provider.selectedJobSitesList.isEmpty ? appText(context: context, title: 'Select',textColor: AppColor.lightPurpleColor.withOpacity(0.67,))
-         : Wrap(
-            spacing: 10,
-            runSpacing: 0,
-            direction: Axis.horizontal,
-            runAlignment: WrapAlignment.start,
-            alignment: WrapAlignment.start,
-            children: List.generate(
-              provider.selectedJobSitesList.length,
-              (index) => Chip(
-                onDeleted: () {
-                  provider.removeJobSite(index);
-                },
-                shape: const StadiumBorder(
-                    side: BorderSide(color: Colors.transparent)),
-                backgroundColor: AppColor.lightPinkColor,
-                label: appText(
+          child: provider.selectedJobSitesList.isEmpty
+              ? appText(
                   context: context,
-                  title: provider.selectedJobSitesList[index],
+                  title: 'Select',
+                  textColor: AppColor.lightPurpleColor.withOpacity(
+                    0.67,
+                  ))
+              : Wrap(
+                  spacing: 10,
+                  runSpacing: 0,
+                  direction: Axis.horizontal,
+                  runAlignment: WrapAlignment.start,
+                  alignment: WrapAlignment.start,
+                  children: List.generate(
+                    provider.selectedJobSitesList.length,
+                    (index) => Chip(
+                      onDeleted: () {
+                        provider.removeJobSite(
+                            provider.selectedJobSitesIDList[index],
+                            provider.selectedJobSitesList[index]);
+                      },
+                      shape: const StadiumBorder(
+                          side: BorderSide(color: Colors.transparent)),
+                      backgroundColor: AppColor.lightPinkColor,
+                      label: appText(
+                        context: context,
+                        title: provider.selectedJobSitesList[index],
+                      ),
+                    ),
+                    growable: true,
+                  ),
                 ),
-              ),
-              growable: true,
-            ),
-          ),
         ),
       );
     });

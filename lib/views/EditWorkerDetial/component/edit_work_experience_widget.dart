@@ -16,20 +16,24 @@ class EditSelectWorkExperience extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<EditWorkerDetailProvider>(builder: (context, provider, __) {
-      return  GestureDetector(
-        onTap: () async{
-         String value = await customDropDown(
-              dataList: provider.workerExperienceList,
-              context: context,
-              );
-               if (value != '') {
-            for(var data in provider.workerExperienceList){
-            
-if(data.name == value){
-  provider.selectWorkExperience(value,data.id!);
-}
+      return GestureDetector(
+        onTap: () async {
+          String value = provider.workerExperienceList.isEmpty
+              ? ''
+              : await customDropDown(
+                  dataList: provider.workerExperienceList,
+                  context: context,
+                );
+          if (value != '') {
+            for (var data in provider.workerExperienceList) {
+              if (data.name == value) {
+                provider.selectWorkExperience(value, data.id!);
+
+                provider.removeSelectedWorkExperience(data.id!);
+                break;
+              }
             }
-               }
+          }
         },
         child: Container(
           alignment: Alignment.centerLeft,
@@ -46,30 +50,38 @@ if(data.name == value){
                 color: Color(0xffF5F5F5),
                 width: 1,
               )),
-          child:provider.selectedWorkExperienceList.isEmpty ? appText(context: context, title: 'Select',textColor: AppColor.lightPurpleColor.withOpacity(0.67,))
-         : Wrap(
-            spacing: 10,
-            runSpacing: 0,
-            direction: Axis.horizontal,
-            runAlignment: WrapAlignment.start,
-            alignment: WrapAlignment.start,
-            children: List.generate(
-              provider.selectedWorkExperienceList.length,
-              (index) => Chip(
-                onDeleted: () {
-                  provider.removeWorkExperience(index);
-                },
-                shape: const StadiumBorder(
-                    side: BorderSide(color: Colors.transparent)),
-                backgroundColor: AppColor.lightPinkColor,
-                label: appText(
+          child: provider.selectedWorkExperienceList.isEmpty
+              ? appText(
                   context: context,
-                  title: provider.selectedWorkExperienceList[index],
+                  title: 'Select',
+                  textColor: AppColor.lightPurpleColor.withOpacity(
+                    0.67,
+                  ))
+              : Wrap(
+                  spacing: 10,
+                  runSpacing: 0,
+                  direction: Axis.horizontal,
+                  runAlignment: WrapAlignment.start,
+                  alignment: WrapAlignment.start,
+                  children: List.generate(
+                    provider.selectedWorkExperienceList.length,
+                    (index) => Chip(
+                      onDeleted: () {
+                        provider.removeWorkExperience(
+                            provider.selectedWorkExperienceIdList[index],
+                            provider.selectedWorkExperienceList[index]);
+                      },
+                      shape: const StadiumBorder(
+                          side: BorderSide(color: Colors.transparent)),
+                      backgroundColor: AppColor.lightPinkColor,
+                      label: appText(
+                        context: context,
+                        title: provider.selectedWorkExperienceList[index],
+                      ),
+                    ),
+                    growable: true,
+                  ),
                 ),
-              ),
-              growable: true,
-            ),
-          ),
         ),
       );
       // editAddWorkerTextField(
