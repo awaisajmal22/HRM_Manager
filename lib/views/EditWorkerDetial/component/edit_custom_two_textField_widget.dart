@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hrm_manager/constant/app_text.dart';
 import 'package:hrm_manager/constant/height_box.dart';
 import 'package:hrm_manager/constant/width_box.dart';
@@ -14,6 +15,8 @@ class EditCustomTwoTextFieldWidget extends StatelessWidget {
   final bool rightReadOnly;
   final TextInputType textInputTypeLeft;
   final TextInputType textInputTypeRight;
+final List<TextInputFormatter>? formatterLeft;
+final List<TextInputFormatter>? formatterRight;
 
   final String titleRight;
 
@@ -26,6 +29,8 @@ class EditCustomTwoTextFieldWidget extends StatelessWidget {
     this.hintLeft = '',
     this.hintRight = '',
     this.rightReadOnly = false,
+    this.formatterLeft,
+    this.formatterRight,
     this.textInputTypeLeft = TextInputType.text,
     this.textInputTypeRight = TextInputType.text,
   });
@@ -46,6 +51,7 @@ class EditCustomTwoTextFieldWidget extends StatelessWidget {
             ),
             getHeight(context: context, height: 0.005),
             addWorkerTextField(
+              formatter: formatterLeft,
               textInputType: textInputTypeLeft,
               context: context,
               hintText: hintLeft,
@@ -67,6 +73,7 @@ class EditCustomTwoTextFieldWidget extends StatelessWidget {
             ),
             getHeight(context: context, height: 0.005),
             addWorkerTextField(
+              formatter: formatterRight,
               textInputType: textInputTypeRight,
               readOnly: rightReadOnly,
               context: context,

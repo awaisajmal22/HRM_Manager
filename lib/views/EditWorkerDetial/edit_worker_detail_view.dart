@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hrm_manager/Model/add_worker_drop_down_model.dart';
 import 'package:hrm_manager/Model/worker_by_id_model.dart';
@@ -10,12 +11,14 @@ import 'package:hrm_manager/constant/back.dart';
 import 'package:hrm_manager/constant/check_widget.dart';
 import 'package:hrm_manager/constant/constant.dart';
 import 'package:hrm_manager/constant/height_box.dart';
+import 'package:hrm_manager/constant/input_formatter.dart';
 import 'package:hrm_manager/constant/rich_text.dart';
 import 'package:hrm_manager/constant/text_button.dart';
 import 'package:hrm_manager/constant/toast.dart';
 import 'package:hrm_manager/constant/width_box.dart';
 import 'package:hrm_manager/extensions/nullable_string_extension.dart';
 import 'package:hrm_manager/extensions/phone_validation.dart';
+import 'package:hrm_manager/extensions/postal_code.dart';
 import 'package:hrm_manager/extensions/size_extension.dart';
 import 'package:hrm_manager/provider/add_worker_provider.dart';
 import 'package:hrm_manager/provider/edit_worker_detail_provider.dart';
@@ -950,7 +953,12 @@ class _EditWorkerDetailViewState extends State<EditWorkerDetailView> {
                     titleLeft: 'Business Name',
                     titleRight: 'Business Telephone',
                     hintLeft: 'Enter Business Name',
-                    hintRight: 'Enter Business Telephone',
+                    hintRight: '(123) 123-1234',
+                    textInputTypeRight: TextInputType.phone,
+                    formatterRight: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      PhoneNumberFormatter(),
+                    ],
                   ),
                   getHeight(context: context, height: 0.010),
                   EditCustomTwoTextFieldWidget(
@@ -982,12 +990,22 @@ class _EditWorkerDetailViewState extends State<EditWorkerDetailView> {
                   ),
                   getHeight(context: context, height: 0.010),
                   EditCustomTwoTextFieldWidget(
+                    textInputTypeRight: TextInputType.phone,
+                    formatterRight: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      PhoneNumberFormatter(),
+                    ],
+                    textInputTypeLeft: TextInputType.phone,
+                    formatterLeft: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      PhoneNumberFormatter(),
+                    ],
                     controllerLeft: provider.mobileTelephoneController,
                     controllerRight: provider.homeTelephoneController,
                     titleLeft: 'Mobile Telephone',
                     titleRight: 'Home Telephone',
-                    hintLeft: 'Enter Mobile Telephone',
-                    hintRight: 'Enter Home Telephone',
+                    hintLeft: '(123) 123-1234',
+                    hintRight: '(123) 123-1234',
                   ),
                   getHeight(context: context, height: 0.010),
                   richText(
@@ -1011,8 +1029,18 @@ class _EditWorkerDetailViewState extends State<EditWorkerDetailView> {
                     controllerRight: provider.emergencyTelephone1Controller,
                     titleLeft: 'Emergency Contact 1',
                     titleRight: 'Emergency Telephone 1',
-                    hintLeft: 'Enter Emergency Contact 1',
-                    hintRight: 'Enter Emergency Telephone 1',
+                    hintLeft: '(123) 123-1234',
+                    hintRight: '(123) 123-1234',
+                    textInputTypeRight: TextInputType.phone,
+                    formatterRight: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      PhoneNumberFormatter(),
+                    ],
+                    textInputTypeLeft: TextInputType.phone,
+                    formatterLeft: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      PhoneNumberFormatter(),
+                    ],
                   ),
                   getHeight(context: context, height: 0.010),
                   EditCustomTwoTextFieldWidget(
@@ -1020,8 +1048,18 @@ class _EditWorkerDetailViewState extends State<EditWorkerDetailView> {
                     controllerRight: provider.emergencyTelephone2Controller,
                     titleLeft: 'Emergency Contact 2',
                     titleRight: 'Emergency Telephone 2',
-                    hintLeft: 'Enter Emergency Contact 2',
-                    hintRight: 'Enter Emergency Telephone 2',
+                    hintLeft: '(123) 123-1234',
+                    hintRight: '(123) 123-1234',
+                    textInputTypeRight: TextInputType.phone,
+                    formatterRight: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      PhoneNumberFormatter(),
+                    ],
+                    textInputTypeLeft: TextInputType.phone,
+                    formatterLeft: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      PhoneNumberFormatter(),
+                    ],
                   ),
                   getHeight(context: context, height: 0.010),
                   Row(
@@ -1454,6 +1492,12 @@ class _EditWorkerDetailViewState extends State<EditWorkerDetailView> {
                 onTap: () {
                   if (provider.recruiterId == null) {
                     toast(msg: 'Kindly assign recruiter', context: context);
+                  } else if (provider.postalCodeController.text.isNotEmpty &&
+                      validateCanadianPostalCode(provider.postalCodeController.text) ==
+                          false) {
+                    toast(
+                        msg: 'Please enter valid postal code',
+                        context: context);
                   } else if (provider.clientIdController.text.isEmpty ||
                       provider.clientIdController.text == '') {
                     toast(msg: 'Client id cannot be empty', context: context);
@@ -1491,60 +1535,48 @@ class _EditWorkerDetailViewState extends State<EditWorkerDetailView> {
                     toast(
                         msg: "Please select TimeSheet Type", context: context);
                   } else if (provider.businessTelephoneController.text.isNotEmpty &&
-                      validateCanadianPhoneNumber(
-                              provider.businessTelephoneController.text) ==
+                      validateCanadianPhoneNumber(provider.businessTelephoneController.text) ==
                           false) {
                     toast(
-                        msg: "Please select valid bussiness Telephone",
+                        msg: "Please enter valid bussiness Telephone like (123) 123-1234",
                         context: context);
                   } else if (provider.mobileTelephoneController.text.isNotEmpty &&
                       validateCanadianPhoneNumber(provider.mobileTelephoneController.text) ==
                           false) {
                     toast(
-                        msg: "Please select valid Mobile Number",
+                        msg: "Please enter valid Mobile Number like (123) 123-1234",
                         context: context);
                   } else if (provider.homeTelephoneController.text.isNotEmpty &&
                       validateCanadianPhoneNumber(provider.homeTelephoneController.text) ==
                           false) {
                     toast(
-                        msg: "Please select valid Home Telephone",
+                        msg: "Please enter valid Home Telephone like (123) 123-1234",
                         context: context);
                   } else if (provider.emergencyContact1Controller.text.isNotEmpty &&
-                      validateCanadianPhoneNumber(
-                              provider.emergencyContact1Controller.text) ==
+                      validateCanadianPhoneNumber(provider.emergencyContact1Controller.text) ==
                           false) {
                     toast(
-                        msg: "Please select valid Emergency Contact",
+                        msg: "Please enter valid Emergency Contact 1 like (123) 123-1234",
                         context: context);
-                  } 
-                  else if (provider
-                          .emergencyContact2Controller.text.isNotEmpty &&
-                      validateCanadianPhoneNumber(
-                              provider.emergencyContact2Controller.text) ==
+                  } else if (provider.emergencyContact2Controller.text.isNotEmpty &&
+                      validateCanadianPhoneNumber(provider.emergencyContact2Controller.text) ==
                           false) {
                     toast(
-                        msg: "Please select valid Emergency Contact",
+                        msg: "Please enter valid Emergency Contact 2 like (123) 123-1234",
                         context: context);
-                  } 
-                  else if (provider
-                          .emergencyTelephone1Controller.text.isNotEmpty &&
+                  } else if (provider.emergencyTelephone1Controller.text.isNotEmpty &&
                       validateCanadianPhoneNumber(
                               provider.emergencyTelephone1Controller.text) ==
                           false) {
                     toast(
-                        msg: "Please select valid Emergency Telephone",
+                        msg: "Please enter valid Emergency Telephone 1 like (123) 123-1234",
                         context: context);
-                  } 
-                  else if (provider
-                          .emergencyTelephone2Controller.text.isNotEmpty &&
-                      validateCanadianPhoneNumber(
-                              provider.emergencyTelephone2Controller.text) ==
-                          false) {
+                  } else if (provider.emergencyTelephone2Controller.text.isNotEmpty &&
+                      validateCanadianPhoneNumber(provider.emergencyTelephone2Controller.text) == false) {
                     toast(
-                        msg: "Please select valid Emergency Telephone",
+                        msg: "Please enter valid Emergency Telephone 2 like (123) 123-1234",
                         context: context);
-                  } 
-                  else {
+                  } else {
                     provider.addWorkerData(
                       context: context,
                       workerID: int.parse(widget.workerModel.id.toString()),

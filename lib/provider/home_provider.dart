@@ -19,7 +19,7 @@ List<AllTradeModel> get tradesList => _tradesList;
   
 final result =await AllTradesServices().getAllTrade(context: context);
 if(result.isNotEmpty){
-  result.add(AllTradeModel(id: 0,tradeOptionName: 'All Trades',description: ''));
+  result.add(AllTradeModel(id: -1,tradeOptionName: 'All Trades',description: ''));
   result.sort((a, b) => a.tradeOptionName!.compareTo(b.tradeOptionName!));
 
   _tradesList = result;

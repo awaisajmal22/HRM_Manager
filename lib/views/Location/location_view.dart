@@ -120,7 +120,7 @@ class _LocationViewState extends State<LocationView> {
                               provider.selectLocation(location, index);
                               Navigator.pushNamed(
                                   context, AppRoutes.avaliableWorkerView,
-                                  arguments: ['All Trades', 0, location]);
+                                  arguments: ['All Trades', -1, location]);
                             },
                             child: Container(
                               padding: EdgeInsets.symmetric(

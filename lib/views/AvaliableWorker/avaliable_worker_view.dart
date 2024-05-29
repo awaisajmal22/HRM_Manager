@@ -83,6 +83,7 @@ class _AvaliableWorkerViewState extends State<AvaliableWorkerView> {
   @override
   void dispose() {
     pv.clearData();
+    Provider.of<AvaliableWorkerProvider>(context, listen: false).clearMinMax();
     super.dispose();
   }
 
@@ -205,9 +206,15 @@ class _AvaliableWorkerViewState extends State<AvaliableWorkerView> {
                       },
                       openFilter: () {
                         provider.openFilter(!provider.isFilterOpen);
+                        if (provider.isFilterOpen == true) {
+                          provider.clearFilterList();
+                          //   provider.getFiltrationDataFunc(context: context);
+                        }
                       },
                     ),
-                    FilterWidget(
+                    filterWidget(
+                      provider: provider,
+                      context: context,
                       location: widget.location,
                       name: widget.name,
                       id: widget.id,

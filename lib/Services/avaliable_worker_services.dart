@@ -14,7 +14,8 @@ class AvaliableWorkerServices {
       {required BuildContext context}) async {
     List<StatusAndFlagModel> statusModelList = <StatusAndFlagModel>[];
     try {
-      final response = await API().getRequestHeader(context, ApiUrl.workerStatusUrl);
+      final response =
+          await API().getRequestHeader(context, ApiUrl.workerStatusUrl);
       if (response.statusCode == 200) {
         response.data.forEach(
             (dt) => statusModelList.add(StatusAndFlagModel.fromJson(dt)));
@@ -28,7 +29,8 @@ class AvaliableWorkerServices {
       {required BuildContext context}) async {
     List<StatusAndFlagModel> statusModelList = <StatusAndFlagModel>[];
     try {
-      final response = await API().getRequestHeader(context, ApiUrl.workerFlagUrl);
+      final response =
+          await API().getRequestHeader(context, ApiUrl.workerFlagUrl);
       if (response.statusCode == 200) {
         response.data.forEach(
             (dt) => statusModelList.add(StatusAndFlagModel.fromJson(dt)));
@@ -49,33 +51,37 @@ class AvaliableWorkerServices {
   }) async {
     List<Datum> filtrationResponseModel = <Datum>[];
     FormData data = FormData.fromMap({
-      'TradeId': tradeID,
+      'TradeId': tradeID == -1 ? null : tradeID,
       "Location": city == "" ? null : city,
-      "StatusId": statusID,
-      "FlagId": flagID,
+      "StatusId": statusID == -1 ? null : statusID,
+      "FlagId": flagID == -1 ? null : flagID,
       "StartPrice": startPrice == '' || startPrice == null
           ? null
           : double.parse(startPrice),
       "EndPrice":
           endPrice == '' || endPrice == null ? null : double.parse(endPrice)
     });
-    print("Trade ID Is $tradeID");
+    print("Start ID Is ${data.fields}");
     print("FLag ID Is $flagID");
     print("status ID Is $statusID");
     print("city ID Is $city");
+    print("Start ID Is $startPrice");
+    print("Start ID Is $endPrice");
 
     try {
       final response =
           await API().postRequestHeader(context, ApiUrl.filterationUrl, data);
+      print("Fil Data is ${response.statusCode}");
       if (response.statusCode == 200) {
         print("Fil Data is ${response.statusCode}");
         print("Fil Data is ${response.data}");
-final decodedData = jsonDecode(response.data);
-       decodedData["data"].forEach((element) {
+        final decodedData = jsonDecode(response.data);
+        decodedData["data"].forEach((element) {
           filtrationResponseModel.add(Datum.fromJson(element));
         });
       }
     } catch (e) {}
     return filtrationResponseModel;
   }
+  
 }

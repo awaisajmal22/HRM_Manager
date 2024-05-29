@@ -30,7 +30,9 @@ class AvaliableWorkerProvider extends ChangeNotifier {
   TextEditingController workerTypeController = TextEditingController();
   TextEditingController locationController = TextEditingController();
   TextEditingController minController = TextEditingController();
+  TextEditingController minMainController = TextEditingController();
   TextEditingController maxController = TextEditingController();
+  TextEditingController maxMainController = TextEditingController();
   bool _isFilterOpen = false;
   bool get isFilterOpen => _isFilterOpen;
   openFilter(bool value) {
@@ -80,19 +82,48 @@ class AvaliableWorkerProvider extends ChangeNotifier {
     // notifyListeners();
   }
 
-  Future removeFilter(int index, BuildContext context) async{
-    _filteredList.removeAt(index);
+  Future removeFilter(String val, BuildContext context) async {
+    print("TRADE IS THIS $val");
+    _filteredList.removeWhere((element) => element == val);
     notifyListeners();
   }
 
   void clearData() {
     _filteredList.clear();
     filteredList.clear();
-  _filtrationResponseList.clear();
-  filtrationResponseList.clear();
+    _filtrationResponseList.clear();
+    filtrationResponseList.clear();
     _isFilterOpen = false;
 
     print("dispoe true");
+  }
+
+  clearFilterList() {
+    workerTypeController.clear();
+    locationController.clear();
+    maxController.clear();
+    minController.clear();
+    // selectTradeOption('Sel
+  }
+
+  clearMinMax() {
+    minMainController.clear();
+    minMainController.clear();
+    notifyListeners();
+  }
+
+  changeminVal(
+    String val,
+  ) {
+    minMainController.text = val;
+    notifyListeners();
+  }
+
+  changemaxVal(
+    String val,
+  ) {
+    maxMainController.text = val;
+    notifyListeners();
   }
 
   void clearTextField() {
@@ -299,12 +330,13 @@ class AvaliableWorkerProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-bool _isLoaded = false;
-bool get isLoaded => _isLoaded;
-changeLoadedData(){
-  _isLoaded = false;
-  notifyListeners();
-}
+  bool _isLoaded = false;
+  bool get isLoaded => _isLoaded;
+  changeLoadedData() {
+    _isLoaded = false;
+    notifyListeners();
+  }
+
   List<Datum> _filtrationResponseList = <Datum>[];
   List<Datum> get filtrationResponseList => _filtrationResponseList;
   Future getFiltrationDataFunc({
@@ -322,7 +354,7 @@ changeLoadedData(){
     print("Trade ID $tradeID");
     final result = await AvaliableWorkerServices().getFiltrationData(
       context: context,
-      tradeID: tradeID,
+      tradeID: tradeID == -1 ? null : tradeID,
       city: city ?? '',
       statusID: statusID == -1 ? null : statusID,
       flagID: flagID == -1 ? null : flagID,
@@ -363,8 +395,8 @@ changeLoadedData(){
     final result = await AllTradesServices().getAllTrade(context: context);
     if (result.isNotEmpty) {
       result.sort((a, b) => a.tradeOptionName!.compareTo(b.tradeOptionName!));
-      result.add(
-          AllTradeModel(id: 0, description: '', tradeOptionName: 'All Trades'));
+      result.add(AllTradeModel(
+          id: -1, description: '', tradeOptionName: 'All Trades'));
       _tradeOptionList = result;
 
       for (var data in result) {
@@ -379,7 +411,7 @@ changeLoadedData(){
   String _tradeOptionName = 'All Trades';
   String get tradeOptionName => _tradeOptionName;
 
-  int _tradeOptionId = 0;
+  int _tradeOptionId = -1;
   int get tradeOptionId => _tradeOptionId;
   selectTradeOption(String tradeOption, int id) {
     if (!tradeOptionName.contains(tradeOption)) {
@@ -419,14 +451,14 @@ changeLoadedData(){
         print(directory!.path);
       } else {}
     } else if (Platform.isIOS) {
-    if (await requestPermission()) {
-      directory = await getTemporaryDirectory();
+      if (await requestPermission()) {
+        directory = await getTemporaryDirectory();
+      } else {
+        throw Exception("Photos permission denied");
+      }
     } else {
-      throw Exception("Photos permission denied");
+      throw Exception("Unsupported platform");
     }
-  } else {
-    throw Exception("Unsupported platform");
-  }
 
     String saveFile = '';
     if (isProfile) {
@@ -460,8 +492,8 @@ changeLoadedData(){
     return saveFile;
   }
 
-  bool containsMatchingName(List<String> list1, List<StatusAndFlagModel> list2,
-      String value ) {
+  bool containsMatchingName(
+      List<String> list1, List<StatusAndFlagModel> list2, String value) {
     bool foundMatch = false;
 
     for (var model in list2) {
@@ -476,7 +508,6 @@ changeLoadedData(){
       if (foundMatch) {
         break;
       }
-      
     }
 
     return foundMatch;
@@ -501,5 +532,4 @@ changeLoadedData(){
 
     return foundMatch;
   }
-
 }

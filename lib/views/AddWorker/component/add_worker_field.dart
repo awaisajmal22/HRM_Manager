@@ -19,6 +19,7 @@ addWorkerTextField({
   bool readOnly = false,
   bool isDecimal = false,
   int? maxLines,
+  List<TextInputFormatter>? formatter,
   OnChanged? onChanged,
 }) {
   final border = OutlineInputBorder(
@@ -36,11 +37,7 @@ addWorkerTextField({
     height: height,
     child: TextFormField(
       
-       inputFormatters: isDecimal == true
-          ? [
-              LengthLimitingTextInputFormatter(2),
-            ]
-          : [],
+       inputFormatters:formatter,
       maxLines: maxLines ?? 1,
       textInputAction: textInputAction,
       readOnly: readOnly,
