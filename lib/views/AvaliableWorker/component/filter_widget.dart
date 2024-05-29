@@ -304,17 +304,17 @@ Widget filterWidget(
                           msg: 'min price must be lower than max price',
                           context: context);
                     }
-                    if (provider.tradeOptionName != 'Select' ||
-                        provider.tradeOptionName != '') {
-                      bool isCheck = provider.containsMatchingTradeName(
-                          provider.filteredList,
-                          provider.tradeOptionList,
-                          provider.tradeOptionName);
-                      if (isCheck == true) {
-                      } else {
-                        provider.addFilter(provider.tradeOptionName);
-                      }
-                    }
+                    // if (provider.tradeOptionName != 'Select' ||
+                    //     provider.tradeOptionName != '') {
+                    //   bool isCheck = provider.containsMatchingTradeName(
+                    //       provider.filteredList,
+                    //       provider.tradeOptionList,
+                    //       provider.tradeOptionName);
+                    //   if (isCheck == true) {
+                    //   } else {
+                    //     provider.addFilter(provider.tradeOptionName);
+                    //   }
+                    // }
                     if (provider.selectedStatus != 'Select' ||
                         provider.selectedStatus != '') {
                       final isFound = provider.containsMatchingName(

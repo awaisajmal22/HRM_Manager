@@ -752,7 +752,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                     controllerRight: provider.emergencyTelephone2Controller,
                     titleLeft: 'Emergency Contact 2',
                     titleRight: 'Emergency Telephone 2',
-                    hintLeft: 'E(123) 123-1234',
+                    hintLeft: '(123) 123-1234',
                     hintRight: '(123) 123-1234',
                     textInputTypeRight: TextInputType.phone,
                     formatterRight: [
