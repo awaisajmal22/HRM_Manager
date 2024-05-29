@@ -33,6 +33,8 @@ class AvaliableWorkerProvider extends ChangeNotifier {
   TextEditingController minMainController = TextEditingController();
   TextEditingController maxController = TextEditingController();
   TextEditingController maxMainController = TextEditingController();
+  TextEditingController locationMainController = TextEditingController();
+  TextEditingController locationvalController = TextEditingController();
   bool _isFilterOpen = false;
   bool get isFilterOpen => _isFilterOpen;
   openFilter(bool value) {
@@ -109,13 +111,26 @@ class AvaliableWorkerProvider extends ChangeNotifier {
   clearMinMax() {
     minMainController.clear();
     minMainController.clear();
-    notifyListeners();
+    locationMainController.clear();
+    // notifyListeners();
   }
 
   changeminVal(
     String val,
   ) {
     minMainController.text = val;
+    notifyListeners();
+  }
+
+  changeLocation(String val) {
+    locationMainController.text = val;
+    notifyListeners();
+  }
+
+  changeLocationVal(String val) {
+    locationvalController.text = val;
+    locationMainController.text = val;
+    locationController.text = val;
     notifyListeners();
   }
 

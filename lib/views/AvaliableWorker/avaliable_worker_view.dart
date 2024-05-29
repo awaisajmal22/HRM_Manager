@@ -57,6 +57,9 @@ class _AvaliableWorkerViewState extends State<AvaliableWorkerView> {
     final pv = Provider.of<AvaliableWorkerProvider>(context, listen: false);
     pv.getStatusList(context: context);
     pv.locationController.text = widget.location;
+    pv.locationvalController.text = widget.location;
+    print("Location ${widget.location}");
+    pv.locationMainController.text = widget.location;
     pv.getTradeOption(context: context).whenComplete(() {
       if (widget.name != '') {
         pv.selectTradeOption(widget.name, widget.id);
@@ -188,8 +191,21 @@ class _AvaliableWorkerViewState extends State<AvaliableWorkerView> {
                               provider.selectTradeOption(
                                   data.tradeOptionName!, data.id!);
                               provider.getFiltrationDataFunc(
-                                  context: context,
-                                  tradeID: provider.tradeOptionId);
+                                context: context,
+                                tradeID: provider.tradeOptionId == 0
+                                    ? null
+                                    : provider.tradeOptionId,
+                                city: provider.locationController.text,
+                                statusID: provider.selectedStatusID,
+                                flagID: provider.selectedFalgID,
+                                startPrice:
+                                    provider.minMainController.text == ''
+                                        ? null
+                                        : provider.minMainController.text,
+                                endPrice: provider.maxMainController.text == ''
+                                    ? null
+                                    : provider.maxMainController.text,
+                              );
                             }
                           }
                         } else {
@@ -198,8 +214,21 @@ class _AvaliableWorkerViewState extends State<AvaliableWorkerView> {
                               provider.selectTradeOption(
                                   data.tradeOptionName!, data.id!);
                               provider.getFiltrationDataFunc(
-                                  context: context,
-                                  tradeID: provider.tradeOptionId);
+                                context: context,
+                                tradeID: provider.tradeOptionId == 0
+                                    ? null
+                                    : provider.tradeOptionId,
+                                city: provider.locationController.text,
+                                statusID: provider.selectedStatusID,
+                                flagID: provider.selectedFalgID,
+                                startPrice:
+                                    provider.minMainController.text == ''
+                                        ? null
+                                        : provider.minMainController.text,
+                                endPrice: provider.maxMainController.text == ''
+                                    ? null
+                                    : provider.maxMainController.text,
+                              );
                             }
                           }
                         }
@@ -207,7 +236,7 @@ class _AvaliableWorkerViewState extends State<AvaliableWorkerView> {
                       openFilter: () {
                         provider.openFilter(!provider.isFilterOpen);
                         if (provider.isFilterOpen == true) {
-                          provider.clearFilterList();
+                          // provider.clearFilterList();
                           //   provider.getFiltrationDataFunc(context: context);
                         }
                       },

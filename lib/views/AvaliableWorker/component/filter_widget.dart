@@ -55,13 +55,18 @@ Widget filterWidget(
                           provider.filteredList,
                           provider.tradeOptionList,
                           provider.tradeOptionName);
-                      if (!provider.filteredList
-                          .contains(provider.locationController.text)) {
-                        provider.locationController.clear();
-                      }
+                      // if (!provider.filteredList
+                      //     .contains(provider.locationController.text)) {
+                      //   provider.locationController.clear();
+                      // }
                       if (!provider.filteredList
                           .contains("min ${provider.minMainController.text}")) {
                         provider.changeminVal('');
+                      }
+
+                      if (!provider.filteredList
+                          .contains(provider.locationvalController.text)) {
+                        provider.changeLocationVal('');
                       }
                       if (!provider.filteredList
                           .contains("max ${provider.maxMainController.text}")) {
@@ -138,6 +143,17 @@ Widget filterWidget(
                   // }
                 },
                 onChanged: (val) {
+                  if (val.isNotEmpty || val != '') {
+                    bool containsMin = provider.filteredList.any((element) =>
+                        element
+                            .contains("${provider.locationController.text}"));
+                    print("IsChange $containsMin");
+                    if (containsMin == false) {
+                      Provider.of<AvaliableWorkerProvider>(context,
+                              listen: false)
+                          .changeLocation(val);
+                    }
+                  }
                   // final lcPv =
                   //     Provider.of<LocationProvider>(context, listen: false);
                   // lcPv.searchQuery(val);
@@ -347,10 +363,33 @@ Widget filterWidget(
                         }
                       }
                     }
-                    if (provider.locationController.text.isNotEmpty ||
-                        provider.locationController.text != '') {
-                      provider.addFilter(provider.locationController.text);
+                    if (provider.locationMainController.text.isNotEmpty) {
+                      bool containsLocation = provider.filteredList.any(
+                          (element) => element.contains(
+                              "${provider.locationMainController.text}"));
+                      if (containsLocation == false) {
+                        List<String> value = getValuesContainingLocation(
+                            provider.filteredList,
+                            provider.locationvalController.text);
+                        if (value.isNotEmpty) {
+                          updateListWithFilter(
+                              provider.filteredList,
+                              "${provider.locationMainController.text}",
+                              value[0]);
+                          provider.changeLocationVal(
+                              "${provider.locationMainController.text}");
+                        } else {
+                          provider.addFilter(
+                              '${provider.locationMainController.text}');
+                          provider.changeLocationVal(
+                              "${provider.locationMainController.text}");
+                        }
+                      }
                     }
+                    // if (provider.locationController.text.isNotEmpty ||
+                    //     provider.locationController.text != '') {
+                    //   provider.addFilter(provider.locationController.text);
+                    // }
                     if (provider.maxMainController.text.isNotEmpty) {
                       bool containsMax = provider.filteredList.any((element) =>
                           element.contains(
@@ -369,10 +408,10 @@ Widget filterWidget(
                         }
                       }
                     }
-                    print("FLAG ID ${provider.selectedFalgID}");
+                    print("FLAG ID of ${provider.tradeOptionId}");
                     print(provider.selectedStatus);
                     provider.getFiltrationDataFunc(
-                      city: provider.locationController.text,
+                      city: provider.locationMainController.text,
                       context: context,
                       tradeID: provider.tradeOptionId,
                       statusID: provider.selectedStatusID,
@@ -416,4 +455,8 @@ List<String> getValuesContainingMin(List<String> list) {
 
 List<String> getValuesContainingMax(List<String> list) {
   return list.where((element) => element.contains("max")).toList();
+}
+
+List<String> getValuesContainingLocation(List<String> list, String location) {
+  return list.where((element) => element.contains(location)).toList();
 }
