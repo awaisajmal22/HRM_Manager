@@ -42,16 +42,25 @@ Widget filterWidget(
                     provider
                         .removeFilter(provider.filteredList[index], context)
                         .whenComplete(() {
-                      bool isFlag = provider.containsMatchingName2(
-                        provider.filteredList,
-                        provider.workerFlagList,
-                        provider.selectedFlag,
-                      );
-                      bool isStatus = provider.containsMatchingName(
+                      bool isFlag = false;
+                      if (provider.selectedFlag.toLowerCase() ==
+                          "select".toLowerCase()) {
+                      } else {
+                        isFlag = provider.containsMatchingName2(
                           provider.filteredList,
-                          provider.workerStatusList,
-                          provider.selectedStatus);
-
+                          provider.workerFlagList,
+                          provider.selectedFlag,
+                        );
+                      }
+                      bool isStatus = false;
+                      if (provider.selectedStatus.toLowerCase() ==
+                          "Select".toLowerCase()) {
+                      } else {
+                        isStatus = provider.containsMatchingName(
+                            provider.filteredList,
+                            provider.workerStatusList,
+                            provider.selectedStatus);
+                      }
                       bool isTrade = provider.containsMatchingTradeName(
                           provider.filteredList,
                           provider.tradeOptionList,
@@ -60,17 +69,19 @@ Widget filterWidget(
                       //     .contains(provider.locationController.text)) {
                       //   provider.locationController.clear();
                       // }
-                      if (!provider.filteredList
-                          .contains("min ${provider.minMainController.text}")) {
+                      bool isMinValue = provider.filteredList.any((element) =>
+                          element == "min ${provider.minMainController.text}");
+                      if (!isMinValue) {
                         provider.changeminVal('');
                       }
-
-                      if (!provider.filteredList
-                          .contains(provider.locationvalController.text)) {
+                      bool isLocation = provider.filteredList.any((element) =>
+                          element == provider.locationvalController.text);
+                      if (!isLocation) {
                         provider.changeLocationVal('');
                       }
-                      if (!provider.filteredList
-                          .contains("max ${provider.maxMainController.text}")) {
+                      bool isMaxValue = provider.filteredList.any((element) =>
+                          element == "max ${provider.maxMainController.text}");
+                      if (!isMaxValue) {
                         provider.changemaxVal('');
                       }
                       print(
@@ -119,7 +130,7 @@ Widget filterWidget(
                       appText(
                           context: context,
                           title:
-                              '${provider.filtrationResponseList.length} results for "$name"',
+                              '${provider.filtrationResponseList.length} results for "${provider.tradeOptionName}"',
                           textColor: AppColor.lightPurpleColor)
                     ],
                   )
@@ -212,7 +223,8 @@ Widget filterWidget(
                   )),
               value: provider.selectedStatus,
               onChanged: (value) {
-                if (value != 'Select') {
+                if (value.toLowerCase() == 'Select'.toLowerCase()) {
+                } else {
                   provider.selectNewStatus(value);
                 }
               },
@@ -236,7 +248,8 @@ Widget filterWidget(
                   )),
               value: provider.selectedFlag,
               onChanged: (value) {
-                if (value != 'Select') {
+                if (value.toLowerCase() == 'Select'.toLowerCase()) {
+                } else {
                   provider.selectNewFlag(value);
                 }
               },
@@ -310,6 +323,15 @@ Widget filterWidget(
               child: textButton(
                   context: context,
                   onTap: () {
+                    if (provider.selectedFlag.toLowerCase() ==
+                            "Select".toLowerCase() &&
+                        provider.selectedStatus.toLowerCase() ==
+                            "Select".toLowerCase() &&
+                        provider.locationController.text.isEmpty &&
+                        provider.minController.text.isEmpty &&
+                        provider.maxController.text.isEmpty) {
+                      provider.applyWithoutSelectFilter();
+                    }
                     if (provider.minMainController.text.isNotEmpty &&
                         provider.maxMainController.text.isNotEmpty &&
                         double.parse(provider.minMainController.text) >
@@ -384,8 +406,9 @@ Widget filterWidget(
                         "IS FALG FOUND ,${provider.selectedFlag},${provider.selectedStatus}");
                     if (provider.locationMainController.text.isNotEmpty) {
                       bool containsLocation = provider.filteredList.any(
-                          (element) => element.contains(
-                              "${provider.locationMainController.text}"));
+                          (element) =>
+                              element ==
+                              "${provider.locationMainController.text}");
                       if (containsLocation == false) {
                         List<String> value = getValuesContainingLocation(
                             provider.filteredList,

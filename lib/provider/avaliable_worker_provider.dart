@@ -67,6 +67,17 @@ class AvaliableWorkerProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  applyWithoutSelectFilter() {
+    _filteredList.clear();
+    _selectedFlagID = -1;
+    _selectedStatusID = -1;
+    minMainController.clear();
+    maxMainController.clear();
+    locationMainController.clear();
+    locationvalController.clear();
+    notifyListeners();
+  }
+
   String _selectedFlag = "Select";
   String get selectedFlag => _selectedFlag;
   int _selectedFlagID = -1;
@@ -577,6 +588,7 @@ class AvaliableWorkerProvider extends ChangeNotifier {
       if (foundMatch) {
         break;
       }
+     
     }
 
     return foundMatch;
@@ -597,8 +609,11 @@ class AvaliableWorkerProvider extends ChangeNotifier {
       if (foundMatch) {
         break;
       }
+      
     }
 
     return foundMatch;
+    
   }
+  
 }
