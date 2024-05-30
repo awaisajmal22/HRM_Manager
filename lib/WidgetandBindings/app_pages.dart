@@ -55,9 +55,11 @@ class AppPages{
         List<dynamic> dataList = settings.arguments as dynamic;
 WorkerByIdModel model = dataList[0];
 String profileImage = dataList[1];
+List<WorkerDocModel> filesData = dataList[2];
         return EditWorkerDetailView(
           profileImage: profileImage,
           workerModel: model,
+          filesData: filesData,
         );
       });
       // case (AppRoutes.pdfView): return MaterialPageRoute(builder: (context){

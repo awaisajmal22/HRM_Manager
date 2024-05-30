@@ -4,8 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:path/path.dart' as path;
 import 'package:hrm_manager/Model/add_worker_drop_down_model.dart';
 import 'package:hrm_manager/Model/worker_by_id_model.dart';
+import 'package:hrm_manager/Model/worker_doc_model.dart';
 import 'package:hrm_manager/constant/app_text.dart';
 import 'package:hrm_manager/constant/back.dart';
 import 'package:hrm_manager/constant/check_widget.dart';
@@ -58,8 +60,12 @@ import 'component/edit_worker_flag_widget.dart';
 class EditWorkerDetailView extends StatefulWidget {
   final WorkerByIdModel workerModel;
   final String profileImage;
+  final List<WorkerDocModel> filesData;
   const EditWorkerDetailView(
-      {super.key, required this.workerModel, required this.profileImage});
+      {super.key,
+      required this.workerModel,
+      required this.filesData,
+      required this.profileImage});
 
   @override
   State<EditWorkerDetailView> createState() => _EditWorkerDetailViewState();
@@ -82,7 +88,42 @@ class _EditWorkerDetailViewState extends State<EditWorkerDetailView> {
 
   loadData() {
     pv = Provider.of<EditWorkerDetailProvider>(context, listen: false);
+    for (var data in widget.filesData) {
+      print("WHIMS DATA ${data.wasabiBytes}");
+      if (data.title!.toLowerCase() == 'WHIMS'.toLowerCase()) {
+        String name = data.wasabiBytes == null || data.wasabiBytes == ''
+            ? 'Choose File'
+            : path.basename(data.wasabiBytes!);
+        pv.changeWHIMSFileName(name);
+      }
+      if (data.title!.toLowerCase() == "Working From Height".toLowerCase()) {
+        String name = data.wasabiBytes == null || data.wasabiBytes == ''
+            ? 'Choose File'
+            : path.basename(data.wasabiBytes!);
+        pv.changeWorkingFromHeightName(name);
+      }if(data.title!.toLowerCase() =="First Aid".toLowerCase()){
+String name = data.wasabiBytes == null || data.wasabiBytes == ''
+            ? 'Choose File'
+            : path.basename(data.wasabiBytes!);
+            pv.changeFirstAidName(name);
+      }if(data.title!.toLowerCase() =='Terms of Employment'.toLowerCase()){
+        String name = data.wasabiBytes == null || data.wasabiBytes == ''
+            ? 'Choose File'
+            : path.basename(data.wasabiBytes!);
+            pv.changeTermsOfEmployeName(name);
+      }if(data.title!.toLowerCase() =='Employement Release'.toLowerCase()){
+         String name = data.wasabiBytes == null || data.wasabiBytes == ''
+            ? 'Choose File'
+            : path.basename(data.wasabiBytes!);
+            pv.changeEmpReleaseName(name);
+      }if(data.title!.toLowerCase() == 'Others'.toLowerCase()){
+          String name = data.wasabiBytes == null || data.wasabiBytes == ''
+            ? 'Choose File'
+            : path.basename(data.wasabiBytes!);
+            pv.changeOtherName(name);
+      }
 
+    }
     pv.getExperienceData(context: context).whenComplete(() {
       List<int> workExpIDList = widget.workerModel.workExperience
           .toString()
@@ -178,7 +219,9 @@ class _EditWorkerDetailViewState extends State<EditWorkerDetailView> {
         for (var data in pv.certificationList) {
           if (data.id == certificatIDList[i]) {
             if (!pv.selectedcertificateIdList.contains(certificatIDList[i])) {
-              pv.selectCertificate(data.name!, certificatIDList[i]).whenComplete(() => pv.removeSelectedCertificate(data.id!));
+              pv
+                  .selectCertificate(data.name!, certificatIDList[i])
+                  .whenComplete(() => pv.removeSelectedCertificate(data.id!));
             }
           }
         }
@@ -218,7 +261,9 @@ class _EditWorkerDetailViewState extends State<EditWorkerDetailView> {
         for (var data in pv.workerFlagList) {
           if (data.id == flagIDList[i]) {
             if (!pv.selectedWorkerFlagIdList.contains(flagIDList[i])) {
-              pv.selectWorkerFlag(data.name!, flagIDList[i]).whenComplete(() => pv.removeSelectedFlag(data.id!));
+              pv
+                  .selectWorkerFlag(data.name!, flagIDList[i])
+                  .whenComplete(() => pv.removeSelectedFlag(data.id!));
             }
           }
         }

@@ -151,6 +151,7 @@ class _WorkerProfileViewState extends State<WorkerProfileView> {
           .split(',')
           .map(int.parse)
           .toList();
+      print("Worker Flag ID Is ${pv.workerByIdModel.workerFlagId}");
       for (int i = 0; i < flagIDList.length; i++) {
         for (var data in pv.workerFlagList) {
           if (data.id == flagIDList[i]) {
@@ -275,10 +276,12 @@ class _WorkerProfileViewState extends State<WorkerProfileView> {
                   GestureDetector(
                     onTap: () {
                       Navigator.pushNamed(
-                          context, AppRoutes.editWorkerDetailView, arguments: [
-                        provider.workerByIdModel,
-                        provider.profileImage
-                      ]);
+                          context, AppRoutes.editWorkerDetailView,
+                          arguments: [
+                            provider.workerByIdModel,
+                            provider.profileImage,
+                            provider.files,
+                          ]);
                     },
                     child: Container(
                       alignment: Alignment.center,

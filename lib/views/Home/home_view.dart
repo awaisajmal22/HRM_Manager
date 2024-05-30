@@ -30,7 +30,7 @@ class _HomeViewState extends State<HomeView> {
   bool _isDataFetch = false;
   @override
   void initState() {
-   
+  //  checkVersion();
     if (_isDataFetch == false) {
       Provider.of<HomeProvider>(context, listen: false)
           .getAllTradeFunc(context: context);
@@ -39,6 +39,22 @@ class _HomeViewState extends State<HomeView> {
       });
     }
     super.initState();
+  }
+  checkVersion() async {
+    //
+
+    await Future.delayed(Duration(seconds: 2));
+
+    var version = await NewVersionPlus(
+      iOSId: '',
+      androidId: 'com.vconekt.hrm_manager',
+    ).showAlertIfNecessary(
+        context: context,
+        launchModeVersion: Platform.isAndroid
+            ? LaunchModeVersion.external
+            : LaunchModeVersion.normal);
+
+  
   }
 
  

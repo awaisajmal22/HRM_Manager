@@ -199,6 +199,11 @@ class WorkerProfileProvider extends ChangeNotifier {
     selectedcertificateIdList.clear();
     _selectedcertificateList.clear();
     selectedcertificateList.clear();
+    _selectedWorkerFlagIdList.clear();
+    _selectedWorkerFlagList.clear();
+    selectedWorkerFlagIdList.clear();
+    selectedWorkerFlagList.clear();
+
     _workerStatusList.clear();
     workerStatusList.clear();
     _tradeOptionList.clear();

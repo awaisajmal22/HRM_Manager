@@ -365,6 +365,10 @@ class EditWorkerDetailProvider extends ChangeNotifier {
   String get wHIMSFilePath => _wHIMSFilePath;
   String _wHIMSFileName = 'Choose File';
   String get wHIMSFileName => _wHIMSFileName;
+  changeWHIMSFileName(String name){
+_wHIMSFileName = name;
+notifyListeners();
+  }
   pickWHIMS() async {
     FilePickerResult? file = await FilePicker.platform.pickFiles();
     if (file != null) {
@@ -380,6 +384,10 @@ class EditWorkerDetailProvider extends ChangeNotifier {
   String get workingFormHeightPath => _workingFormHeightPath;
   String _workingFormHeightName = 'Choose File';
   String get workingFormHeightName => _workingFormHeightName;
+  changeWorkingFromHeightName(String name){
+_workingFormHeightName = name;
+notifyListeners();
+  }
   pickWorkingFormHeightFile() async {
     FilePickerResult? file = await FilePicker.platform.pickFiles();
     if (file != null) {
@@ -394,6 +402,10 @@ class EditWorkerDetailProvider extends ChangeNotifier {
   String get firstAidPath => _firstAidPath;
   String _firstAidName = 'Choose File';
   String get firstAidName => _firstAidName;
+  changeFirstAidName(String name){
+    _firstAidName = name;
+    notifyListeners();
+  }
   pickFirstAidFile() async {
     FilePickerResult? file = await FilePicker.platform.pickFiles();
     if (file != null) {
@@ -408,6 +420,10 @@ class EditWorkerDetailProvider extends ChangeNotifier {
   String get termsOfEmpPath => _termsOfEmpPath;
   String _termsOfEmpName = 'Choose File';
   String get termsOfEmpName => _termsOfEmpName;
+  changeTermsOfEmployeName(String name){
+    _termsOfEmpName = name;
+    notifyListeners();
+  }
   pickTermsOfEmpFile() async {
     FilePickerResult? file = await FilePicker.platform.pickFiles();
     if (file != null) {
@@ -422,6 +438,10 @@ class EditWorkerDetailProvider extends ChangeNotifier {
   String get empReleasePath => _empReleasePath;
   String _empReleaseName = 'Choose File';
   String get empReleaseName => _empReleaseName;
+  changeEmpReleaseName(String name){
+    _empReleaseName = name;
+    notifyListeners();
+  }
   pickEmpReleaseFile() async {
     FilePickerResult? file = await FilePicker.platform.pickFiles();
     if (file != null) {
@@ -436,6 +456,10 @@ class EditWorkerDetailProvider extends ChangeNotifier {
   String get otherFilePath => _otherFilePath;
   String _otherFileName = 'Choose File';
   String get otherFileName => _otherFileName;
+  changeOtherName(String name){
+    _otherFileName = name;
+    notifyListeners();
+  }
   pickOtherFile() async {
     FilePickerResult? file = await FilePicker.platform.pickFiles();
     if (file != null) {
