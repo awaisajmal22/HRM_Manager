@@ -20,7 +20,20 @@ Future<bool> requestPermission() async {
             await Permission.storage.request();
         }
 
-        if (sdkInt >= 30) {
+if(sdkInt>= 33){
+var storageExternal = await Permission.manageExternalStorage.status;
+if(storageExternal != PermissionStatus.granted){
+  await Permission.manageExternalStorage.request();
+}
+storageExternal = await Permission.manageExternalStorage.status;
+
+            if (storageExternal == PermissionStatus.granted 
+                // && storage == PermissionStatus.granted
+                ) {
+                gotPermissions = true;
+            }
+}
+        if (sdkInt >= 30 && sdkInt <= 32) {
             var storageExternal = await Permission.manageExternalStorage.status;
 
             if (storageExternal != PermissionStatus.granted) {

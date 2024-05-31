@@ -20,7 +20,7 @@ class NavBarView extends StatefulWidget {
 class _NavBarViewState extends State<NavBarView> {
   @override
   void initState() {
-    // TODO: implement initState
+  
     permission();
     super.initState();
   }
