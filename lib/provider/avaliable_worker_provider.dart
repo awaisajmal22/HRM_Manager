@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hrm_manager/Model/all_trades_model.dart';
 import 'package:hrm_manager/Model/filtration_response_model.dart';
+import 'package:hrm_manager/Model/image_model.dart';
 import 'package:hrm_manager/Model/worker_status_and_flag_model.dart';
 import 'package:hrm_manager/Network/Server/permission_handler.dart';
 import 'package:hrm_manager/Services/all_trades_Services.dart';
@@ -424,6 +425,7 @@ class AvaliableWorkerProvider extends ChangeNotifier {
       print(tradeID);
       _filtrationResponseList = result;
       _isLoaded = true;
+      getImages(result, context);
       // final List<Datum>
       // _filtrationResponseList = result
       //     .where((item) =>
@@ -588,7 +590,6 @@ class AvaliableWorkerProvider extends ChangeNotifier {
       if (foundMatch) {
         break;
       }
-     
     }
 
     return foundMatch;
@@ -609,11 +610,35 @@ class AvaliableWorkerProvider extends ChangeNotifier {
       if (foundMatch) {
         break;
       }
-      
     }
 
     return foundMatch;
-    
   }
-  
+
+  List<ImageModel> _imagesList = <ImageModel>[];
+  List<ImageModel> get imagesList => _imagesList;
+
+  getImages(List<Datum> dataList, BuildContext context) async {
+    _imagesList.clear();
+    imagesList.clear();
+    for (int i = 0; i < dataList.length; i++) {
+      if (dataList[i].profileBytes == null || dataList[i].profileBytes == '') {
+        _imagesList.add(ImageModel(imageUrl: 'noPic', index: i));
+      } else {
+        String data = await saveUint8ListToFile(
+            context,
+            stringToUint8List(
+              dataList[i].profileBytes,
+            ),
+            true,
+            i,
+            dataList[i].profileType,
+            dataList[i].id.toString());
+        if (data != null || data != '') {
+          _imagesList.add(ImageModel(imageUrl: data, index: i));
+        } else {}
+      }
+    }
+    notifyListeners();
+  }
 }
