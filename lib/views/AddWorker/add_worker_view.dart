@@ -77,6 +77,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
   @override
   void dispose() {
     pv.clearData();
+    pv.clearFiles();
     super.dispose();
   }
 

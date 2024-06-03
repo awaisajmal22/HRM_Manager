@@ -466,6 +466,24 @@ class AddWorkerProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  clearFiles() {
+    _wHIMSFilePath = '';
+    _wHIMSFileName = 'Choose File';
+    _workingFormHeightPath = '';
+    _workingFormHeightName = 'Choose File';
+    _firstAidPath = '';
+    _firstAidName = 'Choose File';
+    _termsOfEmpName = 'Choose File';
+    _pickedImage = '';
+    _pickedImageName = '';
+    _otherFileName = 'Choose File';
+    _otherFilePath = '';
+    _empReleasePath = '';
+    _empReleaseName = 'Choose File';
+    _termsOfEmpPath = '';
+    
+  }
+
   //Image Picker
   String _pickedImage = '';
   String get pickedImage => _pickedImage;
