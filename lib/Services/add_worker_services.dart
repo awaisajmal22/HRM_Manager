@@ -475,8 +475,13 @@ class AddWorkerServices {
       required String apiUrl}) async {
     try {
       String? mimeType = lookupMimeType(fileName);
+      print("Mime Type ${mimeType}");
       if (mimeType == '') {
         mimeType = 'application/octet-stream';
+      }else if(mimeType == 'application/msword'){
+        mimeType = 'application/doc';
+      }else if(mimeType =='application/vnd.openxmlformats-officedocument.wordprocessingml.document'){
+        mimeType = 'application/docx';
       }
       FormData data = FormData.fromMap({
         "WorkerId": workerID,

@@ -5,6 +5,9 @@
 	<key>NSCalendarsUsageDescription</key>
 	<string>This app requires access to your calendar to manage events and meetings.</string>
 
+<key>NSAppleMusicUsageDescription</key>
+<string>This app requires access to your music library to provide a personalized audio experience.</string>
+
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 

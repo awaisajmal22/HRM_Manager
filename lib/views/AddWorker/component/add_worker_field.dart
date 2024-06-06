@@ -36,8 +36,7 @@ addWorkerTextField({
         )),
     height: height,
     child: TextFormField(
-      
-       inputFormatters:formatter,
+      inputFormatters: formatter,
       maxLines: maxLines ?? 1,
       textInputAction: textInputAction,
       readOnly: readOnly,

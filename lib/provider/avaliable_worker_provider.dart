@@ -123,6 +123,8 @@ class AvaliableWorkerProvider extends ChangeNotifier {
     locationMainController.clear();
     minController.clear();
     maxController.clear();
+    _imagesList.clear();
+    imagesList.clear();
     locationController.clear();
     locationMainController.clear();
     locationvalController.clear();
@@ -407,9 +409,13 @@ class AvaliableWorkerProvider extends ChangeNotifier {
     String? startPrice,
     String? endPrice,
   }) async {
+    print("Loaded $_isLoaded");
     _isLoaded = false;
+    _imagesList.clear();
+    imagesList.clear();
     _filtrationResponseList.clear();
     filtrationResponseList.clear();
+
     print(
         "FIlter Data $tradeID,City $city,MIN $startPrice,Max $endPrice,Status $statusID, Flag $flagID");
     final result = await AvaliableWorkerServices().getFiltrationData(
@@ -424,8 +430,9 @@ class AvaliableWorkerProvider extends ChangeNotifier {
     if (result != null) {
       print(tradeID);
       _filtrationResponseList = result;
-      _isLoaded = true;
+
       getImages(result, context);
+      _isLoaded = true;
       // final List<Datum>
       // _filtrationResponseList = result
       //     .where((item) =>
@@ -619,8 +626,8 @@ class AvaliableWorkerProvider extends ChangeNotifier {
   List<ImageModel> get imagesList => _imagesList;
 
   getImages(List<Datum> dataList, BuildContext context) async {
-    _imagesList.clear();
-    imagesList.clear();
+    // _imagesList.clear();
+    // imagesList.clear();
     for (int i = 0; i < dataList.length; i++) {
       if (dataList[i].profileBytes == null || dataList[i].profileBytes == '') {
         _imagesList.add(ImageModel(imageUrl: 'noPic', index: i));
@@ -634,6 +641,7 @@ class AvaliableWorkerProvider extends ChangeNotifier {
             i,
             dataList[i].profileType,
             dataList[i].id.toString());
+        print(data);
         if (data != null || data != '') {
           _imagesList.add(ImageModel(imageUrl: data, index: i));
         } else {}

@@ -18,7 +18,7 @@ class SelectTimeSheetTypeWidget extends StatelessWidget {
     return Consumer<AddWorkerProvider>(builder: (context, provider, __) {
       return addWorkerTextField(
         context: context,
-        hintText: 'Select TimeSheet Tpe',
+        hintText: 'Select',
         controller: provider.timeSheetTypeController,
         height: context.getSize.height * 0.050,
         readOnly: true,
@@ -28,10 +28,11 @@ class SelectTimeSheetTypeWidget extends StatelessWidget {
             context: context,
           );
           if (timeSheet != '') {
-            for(var data in provider.timeSheetTypeList){
-              if(data.name == timeSheet){
-            provider.changeTimeSheetType(timeSheet,data.id!);
-              }}
+            for (var data in provider.timeSheetTypeList) {
+              if (data.name == timeSheet) {
+                provider.changeTimeSheetType(timeSheet, data.id!);
+              }
+            }
           }
         },
       );

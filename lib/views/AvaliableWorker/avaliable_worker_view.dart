@@ -56,10 +56,15 @@ class _AvaliableWorkerViewState extends State<AvaliableWorkerView> {
   _loadData() {
     final pv = Provider.of<AvaliableWorkerProvider>(context, listen: false);
     pv.getStatusList(context: context);
+
     pv.locationController.text = widget.location;
     pv.locationvalController.text = widget.location;
     print("Location ${widget.location}");
     pv.locationMainController.text = widget.location;
+    if (widget.location.isEmpty || widget.location == '') {
+    } else {
+      pv.addFilter(widget.location);
+    }
     pv.getTradeOption(context: context).whenComplete(() {
       if (widget.name != '') {
         pv.selectTradeOption(widget.name, widget.id);
@@ -262,8 +267,7 @@ class _AvaliableWorkerViewState extends State<AvaliableWorkerView> {
                   child: provider.imagesList.isEmpty &&
                           provider.isLoaded == false
                       ? _avaliableWorkerShimmer(context: context)
-                      : provider.imagesList.isEmpty &&
-                              provider.isLoaded == true
+                      : provider.imagesList.isEmpty && provider.isLoaded == true
                           ? Center(
                               child: appText(
                                   context: context,

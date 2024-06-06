@@ -92,37 +92,40 @@ class _EditWorkerDetailViewState extends State<EditWorkerDetailView> {
       print("WHIMS DATA ${data.wasabiBytes}");
       if (data.title!.toLowerCase() == 'WHIMS'.toLowerCase()) {
         String name = data.wasabiBytes == null || data.wasabiBytes == ''
-            ? 'Choose File'
+            ? ''
             : path.basename(data.wasabiBytes!);
         pv.changeWHIMSFileName(name);
       }
       if (data.title!.toLowerCase() == "Working From Height".toLowerCase()) {
         String name = data.wasabiBytes == null || data.wasabiBytes == ''
-            ? 'Choose File'
+            ? ''
             : path.basename(data.wasabiBytes!);
         pv.changeWorkingFromHeightName(name);
-      }if(data.title!.toLowerCase() =="First Aid".toLowerCase()){
-String name = data.wasabiBytes == null || data.wasabiBytes == ''
-            ? 'Choose File'
-            : path.basename(data.wasabiBytes!);
-            pv.changeFirstAidName(name);
-      }if(data.title!.toLowerCase() =='Terms of Employment'.toLowerCase()){
-        String name = data.wasabiBytes == null || data.wasabiBytes == ''
-            ? 'Choose File'
-            : path.basename(data.wasabiBytes!);
-            pv.changeTermsOfEmployeName(name);
-      }if(data.title!.toLowerCase() =='Employement Release'.toLowerCase()){
-         String name = data.wasabiBytes == null || data.wasabiBytes == ''
-            ? 'Choose File'
-            : path.basename(data.wasabiBytes!);
-            pv.changeEmpReleaseName(name);
-      }if(data.title!.toLowerCase() == 'Others'.toLowerCase()){
-          String name = data.wasabiBytes == null || data.wasabiBytes == ''
-            ? 'Choose File'
-            : path.basename(data.wasabiBytes!);
-            pv.changeOtherName(name);
       }
-
+      if (data.title!.toLowerCase() == "First Aid".toLowerCase()) {
+        String name = data.wasabiBytes == null || data.wasabiBytes == ''
+            ? ''
+            : path.basename(data.wasabiBytes!);
+        pv.changeFirstAidName(name);
+      }
+      if (data.title!.toLowerCase() == 'Terms of Employment'.toLowerCase()) {
+        String name = data.wasabiBytes == null || data.wasabiBytes == ''
+            ? ''
+            : path.basename(data.wasabiBytes!);
+        pv.changeTermsOfEmployeName(name);
+      }
+      if (data.title!.toLowerCase() == 'Employment Release'.toLowerCase()) {
+        String name = data.wasabiBytes == null || data.wasabiBytes == ''
+            ? ''
+            : path.basename(data.wasabiBytes!);
+        pv.changeEmpReleaseName(name);
+      }
+      if (data.title!.toLowerCase() == 'Others'.toLowerCase()) {
+        String name = data.wasabiBytes == null || data.wasabiBytes == ''
+            ? ''
+            : path.basename(data.wasabiBytes!);
+        pv.changeOtherName(name);
+      }
     }
     pv.getExperienceData(context: context).whenComplete(() {
       List<int> workExpIDList = widget.workerModel.workExperience
@@ -545,7 +548,7 @@ String name = data.wasabiBytes == null || data.wasabiBytes == ''
                   getHeight(context: context, height: 0.005),
                   editAddWorkerTextField(
                     context: context,
-                    hintText: 'WR000001',
+                    hintText: '',
                     controller: provider.workerIdController,
                     height: context.getSize.height * 0.050,
                   ),
@@ -584,7 +587,7 @@ String name = data.wasabiBytes == null || data.wasabiBytes == ''
                           getHeight(context: context, height: 0.005),
                           editAddWorkerTextField(
                             context: context,
-                            hintText: 'WR1',
+                            hintText: '',
                             controller: provider.clientIdController,
                             height: context.getSize.height * 0.050,
                           ),
@@ -622,7 +625,7 @@ String name = data.wasabiBytes == null || data.wasabiBytes == ''
                           getHeight(context: context, height: 0.005),
                           editAddWorkerTextField(
                             context: context,
-                            hintText: 'Enter First Name',
+                            hintText: '',
                             controller: provider.firstNameController,
                             height: context.getSize.height * 0.050,
                           ),
@@ -644,7 +647,7 @@ String name = data.wasabiBytes == null || data.wasabiBytes == ''
                           getHeight(context: context, height: 0.005),
                           editAddWorkerTextField(
                             context: context,
-                            hintText: 'Enter Last Name',
+                            hintText: '',
                             controller: provider.lastNameController,
                             height: context.getSize.height * 0.050,
                           ),
@@ -672,7 +675,7 @@ String name = data.wasabiBytes == null || data.wasabiBytes == ''
                               provider.pickDateOfBirth(context: context);
                             },
                             context: context,
-                            hintText: 'mm/dd/yyyy',
+                            hintText: '',
                             controller: provider.dobController,
                             height: context.getSize.height * 0.050,
                           ),
@@ -695,7 +698,7 @@ String name = data.wasabiBytes == null || data.wasabiBytes == ''
                             textInputType: TextInputType.number,
                             color: Color(0xffF5F5F5),
                             context: context,
-                            hintText: 'Age',
+                            hintText: '',
                             controller: provider.ageController,
                             height: context.getSize.height * 0.050,
                           ),
@@ -805,7 +808,7 @@ String name = data.wasabiBytes == null || data.wasabiBytes == ''
                           getHeight(context: context, height: 0.005),
                           editAddWorkerTextField(
                             context: context,
-                            hintText: 'Enter Social Insurance Number',
+                            hintText: '',
                             controller: provider.socialInsuranceController,
                             height: context.getSize.height * 0.050,
                           ),
@@ -825,7 +828,7 @@ String name = data.wasabiBytes == null || data.wasabiBytes == ''
                           getHeight(context: context, height: 0.005),
                           editAddWorkerTextField(
                             context: context,
-                            hintText: 'Enter Work Permit No',
+                            hintText: '',
                             controller: provider.workPermitController,
                             height: context.getSize.height * 0.050,
                           ),
@@ -853,7 +856,7 @@ String name = data.wasabiBytes == null || data.wasabiBytes == ''
                               provider.pickHireDate(context: context);
                             },
                             context: context,
-                            hintText: 'mm/dd/yyyy',
+                            hintText: '',
                             controller: provider.hireDateController,
                             height: context.getSize.height * 0.050,
                           ),
@@ -877,7 +880,7 @@ String name = data.wasabiBytes == null || data.wasabiBytes == ''
                               provider.pickTerminationDate(context: context);
                             },
                             context: context,
-                            hintText: 'mm/dd/yyyy',
+                            hintText: '',
                             controller: provider.terminationDateController,
                             height: context.getSize.height * 0.050,
                           ),
@@ -952,7 +955,7 @@ String name = data.wasabiBytes == null || data.wasabiBytes == ''
                           getHeight(context: context, height: 0.005),
                           editAddWorkerTextField(
                             context: context,
-                            hintText: 'Enter Business WSIB Number',
+                            hintText: '',
                             controller: provider.businessWSIBNoController,
                             height: context.getSize.height * 0.050,
                           ),
@@ -1002,7 +1005,7 @@ String name = data.wasabiBytes == null || data.wasabiBytes == ''
                     controllerRight: provider.businessTelephoneController,
                     titleLeft: 'Business Name',
                     titleRight: 'Business Telephone',
-                    hintLeft: 'Enter Business Name',
+                    hintLeft: '',
                     hintRight: '(123) 123-1234',
                     textInputTypeRight: TextInputType.phone,
                     formatterRight: [
@@ -1016,8 +1019,8 @@ String name = data.wasabiBytes == null || data.wasabiBytes == ''
                     controllerRight: provider.address2Controller,
                     titleLeft: 'Address Line 1',
                     titleRight: 'Address Line 2',
-                    hintLeft: 'Enter Address Line 1',
-                    hintRight: 'Enter Address Line 2',
+                    hintLeft: '',
+                    hintRight: '',
                   ),
                   getHeight(context: context, height: 0.010),
                   EditCustomTwoTextFieldWidget(
@@ -1025,8 +1028,8 @@ String name = data.wasabiBytes == null || data.wasabiBytes == ''
                     controllerRight: provider.provinceController,
                     titleLeft: 'City',
                     titleRight: 'Province',
-                    hintLeft: 'Enter City',
-                    hintRight: 'Enter Province',
+                    hintLeft: '',
+                    hintRight: '',
                   ),
                   getHeight(context: context, height: 0.010),
                   EditCustomTwoTextFieldWidget(
@@ -1035,8 +1038,8 @@ String name = data.wasabiBytes == null || data.wasabiBytes == ''
                     controllerRight: provider.countryController,
                     titleLeft: 'Postal Code',
                     titleRight: 'Country',
-                    hintLeft: 'Enter Postal Code',
-                    hintRight: 'Enter Country',
+                    hintLeft: '',
+                    hintRight: '',
                   ),
                   getHeight(context: context, height: 0.010),
                   EditCustomTwoTextFieldWidget(
@@ -1069,7 +1072,7 @@ String name = data.wasabiBytes == null || data.wasabiBytes == ''
                   getHeight(context: context, height: 0.005),
                   editAddWorkerTextField(
                     context: context,
-                    hintText: 'Enter Email Address',
+                    hintText: '',
                     controller: provider.emailController,
                     height: context.getSize.height * 0.050,
                   ),
@@ -1144,7 +1147,7 @@ String name = data.wasabiBytes == null || data.wasabiBytes == ''
                             isDecimal: false,
                             textInputType: TextInputType.number,
                             context: context,
-                            hintText: 'Enter Regular Rate',
+                            hintText: '',
                             controller: provider.regularRateController,
                             height: context.getSize.height * 0.050,
                           ),
@@ -1160,8 +1163,8 @@ String name = data.wasabiBytes == null || data.wasabiBytes == ''
                     controllerRight: provider.clientRateController,
                     titleLeft: 'Over Time Rate',
                     titleRight: 'Client Rate',
-                    hintLeft: 'Enter Over Time Rate',
-                    hintRight: 'Enter Client Rate',
+                    hintLeft: '',
+                    hintRight: '',
                   ),
                   getHeight(context: context, height: 0.010),
                   Row(
@@ -1195,7 +1198,7 @@ String name = data.wasabiBytes == null || data.wasabiBytes == ''
                           editAddWorkerTextField(
                             textInputType: TextInputType.text,
                             context: context,
-                            hintText: 'Enter Work Experience Note',
+                            hintText: '',
                             controller: provider.workExperienceNoteController,
                             height: context.getSize.height * 0.050,
                           ),
@@ -1213,7 +1216,7 @@ String name = data.wasabiBytes == null || data.wasabiBytes == ''
                   getHeight(context: context, height: 0.005),
                   editAddWorkerTextField(
                     context: context,
-                    hintText: 'Enter Trade License No',
+                    hintText: '',
                     controller: provider.tradeLicenseNoController,
                     height: context.getSize.height * 0.050,
                   ),
@@ -1249,7 +1252,7 @@ String name = data.wasabiBytes == null || data.wasabiBytes == ''
                           editAddWorkerTextField(
                             textInputType: TextInputType.text,
                             context: context,
-                            hintText: 'Enter Union Affiliation Notes',
+                            hintText: '',
                             controller:
                                 provider.unionAffiliationNotesController,
                             height: context.getSize.height * 0.050,
@@ -1269,7 +1272,7 @@ String name = data.wasabiBytes == null || data.wasabiBytes == ''
                   editAddWorkerTextField(
                     maxLines: 2,
                     context: context,
-                    hintText: 'Enter Employment History Notes',
+                    hintText: '',
                     controller: provider.employmentHistoryNoteController,
                     height: null,
                   ),
@@ -1305,7 +1308,7 @@ String name = data.wasabiBytes == null || data.wasabiBytes == ''
                           editAddWorkerTextField(
                             textInputType: TextInputType.text,
                             context: context,
-                            hintText: 'Enter Certifications Notes',
+                            hintText: '',
                             controller: provider.certificationNotesController,
                             height: context.getSize.height * 0.050,
                           ),
@@ -1342,7 +1345,7 @@ String name = data.wasabiBytes == null || data.wasabiBytes == ''
                   ),
                   getHeight(context: context, height: 0.010),
                   editDisplayFile(
-                    title: "Terms Of Employeement",
+                    title: "Terms Of Employment",
                     path: provider.termsOfEmpName,
                     context: context,
                     onTap: () {
@@ -1351,7 +1354,7 @@ String name = data.wasabiBytes == null || data.wasabiBytes == ''
                   ),
                   getHeight(context: context, height: 0.010),
                   editDisplayFile(
-                    title: "mployeement Release",
+                    title: "Employment Release",
                     path: provider.empReleaseName,
                     context: context,
                     onTap: () {
@@ -1429,7 +1432,7 @@ String name = data.wasabiBytes == null || data.wasabiBytes == ''
                           getHeight(context: context, height: 0.005),
                           editAddWorkerTextField(
                             context: context,
-                            hintText: 'Enter Recruiter Commission',
+                            hintText: '',
                             controller: provider.recruiterCommissionController,
                             height: context.getSize.height * 0.050,
                           ),
@@ -1513,7 +1516,7 @@ String name = data.wasabiBytes == null || data.wasabiBytes == ''
                   editAddWorkerTextField(
                     maxLines: 2,
                     context: context,
-                    hintText: 'Enter Payment Notes',
+                    hintText: '',
                     controller: provider.paymentNotesController,
                     height: null,
                   ),

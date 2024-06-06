@@ -199,7 +199,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                   getHeight(context: context, height: 0.005),
                   addWorkerTextField(
                     context: context,
-                    hintText: 'WR000001',
+                    hintText: '',
                     controller: provider.workerIdController,
                     height: context.getSize.height * 0.050,
                   ),
@@ -238,7 +238,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                           getHeight(context: context, height: 0.005),
                           addWorkerTextField(
                             context: context,
-                            hintText: 'WR1',
+                            hintText: '',
                             controller: provider.clientIdController,
                             height: context.getSize.height * 0.050,
                           ),
@@ -276,7 +276,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                           getHeight(context: context, height: 0.005),
                           addWorkerTextField(
                             context: context,
-                            hintText: 'Enter First Name',
+                            hintText: '',
                             controller: provider.firstNameController,
                             height: context.getSize.height * 0.050,
                           ),
@@ -298,7 +298,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                           getHeight(context: context, height: 0.005),
                           addWorkerTextField(
                             context: context,
-                            hintText: 'Enter Last Name',
+                            hintText: '',
                             controller: provider.lastNameController,
                             height: context.getSize.height * 0.050,
                           ),
@@ -326,7 +326,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                               provider.pickDateOfBirth(context: context);
                             },
                             context: context,
-                            hintText: 'mm/dd/yyyy',
+                            hintText: '',
                             controller: provider.dobController,
                             height: context.getSize.height * 0.050,
                           ),
@@ -349,7 +349,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                             textInputType: TextInputType.number,
                             color: Color(0xffF5F5F5),
                             context: context,
-                            hintText: 'Age',
+                            hintText: '',
                             controller: provider.ageController,
                             height: context.getSize.height * 0.050,
                           ),
@@ -460,7 +460,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                           getHeight(context: context, height: 0.005),
                           addWorkerTextField(
                             context: context,
-                            hintText: 'Enter Social Insurance Number',
+                            hintText: '',
                             controller: provider.socialInsuranceController,
                             height: context.getSize.height * 0.050,
                           ),
@@ -480,7 +480,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                           getHeight(context: context, height: 0.005),
                           addWorkerTextField(
                             context: context,
-                            hintText: 'Enter Work Permit No',
+                            hintText: '',
                             controller: provider.workPermitController,
                             height: context.getSize.height * 0.050,
                           ),
@@ -508,7 +508,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                               provider.pickHireDate(context: context);
                             },
                             context: context,
-                            hintText: 'mm/dd/yyyy',
+                            hintText: '',
                             controller: provider.hireDateController,
                             height: context.getSize.height * 0.050,
                           ),
@@ -532,7 +532,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                               provider.pickTerminationDate(context: context);
                             },
                             context: context,
-                            hintText: 'mm/dd/yyyy',
+                            hintText: '',
                             controller: provider.terminationDateController,
                             height: context.getSize.height * 0.050,
                           ),
@@ -587,7 +587,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                   addWorkerTextField(
                     maxLines: 2,
                     context: context,
-                    hintText: 'Enter Notes',
+                    hintText: '',
                     controller: provider.flagNotesController,
                     height: null,
                   ),
@@ -607,7 +607,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                           getHeight(context: context, height: 0.005),
                           addWorkerTextField(
                             context: context,
-                            hintText: 'Enter Business WSIB Number',
+                            hintText: '',
                             controller: provider.businessWSIBNoController,
                             height: context.getSize.height * 0.050,
                           ),
@@ -647,13 +647,13 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                   addWorkerTextField(
                     maxLines: 2,
                     context: context,
-                    hintText: 'Enter WSIB Claim Notes',
+                    hintText: '',
                     controller: provider.wSIBClaimNoteController,
                     height: null,
                   ),
                   getHeight(context: context, height: 0.010),
                   CustomTwoTextFieldWidget(
-                    hintLeft: 'Enter Business Name',
+                    hintLeft: '',
                     hintRight: '(123) 123-1234',
                     controllerLeft: provider.businessNameController,
                     controllerRight: provider.businessTelephoneController,
@@ -671,8 +671,8 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                     controllerRight: provider.address2Controller,
                     titleLeft: 'Address Line 1',
                     titleRight: 'Address Line 2',
-                    hintLeft: 'Enter Address Line 1',
-                    hintRight: 'Enter Address Line 2',
+                    hintLeft: '',
+                    hintRight: '',
                   ),
                   getHeight(context: context, height: 0.010),
                   CustomTwoTextFieldWidget(
@@ -680,8 +680,8 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                     controllerRight: provider.provinceController,
                     titleLeft: 'City',
                     titleRight: 'Province',
-                    hintLeft: 'Enter City',
-                    hintRight: 'Enter Province',
+                    hintLeft: '',
+                    hintRight: '',
                   ),
                   getHeight(context: context, height: 0.010),
                   CustomTwoTextFieldWidget(
@@ -691,8 +691,8 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                       ..text = 'Canada',
                     titleLeft: 'Postal Code',
                     titleRight: 'Country',
-                    hintLeft: 'Enter Postal Code',
-                    hintRight: 'Enter Country',
+                    hintLeft: '',
+                    hintRight: '',
                   ),
                   getHeight(context: context, height: 0.010),
                   CustomTwoTextFieldWidget(
@@ -725,7 +725,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                   getHeight(context: context, height: 0.005),
                   addWorkerTextField(
                     context: context,
-                    hintText: 'Enter Email Address',
+                    hintText: '',
                     controller: provider.emailController,
                     height: context.getSize.height * 0.050,
                   ),
@@ -800,7 +800,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                             isDecimal: false,
                             textInputType: TextInputType.number,
                             context: context,
-                            hintText: 'Enter Regular Rate',
+                            hintText: '',
                             controller: provider.regularRateController,
                             height: context.getSize.height * 0.050,
                           ),
@@ -816,8 +816,8 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                     controllerRight: provider.clientRateController,
                     titleLeft: 'Over Time Rate',
                     titleRight: 'Client Rate',
-                    hintLeft: 'Enter Over Time Rate',
-                    hintRight: 'Enter Client Rate',
+                    hintLeft: '',
+                    hintRight: '',
                   ),
                   getHeight(context: context, height: 0.010),
                   Row(
@@ -851,7 +851,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                           addWorkerTextField(
                             textInputType: TextInputType.text,
                             context: context,
-                            hintText: 'Enter Work Experience Note',
+                            hintText: '',
                             controller: provider.workExperienceNoteController,
                             height: context.getSize.height * 0.050,
                           ),
@@ -869,7 +869,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                   getHeight(context: context, height: 0.005),
                   addWorkerTextField(
                     context: context,
-                    hintText: 'Enter Trade License No',
+                    hintText: '',
                     controller: provider.tradeLicenseNoController,
                     height: context.getSize.height * 0.050,
                   ),
@@ -905,7 +905,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                           addWorkerTextField(
                             textInputType: TextInputType.text,
                             context: context,
-                            hintText: 'Enter Union Affiliation Notes',
+                            hintText: '',
                             controller:
                                 provider.unionAffiliationNotesController,
                             height: context.getSize.height * 0.050,
@@ -925,7 +925,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                   addWorkerTextField(
                     maxLines: 2,
                     context: context,
-                    hintText: 'Enter Employment History Notes',
+                    hintText: '',
                     controller: provider.employmentHistoryNoteController,
                     height: null,
                   ),
@@ -961,7 +961,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                           addWorkerTextField(
                             textInputType: TextInputType.text,
                             context: context,
-                            hintText: 'Enter Certifications Notes',
+                            hintText: '',
                             controller: provider.certificationNotesController,
                             height: context.getSize.height * 0.050,
                           ),
@@ -998,7 +998,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                   ),
                   getHeight(context: context, height: 0.010),
                   displayFile(
-                    title: "Terms Of Employeement",
+                    title: "Terms Of Employment",
                     path: provider.termsOfEmpName,
                     context: context,
                     onTap: () {
@@ -1007,7 +1007,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                   ),
                   getHeight(context: context, height: 0.010),
                   displayFile(
-                    title: "mployeement Release",
+                    title: "Employment Release",
                     path: provider.empReleaseName,
                     context: context,
                     onTap: () {
@@ -1086,7 +1086,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                           addWorkerTextField(
                             textInputType: TextInputType.number,
                             context: context,
-                            hintText: 'Enter Recruiter Commission',
+                            hintText: '',
                             controller: provider.recruiterCommissionController,
                             height: context.getSize.height * 0.050,
                           ),
@@ -1170,7 +1170,7 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                   addWorkerTextField(
                     maxLines: 2,
                     context: context,
-                    hintText: 'Enter Payment Notes',
+                    hintText: '',
                     controller: provider.paymentNotesController,
                     height: null,
                   ),
@@ -1303,124 +1303,144 @@ class _AddWorkerViewState extends State<AddWorkerView> {
                   } else {
                     print(
                         "${provider.selectedWorkerFlagIdList.join(',').toString()}");
-                    provider.addWorkerData(
-                      context: context,
-                      internalWorkerID: provider.workerIdController.text,
-                      clientWorkerID: provider.clientIdController.text,
-                      age: provider.ageController.text.isEmpty
-                          ? null
-                          : int.parse(provider.ageController.text),
-                      firstName: provider.firstNameController.text,
-                      lastName: provider.lastNameController.text,
-                      jobSites: provider.selectedJobSitesIDList,
-                      recruiterAssingId: provider.recruiterId,
-                      dateOfBirth: provider.dobController.text,
-                      englishFluency:
-                          provider.isEnglishFluence == 0 ? true : false,
-                      languageId:
-                          provider.selectedLanguageIdList.join(',').toString(),
-                      legalToWork: provider.islegalToWork == 0 ? true : false,
-                      ownTransport: provider.isOwnTransport == 0 ? true : false,
-                      socialInsuranceNo:
-                          provider.socialInsuranceController.text,
-                      workPermitNo: provider.workPermitController.text,
-                      workerHireDate: provider.hireDateController.text,
-                      workerTerminateDate:
-                          provider.terminationDateController.text,
-                      workerStatusId: provider.selectedStatusID,
-                      workerFlagId: provider.selectedWorkerFlagIdList
-                          .join(',')
-                          .toString(),
-                      businessWIBSno: provider.businessWSIBNoController.text,
-                      pastWIBSClaim: provider.pastWSIBClaim == 0 ? true : false,
-                      wibsClaimNotes: provider.wSIBClaimNoteController.text,
-                      businessName: provider.businessNameController.text,
-                      businessTele: provider.businessTelephoneController.text,
-                      address1: provider.address1Controller.text,
-                      address2: provider.address2Controller.text,
-                      city: provider.cityController.text,
-                      province: provider.provinceController.text,
-                      postalCode: provider.postalCodeController.text,
-                      country: provider.countryController.text,
-                      mobile: provider.mobileTelephoneController.text,
-                      homeTele: provider.homeTelephoneController.text,
-                      email: provider.emailController.text,
-                      emergencyContact1:
-                          provider.emergencyContact1Controller.text,
-                      emergencyContact2:
-                          provider.emergencyContact2Controller.text,
-                      emergencyTele1:
-                          provider.emergencyTelephone1Controller.text,
-                      emergencyTele2:
-                          provider.emergencyTelephone2Controller.text,
-                      tradeOptionId: provider.tradeOptionId,
-                      regularRate: provider.regularRateController.text.isEmpty
-                          ? null
-                          : double.parse(provider.regularRateController.text),
-                      billRate: provider.clientRateController.text.isEmpty
-                          ? null
-                          : double.parse(provider.clientRateController.text),
-                      overTimeRate: provider.overTimeRateController.text.isEmpty
-                          ? null
-                          : double.parse(provider.overTimeRateController.text),
-                      // clientPayWSIB: provider.clientRateController.text.isEmpty ? null : double.parse(provider.clientRateController.text),
-                      workExperience:
-                          provider.selectedWorkExpIDList.join(',').toString(),
-                      // provider.workExperienceController.text,
-                      workExperienceNotes:
-                          provider.workExperienceNoteController.text,
-                      tradeLicenseNo: provider.tradeLicenseNoController.text,
-                      unionAffilation: provider.selectedUnionAfflicationIdList
-                          .join(',')
-                          .toString(),
-                      // provider.unionAffiliationController.text,
-                      unionAffilationNotes:
-                          provider.unionAffiliationNotesController.text,
-                      employeHistoryNotes:
-                          provider.employmentHistoryNoteController.text,
-                      certificationId: provider.selectedcertificateIdList
-                          .join(',')
-                          .toString(),
-                      // provider.certificateId.toString(),
-                      certificationNotes:
-                          provider.certificationNotesController.text,
-                      isRecruiterComission:
-                          provider.recruiterPaymentDelivery == 0 ? true : false,
-                      workerPickupLocation: provider.workerPickUpId,
-                      recruiterComission:
-                          provider.recruiterCommissionController.text.isEmpty
+                    provider
+                        .addWorkerData(
+                          context: context,
+                          internalWorkerID: provider.workerIdController.text,
+                          clientWorkerID: provider.clientIdController.text,
+                          age: provider.ageController.text.isEmpty
+                              ? null
+                              : int.parse(provider.ageController.text),
+                          firstName: provider.firstNameController.text,
+                          lastName: provider.lastNameController.text,
+                          jobSites: provider.selectedJobSitesIDList,
+                          recruiterAssingId: provider.recruiterId,
+                          dateOfBirth: provider.dobController.text,
+                          englishFluency:
+                              provider.isEnglishFluence == 0 ? true : false,
+                          languageId: provider.selectedLanguageIdList
+                              .join(',')
+                              .toString(),
+                          legalToWork:
+                              provider.islegalToWork == 0 ? true : false,
+                          ownTransport:
+                              provider.isOwnTransport == 0 ? true : false,
+                          socialInsuranceNo:
+                              provider.socialInsuranceController.text,
+                          workPermitNo: provider.workPermitController.text,
+                          workerHireDate: provider.hireDateController.text,
+                          workerTerminateDate:
+                              provider.terminationDateController.text,
+                          workerStatusId: provider.selectedStatusID,
+                          workerFlagId: provider.selectedWorkerFlagIdList
+                              .join(',')
+                              .toString(),
+                          businessWIBSno:
+                              provider.businessWSIBNoController.text,
+                          pastWIBSClaim:
+                              provider.pastWSIBClaim == 0 ? true : false,
+                          wibsClaimNotes: provider.wSIBClaimNoteController.text,
+                          businessName: provider.businessNameController.text,
+                          businessTele:
+                              provider.businessTelephoneController.text,
+                          address1: provider.address1Controller.text,
+                          address2: provider.address2Controller.text,
+                          city: provider.cityController.text,
+                          province: provider.provinceController.text,
+                          postalCode: provider.postalCodeController.text,
+                          country: provider.countryController.text,
+                          mobile: provider.mobileTelephoneController.text,
+                          homeTele: provider.homeTelephoneController.text,
+                          email: provider.emailController.text,
+                          emergencyContact1:
+                              provider.emergencyContact1Controller.text,
+                          emergencyContact2:
+                              provider.emergencyContact2Controller.text,
+                          emergencyTele1:
+                              provider.emergencyTelephone1Controller.text,
+                          emergencyTele2:
+                              provider.emergencyTelephone2Controller.text,
+                          tradeOptionId: provider.tradeOptionId,
+                          regularRate:
+                              provider.regularRateController.text.isEmpty
+                                  ? null
+                                  : double.parse(
+                                      provider.regularRateController.text),
+                          billRate: provider.clientRateController.text.isEmpty
+                              ? null
+                              : double.parse(
+                                  provider.clientRateController.text),
+                          overTimeRate:
+                              provider.overTimeRateController.text.isEmpty
+                                  ? null
+                                  : double.parse(
+                                      provider.overTimeRateController.text),
+                          // clientPayWSIB: provider.clientRateController.text.isEmpty ? null : double.parse(provider.clientRateController.text),
+                          workExperience: provider.selectedWorkExpIDList
+                              .join(',')
+                              .toString(),
+                          // provider.workExperienceController.text,
+                          workExperienceNotes:
+                              provider.workExperienceNoteController.text,
+                          tradeLicenseNo:
+                              provider.tradeLicenseNoController.text,
+                          unionAffilation: provider
+                              .selectedUnionAfflicationIdList
+                              .join(',')
+                              .toString(),
+                          // provider.unionAffiliationController.text,
+                          unionAffilationNotes:
+                              provider.unionAffiliationNotesController.text,
+                          employeHistoryNotes:
+                              provider.employmentHistoryNoteController.text,
+                          certificationId: provider.selectedcertificateIdList
+                              .join(',')
+                              .toString(),
+                          // provider.certificateId.toString(),
+                          certificationNotes:
+                              provider.certificationNotesController.text,
+                          isRecruiterComission:
+                              provider.recruiterPaymentDelivery == 0
+                                  ? true
+                                  : false,
+                          workerPickupLocation: provider.workerPickUpId,
+                          recruiterComission: provider
+                                  .recruiterCommissionController.text.isEmpty
                               ? null
                               : double.parse(
                                   provider.recruiterCommissionController.text),
-                      submitOwnHours:
-                          provider.submitOwnHours == 0 ? true : false,
-                      timeSheetType: provider.timeSheetTypeId,
-                      paymentNotes: provider.paymentNotesController.text,
-                      clientPayWSIB:
-                          provider.clientPaysWSIB == 0 ? true : false,
-                      whimsFilePath: provider.wHIMSFilePath,
-                      otherFilePath: provider.otherFilePath,
-                      termsOfEmployeFilePath: provider.termsOfEmpPath,
-                      employementReleaseFilePath: provider.empReleasePath,
-                      profileImage: provider.pickedImage,
-                      workingFormHeightFilePath: provider.workingFormHeightPath,
-                      firstAidFilePath: provider.firstAidPath,
-                      notes: provider.flagNotesController.text,
-                      whimsFileName: provider.wHIMSFileName,
-                      profileImageName: provider.pickedImageName,
-                      workingFormHeightFileName: provider.workingFormHeightName,
-                      otherFileName: provider.otherFileName,
-                      termsOfEmployeFileName: provider.termsOfEmpName,
-                      firstAidFileName: provider.firstAidName,
-                      employementReleaseFileName: provider.empReleaseName,
-                      unionAffliciationId: provider
-                          .selectedUnionAfflicationIdList
-                          .join(',')
-                          .toString(),
-                    );
+                          submitOwnHours:
+                              provider.submitOwnHours == 0 ? true : false,
+                          timeSheetType: provider.timeSheetTypeId,
+                          paymentNotes: provider.paymentNotesController.text,
+                          clientPayWSIB:
+                              provider.clientPaysWSIB == 0 ? true : false,
+                          whimsFilePath: provider.wHIMSFilePath,
+                          otherFilePath: provider.otherFilePath,
+                          termsOfEmployeFilePath: provider.termsOfEmpPath,
+                          employementReleaseFilePath: provider.empReleasePath,
+                          profileImage: provider.pickedImage,
+                          workingFormHeightFilePath:
+                              provider.workingFormHeightPath,
+                          firstAidFilePath: provider.firstAidPath,
+                          notes: provider.flagNotesController.text,
+                          whimsFileName: provider.wHIMSFileName,
+                          profileImageName: provider.pickedImageName,
+                          workingFormHeightFileName:
+                              provider.workingFormHeightName,
+                          otherFileName: provider.otherFileName,
+                          termsOfEmployeFileName: provider.termsOfEmpName,
+                          firstAidFileName: provider.firstAidName,
+                          employementReleaseFileName: provider.empReleaseName,
+                          unionAffliciationId: provider
+                              .selectedUnionAfflicationIdList
+                              .join(',')
+                              .toString(),
+                        )
+                        .whenComplete(() => back(context: context));
                   }
                 },
-                title: "Update",
+                title: "Add",
               ),
             ],
           ),

@@ -318,9 +318,14 @@ class WorkerProfileProvider extends ChangeNotifier {
       saveFile = "${directory!.path}/${index}${title}_file.jpeg";
     } else if (type.contains('pdf')) {
       saveFile = "${directory!.path}/${index}${title}_file.pdf";
-    } else if (type.contains('.document')) {
+
+    } 
+    else if (type.toLowerCase() == "application/docx".toLowerCase()) {
       saveFile = "${directory!.path}/${index}${title}_file.docx";
-    } else if (type.contains('text/plain')) {
+    }else if(type.toLowerCase() == 'application/doc'.toLowerCase()){
+saveFile = "${directory!.path}/${index}${title}_file.doc";
+    } 
+    else if (type.contains('text/plain')) {
       saveFile = "${directory!.path}/${index}${title}_file.cpp";
     } else if (type.contains('.sheet')) {
       saveFile = "${directory!.path}/${index}${title}_file.xlsx";

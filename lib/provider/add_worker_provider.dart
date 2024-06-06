@@ -12,6 +12,7 @@ import 'package:hrm_manager/Services/all_trades_Services.dart';
 import 'package:hrm_manager/extensions/calculate_date.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:mime/mime.dart';
 
 class AddWorkerProvider extends ChangeNotifier {
   TextEditingController workerIdController = TextEditingController();
@@ -385,7 +386,7 @@ class AddWorkerProvider extends ChangeNotifier {
 // WHIMS
   String _wHIMSFilePath = '';
   String get wHIMSFilePath => _wHIMSFilePath;
-  String _wHIMSFileName = 'Choose File';
+  String _wHIMSFileName = '';
   String get wHIMSFileName => _wHIMSFileName;
   pickWHIMS() async {
     FilePickerResult? file = await FilePicker.platform.pickFiles();
@@ -399,7 +400,7 @@ class AddWorkerProvider extends ChangeNotifier {
 // Working Form Heights
   String _workingFormHeightPath = '';
   String get workingFormHeightPath => _workingFormHeightPath;
-  String _workingFormHeightName = 'Choose File';
+  String _workingFormHeightName = '';
   String get workingFormHeightName => _workingFormHeightName;
   pickWorkingFormHeightFile() async {
     FilePickerResult? file = await FilePicker.platform.pickFiles();
@@ -413,7 +414,7 @@ class AddWorkerProvider extends ChangeNotifier {
 // FIrst Aid
   String _firstAidPath = '';
   String get firstAidPath => _firstAidPath;
-  String _firstAidName = 'Choose File';
+  String _firstAidName = '';
   String get firstAidName => _firstAidName;
   pickFirstAidFile() async {
     FilePickerResult? file = await FilePicker.platform.pickFiles();
@@ -427,7 +428,7 @@ class AddWorkerProvider extends ChangeNotifier {
 // Terms Of Employment
   String _termsOfEmpPath = '';
   String get termsOfEmpPath => _termsOfEmpPath;
-  String _termsOfEmpName = 'Choose File';
+  String _termsOfEmpName = '';
   String get termsOfEmpName => _termsOfEmpName;
   pickTermsOfEmpFile() async {
     FilePickerResult? file = await FilePicker.platform.pickFiles();
@@ -441,7 +442,7 @@ class AddWorkerProvider extends ChangeNotifier {
 // Employment Release
   String _empReleasePath = '';
   String get empReleasePath => _empReleasePath;
-  String _empReleaseName = 'Choose File';
+  String _empReleaseName = '';
   String get empReleaseName => _empReleaseName;
   pickEmpReleaseFile() async {
     FilePickerResult? file = await FilePicker.platform.pickFiles();
@@ -455,11 +456,13 @@ class AddWorkerProvider extends ChangeNotifier {
 // Other File
   String _otherFilePath = '';
   String get otherFilePath => _otherFilePath;
-  String _otherFileName = 'Choose File';
+  String _otherFileName = '';
   String get otherFileName => _otherFileName;
   pickOtherFile() async {
     FilePickerResult? file = await FilePicker.platform.pickFiles();
     if (file != null) {
+      String? mimeType = lookupMimeType(file.files.single.name);
+      print("Mime Type $mimeType");
       _otherFilePath = file.files.single.path!;
       _otherFileName = file.files.single.name;
     }
@@ -468,20 +471,19 @@ class AddWorkerProvider extends ChangeNotifier {
 
   clearFiles() {
     _wHIMSFilePath = '';
-    _wHIMSFileName = 'Choose File';
+    _wHIMSFileName = '';
     _workingFormHeightPath = '';
-    _workingFormHeightName = 'Choose File';
+    _workingFormHeightName = '';
     _firstAidPath = '';
-    _firstAidName = 'Choose File';
-    _termsOfEmpName = 'Choose File';
+    _firstAidName = '';
+    _termsOfEmpName = '';
     _pickedImage = '';
     _pickedImageName = '';
-    _otherFileName = 'Choose File';
+    _otherFileName = '';
     _otherFilePath = '';
     _empReleasePath = '';
-    _empReleaseName = 'Choose File';
+    _empReleaseName = '';
     _termsOfEmpPath = '';
-    
   }
 
   //Image Picker

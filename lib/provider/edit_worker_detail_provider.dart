@@ -363,7 +363,7 @@ class EditWorkerDetailProvider extends ChangeNotifier {
 // WHIMS
   String _wHIMSFilePath = '';
   String get wHIMSFilePath => _wHIMSFilePath;
-  String _wHIMSFileName = 'Choose File';
+  String _wHIMSFileName = '';
   String get wHIMSFileName => _wHIMSFileName;
   changeWHIMSFileName(String name){
 _wHIMSFileName = name;
@@ -382,7 +382,7 @@ notifyListeners();
 // Working Form Heights
   String _workingFormHeightPath = '';
   String get workingFormHeightPath => _workingFormHeightPath;
-  String _workingFormHeightName = 'Choose File';
+  String _workingFormHeightName = '';
   String get workingFormHeightName => _workingFormHeightName;
   changeWorkingFromHeightName(String name){
 _workingFormHeightName = name;
@@ -400,7 +400,7 @@ notifyListeners();
 // FIrst Aid
   String _firstAidPath = '';
   String get firstAidPath => _firstAidPath;
-  String _firstAidName = 'Choose File';
+  String _firstAidName = '';
   String get firstAidName => _firstAidName;
   changeFirstAidName(String name){
     _firstAidName = name;
@@ -418,7 +418,7 @@ notifyListeners();
 // Terms Of Employment
   String _termsOfEmpPath = '';
   String get termsOfEmpPath => _termsOfEmpPath;
-  String _termsOfEmpName = 'Choose File';
+  String _termsOfEmpName = '';
   String get termsOfEmpName => _termsOfEmpName;
   changeTermsOfEmployeName(String name){
     _termsOfEmpName = name;
@@ -436,7 +436,7 @@ notifyListeners();
 // Employment Release
   String _empReleasePath = '';
   String get empReleasePath => _empReleasePath;
-  String _empReleaseName = 'Choose File';
+  String _empReleaseName = '';
   String get empReleaseName => _empReleaseName;
   changeEmpReleaseName(String name){
     _empReleaseName = name;
@@ -454,7 +454,7 @@ notifyListeners();
 // Other File
   String _otherFilePath = '';
   String get otherFilePath => _otherFilePath;
-  String _otherFileName = 'Choose File';
+  String _otherFileName = '';
   String get otherFileName => _otherFileName;
   changeOtherName(String name){
     _otherFileName = name;
@@ -561,6 +561,21 @@ notifyListeners();
     _selectedWorkerFlagList.clear();
     selectedWorkerFlagList.clear();
     selectedWorkerFlagIdList.clear();
+    _otherFileName ='';
+   
+    _otherFilePath = '';
+    _pickedImage ='';
+    _pickedImageName ='';
+    _wHIMSFileName ='';
+    _wHIMSFilePath ='';
+    _firstAidName ='';
+    _firstAidPath ='';
+    _termsOfEmpName ='';
+    _termsOfEmpPath ='';
+    _workingFormHeightName ='';
+    _workingFormHeightPath ='';
+    _empReleaseName ='';
+    _empReleasePath ='';
   }
 
   List<AddWorkerDropDownModel> _workerExperienceList =

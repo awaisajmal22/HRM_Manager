@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -494,13 +493,19 @@ class EditWorkerServices {
       String? mimeType = lookupMimeType(fileName);
       if (mimeType == '') {
         mimeType = 'application/octet-stream';
+      } else if (mimeType == 'application/msword') {
+        mimeType = 'application/doc';
+      } else if (mimeType ==
+          'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+        mimeType = 'application/docx';
       }
-     
+
       FormData data = FormData.fromMap({
         "WorkerId": workerID,
-        "File":await MultipartFile.fromFile(
-         contentType: MediaType.parse(mimeType!),
-          filePath, filename: fileName),
+        "File": await MultipartFile.fromFile(
+            contentType: MediaType.parse(mimeType!),
+            filePath,
+            filename: fileName),
       });
       final response = await API().postRequestHeader(context, apiUrl, data);
       if (response.statusCode == 200) {
@@ -522,6 +527,4 @@ class EditWorkerServices {
     } catch (e) {}
     return recId;
   }
-
-
 }

@@ -86,7 +86,7 @@ class _WorkerProfileViewState extends State<WorkerProfileView> {
               .whenComplete(() {
             pv
                 .getFileData(
-                    title: 'Employement Release',
+                    title: 'Employment Release',
                     index: 3,
                     api: "${ApiUrl.getEmployeementReleaseById}/${widget.id}",
                     context: context)
@@ -454,6 +454,8 @@ class _WorkerProfileViewState extends State<WorkerProfileView> {
                                     provider.files.length,
                                     (index) => GestureDetector(
                                           onTap: () async {
+                                            print(provider
+                                                .files[index].wasabiBytes);
                                             OpenFile.open(provider
                                                 .files[index].wasabiBytes);
                                             // Navigator.pushNamed(context, AppRoutes.pdfView,
@@ -480,13 +482,18 @@ class _WorkerProfileViewState extends State<WorkerProfileView> {
                                                         context.getSize.height *
                                                             0.048,
                                                   ),
-                                                if (provider.files[index]
-                                                        .contentType!
-                                                        .contains(
-                                                            'officedocument') ||
+                                                if (provider.files[index].contentType!.contains(
+                                                        'officedocument') ||
+                                                    provider.files[index].contentType!.contains(
+                                                        'text/plain') ||
                                                     provider.files[index]
                                                         .contentType!
-                                                        .contains('text/plain'))
+                                                        .contains(
+                                                            'application/docx') ||
+                                                    provider.files[index]
+                                                        .contentType!
+                                                        .contains(
+                                                            'application/doc'))
                                                   Icon(
                                                     Ionicons.document,
                                                     color: Colors.blue,
@@ -507,6 +514,14 @@ class _WorkerProfileViewState extends State<WorkerProfileView> {
                                                         context.getSize.height *
                                                             0.048,
                                                   ),
+                                                // else
+                                                //   Icon(
+                                                //     Ionicons.image,
+                                                //     color: Colors.blue,
+                                                //     size:
+                                                //         context.getSize.height *
+                                                //             0.048,
+                                                //   ),
                                                 appText(
                                                   context: context,
                                                   title: provider

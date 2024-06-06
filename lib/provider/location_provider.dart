@@ -4,7 +4,7 @@ import 'package:hrm_manager/Services/location_services.dart';
 
 class LocationProvider extends ChangeNotifier {
   TextEditingController locationController = TextEditingController();
-  String _selectedLocation = "Toronto";
+  String _selectedLocation = "Select";
   int _selectedLocationIndex = -1;
   int get seletcedLocationIndex => _selectedLocationIndex;
   String get selectedLocation => _selectedLocation;
